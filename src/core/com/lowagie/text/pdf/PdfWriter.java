@@ -2642,19 +2642,22 @@ public class PdfWriter extends DocWriter implements
     public static final PdfName PAGE_CLOSE = PdfName.C;
 
     /** @see com.lowagie.text.pdf.interfaces.PdfPageActions#setPageAction(com.lowagie.text.pdf.PdfName, com.lowagie.text.pdf.PdfAction) */
-    public void setPageAction(PdfName actionType, PdfAction action) throws DocumentException {
+    @Override
+	public void setPageAction(PdfName actionType, PdfAction action) throws DocumentException {
           if (!actionType.equals(PAGE_OPEN) && !actionType.equals(PAGE_CLOSE))
               throw new DocumentException("Invalid page additional action type: " + actionType.toString());
           pdf.setPageAction(actionType, action);
       }
 
     /** @see com.lowagie.text.pdf.interfaces.PdfPageActions#setDuration(int) */
-    public void setDuration(int seconds) {
+    @Override
+	public void setDuration(int seconds) {
          pdf.setDuration(seconds);
      }
 
     /** @see com.lowagie.text.pdf.interfaces.PdfPageActions#setTransition(com.lowagie.text.pdf.PdfTransition) */
-    public void setTransition(PdfTransition transition) {
+    @Override
+	public void setTransition(PdfTransition transition) {
          pdf.setTransition(transition);
      }
 
@@ -2754,7 +2757,8 @@ public class PdfWriter extends DocWriter implements
      * This is only used as a placeholder as it does not affect anything.
      * @param runDirection the run direction
      */
-    public void setRunDirection(int runDirection) {
+    @Override
+	public void setRunDirection(int runDirection) {
         if (runDirection < RUN_DIRECTION_NO_BIDI || runDirection > RUN_DIRECTION_RTL)
             throw new RuntimeException("Invalid run direction: " + runDirection);
         this.runDirection = runDirection;
@@ -2764,7 +2768,8 @@ public class PdfWriter extends DocWriter implements
      * Use this method to set the run direction.
      * @return the run direction
      */
-    public int getRunDirection() {
+    @Override
+	public int getRunDirection() {
         return runDirection;
     }
 

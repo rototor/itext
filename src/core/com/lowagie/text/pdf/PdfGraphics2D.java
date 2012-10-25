@@ -137,13 +137,13 @@ public class PdfGraphics2D extends Graphics2D {
     private PdfContentByte cb;
     
     /** Storage for BaseFont objects created. */
-    private HashMap baseFonts;
+    private HashMap<String, BaseFont> baseFonts;
     
     private boolean disposeCalled = false;
     
     private FontMapper fontMapper;
     
-    private ArrayList kids;
+    private ArrayList<Object> kids;
     
     private boolean kid = false;
     
@@ -198,7 +198,7 @@ public class PdfGraphics2D extends Graphics2D {
         this.jpegQuality = quality;
         this.onlyShapes = onlyShapes;
         this.transform = new AffineTransform();
-        this.baseFonts = new HashMap();
+        this.baseFonts = new HashMap<String, BaseFont>();
         if (!onlyShapes) {
             this.fontMapper = fontMapper;
             if (this.fontMapper == null)
@@ -261,7 +261,7 @@ public class PdfGraphics2D extends Graphics2D {
             int height = img.getHeight();
             WritableRaster raster = cm.createCompatibleWritableRaster(width, height);
             boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-            Hashtable properties = new Hashtable();
+            Hashtable<String, Object> properties = new Hashtable<String, Object>();
             String[] keys = img.getPropertyNames();
             if (keys!=null) {
                 for (int i = 0; i < keys.length; i++) {
@@ -970,7 +970,7 @@ public class PdfGraphics2D extends Graphics2D {
             g2.followPath(g2.clip, CLIP);
         g2.kid = true;
         if (this.kids == null)
-            this.kids = new ArrayList();
+            this.kids = new ArrayList<Object>();
         this.kids.add(new Integer(cb.getInternalBuffer().size()));
         this.kids.add(g2);
         return g2;
@@ -1044,7 +1044,7 @@ public class PdfGraphics2D extends Graphics2D {
     
     private BaseFont getCachedBaseFont(Font f) {
         synchronized (baseFonts) {
-            BaseFont bf = (BaseFont)baseFonts.get(f.getFontName());
+            BaseFont bf = baseFonts.get(f.getFontName());
             if (bf == null) {
                 bf = fontMapper.awtToPdf(f);
                 baseFonts.put(f.getFontName(), bf);

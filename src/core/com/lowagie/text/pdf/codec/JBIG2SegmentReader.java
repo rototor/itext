@@ -58,6 +58,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.lowagie.text.pdf.RandomAccessFileOrArray;
+import com.lowagie.text.pdf.codec.JBIG2SegmentReader.JBIG2Segment;
 
 /**
  * Class to read a JBIG2 file at a basic level: understand all the segments, 
@@ -98,9 +99,9 @@ public class JBIG2SegmentReader {
 	public static final int TABLES = 53; //see 7.4.13.                                                        
 	public static final int EXTENSION = 62; //see 7.4.14.                                                     
 	
-	private final SortedMap segments = new TreeMap();
-	private final SortedMap pages = new TreeMap();
-	private final SortedSet globals = new TreeSet();
+	private final SortedMap<Integer, JBIG2Segment> segments = new TreeMap<Integer, JBIG2Segment>();
+	private final SortedMap<Integer, JBIG2Page> pages = new TreeMap<Integer, JBIG2Page>();
+	private final SortedSet<JBIG2Segment> globals = new TreeSet<JBIG2Segment>();
 	private RandomAccessFileOrArray ra;
 	private boolean sequential;
 	private boolean number_of_pages_known;
@@ -148,7 +149,7 @@ public class JBIG2SegmentReader {
 	public static class JBIG2Page {
 		public final int page;
 		private final JBIG2SegmentReader sr;
-		private final SortedMap segs = new TreeMap();
+		private final SortedMap<Integer, JBIG2Segment> segs = new TreeMap<Integer, JBIG2Segment>();
 		public int pageBitmapWidth = -1;
 		public int pageBitmapHeight = -1;
 		public JBIG2Page(int page, JBIG2SegmentReader sr) {
@@ -165,9 +166,9 @@ public class JBIG2SegmentReader {
 		 */
 		public byte[] getData(boolean for_embedding) throws IOException {
 			ByteArrayOutputStream os = new ByteArrayOutputStream();
-			for (Iterator i = segs.keySet().iterator(); i.hasNext();  ) {
-				Integer sn = (Integer) i.next();
-				JBIG2Segment s = (JBIG2Segment) segs.get(sn);
+			for (Iterator<Integer> i = segs.keySet().iterator(); i.hasNext();  ) {
+				Integer sn = i.next();
+				JBIG2Segment s = segs.get(sn);
 
 				// pdf reference 1.4, section 3.3.6 JBIG2Decode Filter
 				// D.3 Embedded organisation
@@ -234,9 +235,9 @@ public class JBIG2SegmentReader {
 				tmp = readHeader();
 				segments.put(new Integer(tmp.segmentNumber), tmp);
 			} while ( tmp.type != END_OF_FILE );
-			Iterator segs = segments.keySet().iterator();
+			Iterator<Integer> segs = segments.keySet().iterator();
 			while ( segs.hasNext() ) {
-				readSegment((JBIG2Segment)segments.get(segs.next()));
+				readSegment(segments.get(segs.next()));
 			}
 		}
 	}
@@ -259,7 +260,7 @@ public class JBIG2SegmentReader {
 			int page_bitmap_width = ra.readInt();
 			int page_bitmap_height = ra.readInt();
 			ra.seek(last);
-			JBIG2Page p = (JBIG2Page)pages.get(new Integer(s.page));
+			JBIG2Page p = pages.get(new Integer(s.page));
 			if ( p == null ) {
 				throw new IllegalStateException("referring to widht/height of page we havent seen yet? " + s.page);
 			}
@@ -352,7 +353,7 @@ public class JBIG2SegmentReader {
 			pages.put(new Integer(segment_page_association), new JBIG2Page(segment_page_association, this));
 		}
 		if ( segment_page_association > 0 ) {
-			((JBIG2Page)pages.get(new Integer(segment_page_association))).addSegment(s);
+			pages.get(new Integer(segment_page_association)).addSegment(s);
 		} else {
 			globals.add(s);
 		}
@@ -403,22 +404,22 @@ public class JBIG2SegmentReader {
 	}
 
 	public int getPageHeight(int i) {
-		return ((JBIG2Page)pages.get(new Integer(i))).pageBitmapHeight;
+		return pages.get(new Integer(i)).pageBitmapHeight;
 	}
 
 	public int getPageWidth(int i) {
-		return ((JBIG2Page)pages.get(new Integer(i))).pageBitmapWidth;
+		return pages.get(new Integer(i)).pageBitmapWidth;
 	}
 
 	public JBIG2Page getPage(int page) {
-		return (JBIG2Page)pages.get(new Integer(page));
+		return pages.get(new Integer(page));
 	}
 
 	public byte[] getGlobal(boolean for_embedding) {
 		ByteArrayOutputStream os = new ByteArrayOutputStream();
 		try {
-			for (Iterator gitr = globals.iterator(); gitr.hasNext();) {
-				JBIG2Segment s = (JBIG2Segment)gitr.next();
+			for (Iterator<JBIG2Segment> gitr = globals.iterator(); gitr.hasNext();) {
+				JBIG2Segment s = gitr.next();
 				if ( for_embedding && 
 						( s.type == END_OF_FILE || s.type == END_OF_PAGE ) ) {
 					continue;

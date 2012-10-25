@@ -2398,14 +2398,16 @@ public class AcroFields {
             this.length = length;
         }
 
-        public int read() throws IOException {
+        @Override
+		public int read() throws IOException {
             int n = read(b);
             if (n != 1)
                 return -1;
             return b[0] & 0xff;
         }
 
-        public int read(byte[] b, int off, int len) throws IOException {
+        @Override
+		public int read(byte[] b, int off, int len) throws IOException {
             if (b == null) {
                 throw new NullPointerException();
             } else if ((off < 0) || (off > b.length) || (len < 0) ||
@@ -2424,7 +2426,8 @@ public class AcroFields {
             return elen;
         }
 
-        public void close() throws IOException {
+        @Override
+		public void close() throws IOException {
             if (!closed) {
                 raf.close();
                 closed = true;
@@ -2433,7 +2436,8 @@ public class AcroFields {
     }
 
     private static class SorterComparator implements Comparator {
-        public int compare(Object o1, Object o2) {
+        @Override
+		public int compare(Object o1, Object o2) {
             int n1 = ((int[])((Object[])o1)[1])[0];
             int n2 = ((int[])((Object[])o2)[1])[0];
             return n1 - n2;
