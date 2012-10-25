@@ -119,7 +119,7 @@ public class List implements TextElementArray {
     // member variables
 	
 	/** This is the <CODE>ArrayList</CODE> containing the different <CODE>ListItem</CODE>s. */
-    protected ArrayList list = new ArrayList();
+    protected ArrayList<TextElementArray> list = new ArrayList<TextElementArray>();
     
     /** Indicates if the list has to be numbered. */
     protected boolean numbered = false;
@@ -228,8 +228,8 @@ public class List implements TextElementArray {
     @Override
 	public boolean process(ElementListener listener) {
         try {
-            for (Iterator i = list.iterator(); i.hasNext(); ) {
-                listener.add((Element) i.next());
+            for (Iterator<TextElementArray> i = list.iterator(); i.hasNext(); ) {
+                listener.add(i.next());
             }
             return true;
         }
@@ -256,8 +256,8 @@ public class List implements TextElementArray {
     @Override
 	public ArrayList getChunks() {
         ArrayList tmp = new ArrayList();
-        for (Iterator i = list.iterator(); i.hasNext(); ) {
-            tmp.addAll(((Element) i.next()).getChunks());
+        for (Iterator<TextElementArray> i = list.iterator(); i.hasNext(); ) {
+            tmp.addAll(i.next().getChunks());
         }
         return tmp;
     }
@@ -309,14 +309,14 @@ public class List implements TextElementArray {
     public void normalizeIndentation() {
         float max = 0;
     	Element o;
-        for (Iterator i = list.iterator(); i.hasNext(); ) {
-        	o = (Element)i.next();
+        for (Iterator<TextElementArray> i = list.iterator(); i.hasNext(); ) {
+        	o = i.next();
             if (o instanceof ListItem) {
             	max = Math.max(max, ((ListItem)o).getIndentationLeft());
             }
         }
-        for (Iterator i = list.iterator(); i.hasNext(); ) {
-        	o = (Element)i.next();
+        for (Iterator<TextElementArray> i = list.iterator(); i.hasNext(); ) {
+        	o = i.next();
             if (o instanceof ListItem) {
             	((ListItem)o).setIndentationLeft(max);
             }
@@ -420,7 +420,7 @@ public class List implements TextElementArray {
      *
      * @return	an <CODE>ArrayList</CODE> containing <CODE>ListItem</CODE>s.
      */
-    public ArrayList getItems() {
+    public ArrayList<TextElementArray> getItems() {
         return list;
     }
     

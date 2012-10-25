@@ -114,7 +114,7 @@ public class ExtractAttachments extends AbstractTool {
 			if (names != null) {
 				PdfDictionary embFiles = names.getAsDict(new PdfName("EmbeddedFiles"));
 				if (embFiles != null) {
-				    HashMap<String, PdfObject> embMap = PdfNameTree.readTree(embFiles);
+				    HashMap<Comparable<?>, PdfObject> embMap = PdfNameTree.readTree(embFiles);
 					for (Iterator<PdfObject> i = embMap.values().iterator(); i.hasNext();) {
 						PdfDictionary filespec = (PdfDictionary) PdfReader
 								.getPdfObject(i.next());

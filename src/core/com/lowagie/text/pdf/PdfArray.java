@@ -150,7 +150,7 @@ public class PdfArray extends PdfObject {
      */
     public PdfArray(PdfArray array) {
         super(ARRAY);
-        arrayList = new ArrayList(array.arrayList);
+        arrayList = new ArrayList<PdfObject>(array.arrayList);
     }
 
     // METHODS OVERRIDING SOME PDFOBJECT METHODS
@@ -166,17 +166,17 @@ public class PdfArray extends PdfObject {
 	public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
         os.write('[');
 
-        Iterator i = arrayList.iterator();
+        Iterator<PdfObject> i = arrayList.iterator();
         PdfObject object;
         int type = 0;
         if (i.hasNext()) {
-            object = (PdfObject) i.next();
+            object = i.next();
             if (object == null)
                 object = PdfNull.PDFNULL;
             object.toPdf(writer, os);
         }
         while (i.hasNext()) {
-            object = (PdfObject) i.next();
+            object = i.next();
             if (object == null)
                 object = PdfNull.PDFNULL;
             type = object.type();
@@ -215,7 +215,7 @@ public class PdfArray extends PdfObject {
      * @since 2.1.5
      */
     public PdfObject set(int idx, PdfObject obj) {
-        return (PdfObject) arrayList.set(idx, obj);
+        return arrayList.set(idx, obj);
     }
 
     /**
@@ -229,13 +229,13 @@ public class PdfArray extends PdfObject {
      * @since 2.1.5
      */
     public PdfObject remove(int idx) {
-        return (PdfObject) arrayList.remove(idx);
+        return arrayList.remove(idx);
     }
 
     /**
      * Get the internal arrayList for this PdfArray.  Not Recommended.
      * 
-     * @deprecated
+     * --@deprecated We wont refactore it at the moment; Just let it be...(Supresses warnings)
      * @return the internal ArrayList.  Naughty Naughty.
      */
     public ArrayList<PdfObject> getArrayList() {
@@ -351,7 +351,7 @@ public class PdfArray extends PdfObject {
      * 
      * @return a ListIterator
      */
-    public ListIterator listIterator() {
+    public ListIterator<PdfObject> listIterator() {
         return arrayList.listIterator();
     }
 
@@ -367,7 +367,7 @@ public class PdfArray extends PdfObject {
      * @return A <CODE>PdfObject</CODE>
      */
     public PdfObject getPdfObject(int idx) {
-        return (PdfObject)arrayList.get(idx);
+        return arrayList.get(idx);
     }
 
     /**

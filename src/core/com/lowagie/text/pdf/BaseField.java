@@ -143,7 +143,7 @@ public abstract class BaseField {
     /** Holds value of property maxCharacterLength. */
     protected int maxCharacterLength;
     
-    private final static HashMap fieldKeys = new HashMap();
+    private final static HashMap<PdfName, Integer> fieldKeys = new HashMap<PdfName, Integer>();
  
     static {
         fieldKeys.putAll(PdfCopyFieldsImp.fieldKeys);
@@ -252,8 +252,8 @@ public abstract class BaseField {
         return app;
     }
     
-    protected static ArrayList getHardBreaks(String text) {
-        ArrayList arr = new ArrayList();
+    protected static ArrayList<String> getHardBreaks(String text) {
+        ArrayList<String> arr = new ArrayList<String>();
         char cs[] = text.toCharArray();
         int len = cs.length;
         StringBuffer buf = new StringBuffer();
@@ -287,8 +287,8 @@ public abstract class BaseField {
         }
     }
     
-    protected static ArrayList breakLines(ArrayList breaks, BaseFont font, float fontSize, float width) {
-        ArrayList lines = new ArrayList();
+    protected static ArrayList<String> breakLines(ArrayList breaks, BaseFont font, float fontSize, float width) {
+        ArrayList<String> lines = new ArrayList<String>();
         StringBuffer buf = new StringBuffer();
         for (int ck = 0; ck < breaks.size(); ++ck) {
             buf.setLength(0);

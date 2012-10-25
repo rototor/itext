@@ -135,7 +135,7 @@ public class PdfNameTree {
         }
     }
     
-    private static void iterateItems(PdfDictionary dic, HashMap items) {
+    private static void iterateItems(PdfDictionary dic, HashMap<Comparable<?>, PdfObject> items) {
         PdfArray nn = (PdfArray)PdfReader.getPdfObjectRelease(dic.get(PdfName.NAMES));
         if (nn != null) {
             for (int k = 0; k < nn.size(); ++k) {
@@ -151,8 +151,8 @@ public class PdfNameTree {
         }
     }
     
-    public static HashMap readTree(PdfDictionary dic) {
-        HashMap items = new HashMap();
+    public static HashMap<Comparable<?>, PdfObject> readTree(PdfDictionary dic) {
+        HashMap<Comparable<?>, PdfObject> items = new HashMap<Comparable<?>, PdfObject>();
         if (dic != null)
             iterateItems(dic, items);
         return items;
