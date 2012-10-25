@@ -293,6 +293,7 @@ public class Chunk implements Element {
 	 *            an <CODE>ElementListener</CODE>
 	 * @return <CODE>true</CODE> if the element was processed successfully
 	 */
+	@Override
 	public boolean process(ElementListener listener) {
 		try {
 			return listener.add(this);
@@ -306,6 +307,7 @@ public class Chunk implements Element {
 	 * 
 	 * @return a type
 	 */
+	@Override
 	public int type() {
 		return Element.CHUNK;
 	}
@@ -315,6 +317,7 @@ public class Chunk implements Element {
 	 * 
 	 * @return an <CODE>ArrayList</CODE>
 	 */
+	@Override
 	public ArrayList getChunks() {
 		ArrayList tmp = new ArrayList();
 		tmp.add(this);
@@ -369,6 +372,7 @@ public class Chunk implements Element {
 	 * 
 	 * @return a <CODE>String</CODE>
 	 */
+	@Override
 	public String toString() {
 		return getContent();
 	}
@@ -846,6 +850,7 @@ public class Chunk implements Element {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -854,6 +859,7 @@ public class Chunk implements Element {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}

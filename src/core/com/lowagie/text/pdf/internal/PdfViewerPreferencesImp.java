@@ -137,6 +137,7 @@ public class PdfViewerPreferencesImp implements PdfViewerPreferences {
 	 *            the viewer preferences
 	 * @see PdfViewerPreferences#setViewerPreferences
 	 */
+	@Override
 	public void setViewerPreferences(int preferences) {
 		this.pageLayoutAndMode |= preferences;
 		// for backwards compatibility, it is also possible
@@ -204,6 +205,7 @@ public class PdfViewerPreferencesImp implements PdfViewerPreferences {
 	/**
 	 * Sets the viewer preferences for printing.
 	 */
+	@Override
 	public void addViewerPreference(PdfName key, PdfObject value) {
 		switch(getIndex(key)) {
 		case 0: // HIDETOOLBAR

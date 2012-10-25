@@ -71,6 +71,7 @@ public class Bookmarks2XML extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#createFrame()
 	 */
+	@Override
 	protected void createFrame() {
 		internalFrame = new JInternalFrame("Bookmarks2XML", true, true, true);
 		internalFrame.setSize(300, 80);
@@ -81,6 +82,7 @@ public class Bookmarks2XML extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#execute()
 	 */
+	@Override
 	public void execute() {
 		try {
 			if (getValue("xmlfile") == null) throw new InstantiationException("You need to choose an xml file");
@@ -108,7 +110,8 @@ public class Bookmarks2XML extends AbstractTool {
      * @see com.lowagie.toolbox.AbstractTool#valueHasChanged(com.lowagie.toolbox.arguments.AbstractArgument)
      * @param arg StringArgument
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
 		if (internalFrame == null) {
 			// if the internal frame is null, the tool was called from the command line
 			return;
@@ -136,7 +139,8 @@ public class Bookmarks2XML extends AbstractTool {
      * @throws InstantiationException
      * @return File
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
 		throw new InstantiationException("There is no file to show.");
 	}
 

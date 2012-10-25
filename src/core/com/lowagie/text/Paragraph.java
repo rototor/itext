@@ -212,7 +212,8 @@ public class Paragraph extends Phrase {
      *
      * @return	a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.PARAGRAPH;
     }
     
@@ -224,7 +225,8 @@ public class Paragraph extends Phrase {
      * @param	o   object		the object to add.
      * @return true is adding the object succeeded
      */
-    public boolean add(Object o) {
+    @Override
+	public boolean add(Object o) {
         if (o instanceof List) {
             List list = (List) o;
             list.setIndentationLeft(list.getIndentationLeft() + indentationLeft);
@@ -289,7 +291,8 @@ public class Paragraph extends Phrase {
     /**
      * @see com.lowagie.text.Phrase#setLeading(float)
      */
-    public void setLeading(float fixedLeading) {
+    @Override
+	public void setLeading(float fixedLeading) {
         this.leading = fixedLeading;
         this.multipliedLeading = 0;
     }

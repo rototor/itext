@@ -99,6 +99,7 @@ public class Encrypt extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#createFrame()
 	 */
+	@Override
 	protected void createFrame() {
 		internalFrame = new JInternalFrame("Encrypt", true, false, true);
 		internalFrame.setSize(300, 80);
@@ -109,6 +110,7 @@ public class Encrypt extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#execute()
 	 */
+	@Override
 	public void execute() {
 		try {
 			if (getValue("srcfile") == null) throw new InstantiationException("You need to choose a sourcefile");
@@ -152,7 +154,8 @@ public class Encrypt extends AbstractTool {
      * @see com.lowagie.toolbox.AbstractTool#valueHasChanged(com.lowagie.toolbox.arguments.AbstractArgument)
      * @param arg StringArgument
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
 		if (internalFrame == null) {
 			// if the internal frame is null, the tool was called from the command line
 			return;
@@ -180,7 +183,8 @@ public class Encrypt extends AbstractTool {
      * @throws InstantiationException
      * @return File
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
 		return (File)getValue("destfile");
 	}
 

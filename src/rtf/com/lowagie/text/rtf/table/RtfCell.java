@@ -481,7 +481,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
 	 * Write the cell definition part of this RtfCell
 	 */
-    public void writeDefinition(final OutputStream result) throws IOException 
+    @Override
+	public void writeDefinition(final OutputStream result) throws IOException 
     {
         if(this.mergeType == MERGE_VERT_PARENT) {
             result.write(DocWriter.getISOBytes("\\clvmgf"));
@@ -537,7 +538,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
      * Write the content of this RtfCell
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         if(this.content.size() == 0) {
             result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
@@ -652,7 +654,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
     }
     
@@ -660,7 +663,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * Unused
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
     }
     
     /**
@@ -668,7 +672,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * 
      * @param inHeader <code>True</code> if this RtfCell is in a header, <code>false</code> otherwise
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
         for(int i = 0; i < this.content.size(); i++) {
             ((RtfBasicElement) this.content.get(i)).setInHeader(inHeader);

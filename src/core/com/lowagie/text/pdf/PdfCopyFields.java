@@ -212,6 +212,7 @@ public class PdfCopyFields
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfEncryptionSettings#setEncryption(byte[], byte[], int, int)
 	 */
+	@Override
 	public void setEncryption(byte[] userPassword, byte[] ownerPassword, int permissions, int encryptionType) throws DocumentException {
 		fc.setEncryption(userPassword, ownerPassword, permissions, encryptionType);
 	}
@@ -219,6 +220,7 @@ public class PdfCopyFields
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfViewerPreferences#addViewerPreference(com.lowagie.text.pdf.PdfName, com.lowagie.text.pdf.PdfObject)
 	 */
+	@Override
 	public void addViewerPreference(PdfName key, PdfObject value) {
 		fc.addViewerPreference(key, value);	
 	}
@@ -226,6 +228,7 @@ public class PdfCopyFields
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfViewerPreferences#setViewerPreferences(int)
 	 */
+	@Override
 	public void setViewerPreferences(int preferences) {
 		fc.setViewerPreferences(preferences);
 	}
@@ -233,6 +236,7 @@ public class PdfCopyFields
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfEncryptionSettings#setEncryption(java.security.cert.Certificate[], int[], int)
 	 */
+	@Override
 	public void setEncryption(Certificate[] certs, int[] permissions, int encryptionType) throws DocumentException {
 		fc.setEncryption(certs, permissions, encryptionType);
 	}    

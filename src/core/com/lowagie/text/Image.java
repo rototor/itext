@@ -984,6 +984,7 @@ public abstract class Image extends Rectangle {
 	 * @return a type
 	 */
 
+	@Override
 	public int type() {
 		return type;
 	}
@@ -992,6 +993,7 @@ public abstract class Image extends Rectangle {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}

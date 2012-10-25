@@ -95,7 +95,8 @@ public class RtfParserException extends Exception {
      * We print the message of the checked exception 
      * @return the error message
      */
-    public String getMessage() {
+    @Override
+	public String getMessage() {
         if (ex == null)
             return super.getMessage();
         else
@@ -106,7 +107,8 @@ public class RtfParserException extends Exception {
      * and make sure we also produce a localized version 
      * @return a localized message
      */
-    public String getLocalizedMessage() {
+    @Override
+	public String getLocalizedMessage() {
         if (ex == null)
             return super.getLocalizedMessage();
         else
@@ -117,7 +119,8 @@ public class RtfParserException extends Exception {
      * The toString() is changed to be prefixed with ExceptionConverter 
      * @return the String version of the exception
      */
-    public String toString() {
+    @Override
+	public String toString() {
         if (ex == null)
             return super.toString();
         else
@@ -125,7 +128,8 @@ public class RtfParserException extends Exception {
     }
 
     /** we have to override this as well */
-    public void printStackTrace() {
+    @Override
+	public void printStackTrace() {
         printStackTrace(System.err);
     }
 
@@ -134,7 +138,8 @@ public class RtfParserException extends Exception {
      * trace with "ExceptionConverter:" 
      * @param s a printstream object
      */
-    public void printStackTrace(java.io.PrintStream s) {
+    @Override
+	public void printStackTrace(java.io.PrintStream s) {
         if (ex == null)
             super.printStackTrace(s);
         else {
@@ -149,7 +154,8 @@ public class RtfParserException extends Exception {
      * Again, we prefix the stack trace with "ExceptionConverter:" 
      * @param s A PrintWriter object
      */
-    public void printStackTrace(java.io.PrintWriter s) {
+    @Override
+	public void printStackTrace(java.io.PrintWriter s) {
         if (ex == null)
             super.printStackTrace(s);
         else {

@@ -183,7 +183,8 @@ public abstract class PdfObject {
      *
      * @return    a <CODE>String</CODE>
      */
-    public String toString() {
+    @Override
+	public String toString() {
         if (bytes == null)
             return super.toString();
         return PdfEncodings.convertToString(bytes, null);

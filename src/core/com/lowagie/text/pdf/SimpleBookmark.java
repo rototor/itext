@@ -688,10 +688,12 @@ public final class SimpleBookmark implements SimpleXMLDocHandler {
         return book.topList;
     }
     
-    public void endDocument() {
+    @Override
+	public void endDocument() {
     }
     
-    public void endElement(String tag) {
+    @Override
+	public void endElement(String tag) {
         if (tag.equals("Bookmark")) {
             if (attr.isEmpty())
                 return;
@@ -722,10 +724,12 @@ public final class SimpleBookmark implements SimpleXMLDocHandler {
         }
     }
     
-    public void startDocument() {
+    @Override
+	public void startDocument() {
     }
     
-    public void startElement(String tag, HashMap h) {
+    @Override
+	public void startElement(String tag, HashMap h) {
         if (topList == null) {
             if (tag.equals("Bookmark")) {
                 topList = new ArrayList();
@@ -742,7 +746,8 @@ public final class SimpleBookmark implements SimpleXMLDocHandler {
         attr.push(attributes);
     }
     
-    public void text(String str) {
+    @Override
+	public void text(String str) {
         if (attr.isEmpty())
             return;
         HashMap attributes = (HashMap)attr.peek();

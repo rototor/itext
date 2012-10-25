@@ -81,7 +81,8 @@ public class PdfNull extends PdfObject {
     
     // CLASS METHOD
     
-    public String toString() {
+    @Override
+	public String toString() {
     	return "null";
     }
 }

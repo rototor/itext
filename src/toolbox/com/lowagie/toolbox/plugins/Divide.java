@@ -74,6 +74,7 @@ public class Divide extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#createFrame()
 	 */
+	@Override
 	protected void createFrame() {
 		internalFrame = new JInternalFrame("Divide", true, false, true);
 		internalFrame.setSize(300, 80);
@@ -84,6 +85,7 @@ public class Divide extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#execute()
 	 */
+	@Override
 	public void execute() {
 		try {
 			if (getValue("srcfile") == null) {
@@ -148,7 +150,8 @@ public class Divide extends AbstractTool {
      * @see com.lowagie.toolbox.AbstractTool#valueHasChanged(com.lowagie.toolbox.arguments.AbstractArgument)
      * @param arg StringArgument
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
 		if (internalFrame == null) {
 			// if the internal frame is null, the tool was called from the
 			// command line
@@ -177,7 +180,8 @@ public class Divide extends AbstractTool {
      * @throws InstantiationException
      * @return File
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
 		return (File) getValue("destfile");
 	}
 }

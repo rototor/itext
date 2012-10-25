@@ -214,6 +214,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#closeDestination()
 	 */
+	@Override
 	public boolean closeDestination() {
 		if (this.rtfParser.isImport()) {
 			if (this.buffer.length() > 0) {
@@ -226,6 +227,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupEnd()
 	 */
+	@Override
 	public boolean handleCloseGroup() {
 		this.onCloseGroup(); // event handler
 
@@ -315,6 +317,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupStart()
 	 */
+	@Override
 	public boolean handleOpenGroup() {
 		this.onOpenGroup(); // event handler
 
@@ -328,6 +331,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		if (this.rtfParser.isImport()) {
 			if (this.buffer.length() > 0) {
@@ -340,6 +344,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleCharacter(int)
 	 */
+	@Override
 	public boolean handleCharacter(int ch) {
 
 		if (this.rtfParser.isImport()) {
@@ -384,6 +389,7 @@ public class RtfDestinationShppict extends RtfDestination {
 		return true;
 	}
 
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		boolean result = false;
 		boolean skipCtrlWord = false;
@@ -657,6 +663,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#setDefaults()
 	 */
+	@Override
 	public void setToDefaults() {
 
 		this.buffer = new StringBuffer();

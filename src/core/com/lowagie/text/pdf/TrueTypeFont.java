@@ -1017,7 +1017,8 @@ class TrueTypeFont extends BaseFont {
      * @param char2 the second char
      * @return the kerning to be applied
      */
-    public int getKerning(int char1, int char2) {
+    @Override
+	public int getKerning(int char1, int char2) {
         int metrics[] = getMetricsTT(char1);
         if (metrics == null)
             return 0;
@@ -1035,7 +1036,8 @@ class TrueTypeFont extends BaseFont {
      * @param name the glyph name
      * @return the width of the char
      */
-    int getRawWidth(int c, String name) {
+    @Override
+	int getRawWidth(int c, String name) {
         int[] metric = getMetricsTT(c);
         if (metric == null)
             return 0;
@@ -1232,7 +1234,8 @@ class TrueTypeFont extends BaseFont {
      * @throws IOException on error
      * @throws DocumentException error in generating the object
      */
-    void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
+    @Override
+	void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
         int firstChar = ((Integer)params[0]).intValue();
         int lastChar = ((Integer)params[1]).intValue();
         byte shortTag[] = (byte[])params[2];
@@ -1331,7 +1334,8 @@ class TrueTypeFont extends BaseFont {
      * @return	a PdfStream with the font program
      * @since	2.1.3
      */
-    public PdfStream getFullFontStream() throws IOException, DocumentException {
+    @Override
+	public PdfStream getFullFontStream() throws IOException, DocumentException {
         if (cff) {
             return new StreamFont(readCffFont(), "Type1C", compressionLevel);
         }
@@ -1349,7 +1353,8 @@ class TrueTypeFont extends BaseFont {
      * @param fontSize the font size in points
      * @return the parameter in points
      */    
-    public float getFontDescriptor(int key, float fontSize) {
+    @Override
+	public float getFontDescriptor(int key, float fontSize) {
         switch (key) {
             case ASCENT:
                 return os_2.sTypoAscender * fontSize / head.unitsPerEm;
@@ -1416,14 +1421,16 @@ class TrueTypeFont extends BaseFont {
     /** Gets the postscript font name.
      * @return the postscript font name
      */
-    public String getPostscriptFontName() {
+    @Override
+	public String getPostscriptFontName() {
         return fontName;
     }
 
     /** Gets the code pages supported by the font.
      * @return the code pages supported by the font
      */
-    public String[] getCodePagesSupported() {
+    @Override
+	public String[] getCodePagesSupported() {
         long cp = (((long)os_2.ulCodePageRange2) << 32) + (os_2.ulCodePageRange1 & 0xffffffffL);
         int count = 0;
         long bit = 1;
@@ -1451,7 +1458,8 @@ class TrueTypeFont extends BaseFont {
      * font name}.
      * @return the full name of the font
      */
-    public String[][] getFullFontName() {
+    @Override
+	public String[][] getFullFontName() {
         return fullName;
     }
     
@@ -1463,7 +1471,8 @@ class TrueTypeFont extends BaseFont {
      * font name}.
      * @return the full name of the font
      */
-    public String[][] getAllNameEntries() {
+    @Override
+	public String[][] getAllNameEntries() {
         return allNameEntries;
     }
     
@@ -1475,14 +1484,16 @@ class TrueTypeFont extends BaseFont {
      * font name}.
      * @return the family name of the font
      */
-    public String[][] getFamilyFontName() {
+    @Override
+	public String[][] getFamilyFontName() {
         return familyName;
     }
     
     /** Checks if the font has any kerning pairs.
      * @return <CODE>true</CODE> if the font has any kerning pairs
      */    
-    public boolean hasKernPairs() {
+    @Override
+	public boolean hasKernPairs() {
         return kerning.size() > 0;
     }    
     
@@ -1491,7 +1502,8 @@ class TrueTypeFont extends BaseFont {
      * Use with care as it can easily make a font unreadable if not embedded.
      * @param name the new font name
      */    
-    public void setPostscriptFontName(String name) {
+    @Override
+	public void setPostscriptFontName(String name) {
         fontName = name;
     }
     
@@ -1502,7 +1514,8 @@ class TrueTypeFont extends BaseFont {
      * @param kern the kerning to apply in normalized 1000 units
      * @return <code>true</code> if the kerning was applied, <code>false</code> otherwise
      */
-    public boolean setKerning(int char1, int char2, int kern) {
+    @Override
+	public boolean setKerning(int char1, int char2, int kern) {
         int metrics[] = getMetricsTT(char1);
         if (metrics == null)
             return false;
@@ -1515,7 +1528,8 @@ class TrueTypeFont extends BaseFont {
         return true;
     }
     
-    protected int[] getRawCharBBox(int c, String name) {
+    @Override
+	protected int[] getRawCharBBox(int c, String name) {
         HashMap map = null;
         if (name == null || cmap31 == null)
             map = cmap10;

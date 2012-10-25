@@ -411,7 +411,8 @@ public class DocumentFont extends BaseFont {
      * @return the family name of the font
      *
      */
-    public String[][] getFamilyFontName() {
+    @Override
+	public String[][] getFamilyFontName() {
         return getFullFontName();
     }
     
@@ -424,7 +425,8 @@ public class DocumentFont extends BaseFont {
      * @return the parameter in points
      *
      */
-    public float getFontDescriptor(int key, float fontSize) {
+    @Override
+	public float getFontDescriptor(int key, float fontSize) {
         if (cjkMirror != null)
             return cjkMirror.getFontDescriptor(key, fontSize);
         switch (key) {
@@ -463,7 +465,8 @@ public class DocumentFont extends BaseFont {
      * @return the full name of the font
      *
      */
-    public String[][] getFullFontName() {
+    @Override
+	public String[][] getFullFontName() {
         return new String[][]{{"", "", "", fontName}};
     }
     
@@ -476,7 +479,8 @@ public class DocumentFont extends BaseFont {
      * @return the full name of the font
      * @since 2.0.8
      */
-    public String[][] getAllNameEntries() {
+    @Override
+	public String[][] getAllNameEntries() {
         return new String[][]{{"4", "", "", "", fontName}};
     }
 
@@ -486,7 +490,8 @@ public class DocumentFont extends BaseFont {
      * @return the kerning to be applied
      *
      */
-    public int getKerning(int char1, int char2) {
+    @Override
+	public int getKerning(int char1, int char2) {
         return 0;
     }
     
@@ -494,7 +499,8 @@ public class DocumentFont extends BaseFont {
      * @return the postscript font name
      *
      */
-    public String getPostscriptFontName() {
+    @Override
+	public String getPostscriptFontName() {
         return fontName;
     }
     
@@ -505,7 +511,8 @@ public class DocumentFont extends BaseFont {
      * @return the width of the char
      *
      */
-    int getRawWidth(int c, String name) {
+    @Override
+	int getRawWidth(int c, String name) {
         return 0;
     }
     
@@ -513,7 +520,8 @@ public class DocumentFont extends BaseFont {
      * @return <CODE>true</CODE> if the font has any kerning pairs
      *
      */
-    public boolean hasKernPairs() {
+    @Override
+	public boolean hasKernPairs() {
         return false;
     }
     
@@ -525,7 +533,8 @@ public class DocumentFont extends BaseFont {
      * @throws DocumentException error in generating the object
      *
      */
-    void writeFont(PdfWriter writer, PdfIndirectReference ref, Object[] params) throws DocumentException, IOException {
+    @Override
+	void writeFont(PdfWriter writer, PdfIndirectReference ref, Object[] params) throws DocumentException, IOException {
     }
     
     /**
@@ -533,7 +542,8 @@ public class DocumentFont extends BaseFont {
      * @return	null
      * @since	2.1.3
      */
-    public PdfStream getFullFontStream() {
+    @Override
+	public PdfStream getFullFontStream() {
     	return null;
     }
 
@@ -542,7 +552,8 @@ public class DocumentFont extends BaseFont {
      * @param char1 the unicode <CODE>char</CODE> to get the width of
      * @return the width in normalized 1000 units
      */
-    public int getWidth(int char1) {
+    @Override
+	public int getWidth(int char1) {
         if (cjkMirror != null)
             return cjkMirror.getWidth(char1);
         else if (isType0) {
@@ -556,7 +567,8 @@ public class DocumentFont extends BaseFont {
             return super.getWidth(char1);
     }
     
-    public int getWidth(String text) {
+    @Override
+	public int getWidth(String text) {
         if (cjkMirror != null)
             return cjkMirror.getWidth(text);
         else if (isType0) {
@@ -574,7 +586,8 @@ public class DocumentFont extends BaseFont {
             return super.getWidth(text);
     }
     
-    byte[] convertToBytes(String text) {
+    @Override
+	byte[] convertToBytes(String text) {
         if (cjkMirror != null)
             return PdfEncodings.convertToBytes(text, CJKFont.CJK_ENCODING);
         else if (isType0) {
@@ -616,7 +629,8 @@ public class DocumentFont extends BaseFont {
         }
     }
     
-    byte[] convertToBytes(int char1) {
+    @Override
+	byte[] convertToBytes(int char1) {
         if (cjkMirror != null)
             return PdfEncodings.convertToBytes((char)char1, CJKFont.CJK_ENCODING);
         else if (isType0) {
@@ -640,7 +654,8 @@ public class DocumentFont extends BaseFont {
         return refFont;
     }
     
-    public boolean charExists(int c) {
+    @Override
+	public boolean charExists(int c) {
         if (cjkMirror != null)
             return cjkMirror.charExists(c);
         else if (isType0) {
@@ -655,18 +670,22 @@ public class DocumentFont extends BaseFont {
      * It does nothing in this case as the font is already in the document.
      * @param name the new font name
      */    
-    public void setPostscriptFontName(String name) {
+    @Override
+	public void setPostscriptFontName(String name) {
     }
     
-    public boolean setKerning(int char1, int char2, int kern) {
+    @Override
+	public boolean setKerning(int char1, int char2, int kern) {
         return false;
     }
     
-    public int[] getCharBBox(int c) {
+    @Override
+	public int[] getCharBBox(int c) {
         return null;
     }
     
-    protected int[] getRawCharBBox(int c, String name) {
+    @Override
+	protected int[] getRawCharBBox(int c, String name) {
         return null;
     }
     

@@ -1800,7 +1800,8 @@ public class PdfName extends PdfObject implements Comparable{
      * @throws ClassCastException if the specified object's type prevents it
      * from being compared to this Object.
      */
-    public int compareTo(Object object) {
+    @Override
+	public int compareTo(Object object) {
         PdfName name = (PdfName) object;
         byte myBytes[] = bytes;
         byte objBytes[] = name.bytes;
@@ -1825,7 +1826,8 @@ public class PdfName extends PdfObject implements Comparable{
      * @return  <code>true</code> if this object is the same as the obj
      * argument; <code>false</code> otherwise.
      */
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if (this == obj)
             return true;
         if (obj instanceof PdfName)
@@ -1840,7 +1842,8 @@ public class PdfName extends PdfObject implements Comparable{
      *
      * @return  a hash code value for this object.
      */
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         int h = hash;
         if (h == 0) {
             int ptr = 0;

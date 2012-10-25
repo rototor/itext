@@ -118,6 +118,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param llx	the new value
 	 */
+	@Override
 	public void setLeft(float llx) {
 		throwReadOnlyError();
 	}
@@ -128,6 +129,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @param urx	the new value
 	 */
 
+	@Override
 	public void setRight(float urx) {
 		throwReadOnlyError();
 	}
@@ -137,6 +139,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param ury	the new value
 	 */
+	@Override
 	public void setTop(float ury) {
 		throwReadOnlyError();
 	}
@@ -146,6 +149,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param lly	the new value
 	 */
+	@Override
 	public void setBottom(float lly) {
 		throwReadOnlyError();
 	}
@@ -154,6 +158,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * Normalizes the rectangle.
      * Switches lower left with upper right if necessary.
 	 */
+	@Override
 	public void normalize() {
 		throwReadOnlyError();
 	}
@@ -165,6 +170,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param value	the new value
 	 */
+	@Override
 	public void setBackgroundColor(Color value) {
 		throwReadOnlyError();
 	}
@@ -174,6 +180,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param value	the new value
 	 */
+	@Override
 	public void setGrayFill(float value) {
 		throwReadOnlyError();
 	}
@@ -189,6 +196,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @see #disableBorderSide(int)
 	 * @param border	the new value
 	 */
+	@Override
 	public void setBorder(int border) {
 		throwReadOnlyError();
 	}
@@ -198,6 +206,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param useVariableBorders	indication if the rectangle has variable borders
 	 */
+	@Override
 	public void setUseVariableBorders(boolean useVariableBorders) {
 		throwReadOnlyError();
 	}
@@ -208,6 +217,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @param side	the side to enable.
 	 * One of <CODE>LEFT, RIGHT, TOP, BOTTOM</CODE>
 	 */
+	@Override
 	public void enableBorderSide(int side) {
 		throwReadOnlyError();
 	}
@@ -218,6 +228,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @param side	the side to disable.
 	 * One of <CODE>LEFT, RIGHT, TOP, BOTTOM</CODE>
 	 */
+	@Override
 	public void disableBorderSide(int side) {
 		throwReadOnlyError();
 	}
@@ -230,6 +241,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @param borderWidth	the new value
 	 */
 
+	@Override
 	public void setBorderWidth(float borderWidth) {
 		throwReadOnlyError();
 	}
@@ -239,6 +251,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderWidthLeft	a width
 	 */
+	@Override
 	public void setBorderWidthLeft(float borderWidthLeft) {
 		throwReadOnlyError();
 	}
@@ -248,6 +261,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderWidthRight	a width
 	 */
+	@Override
 	public void setBorderWidthRight(float borderWidthRight) {
 		throwReadOnlyError();
 	}
@@ -257,6 +271,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderWidthTop	a width
 	 */
+	@Override
 	public void setBorderWidthTop(float borderWidthTop) {
 		throwReadOnlyError();
 	}
@@ -266,6 +281,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderWidthBottom	a width
 	 */
+	@Override
 	public void setBorderWidthBottom(float borderWidthBottom) {
 		throwReadOnlyError();
 	}
@@ -278,6 +294,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @param borderColor	a <CODE>Color</CODE>
 	 */
 
+	@Override
 	public void setBorderColor(Color borderColor) {
 		throwReadOnlyError();
 	}
@@ -287,6 +304,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderColorLeft	a <CODE>Color</CODE>
 	 */
+	@Override
 	public void setBorderColorLeft(Color borderColorLeft) {
 		throwReadOnlyError();
 	}
@@ -296,6 +314,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderColorRight	a <CODE>Color</CODE>
 	 */
+	@Override
 	public void setBorderColorRight(Color borderColorRight) {
 		throwReadOnlyError();
 	}
@@ -305,6 +324,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderColorTop	a <CODE>Color</CODE>
 	 */
+	@Override
 	public void setBorderColorTop(Color borderColorTop) {
 		throwReadOnlyError();
 	}
@@ -314,6 +334,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param borderColorBottom	a <CODE>Color</CODE>
 	 */
+	@Override
 	public void setBorderColorBottom(Color borderColorBottom) {
 		throwReadOnlyError();
 	}
@@ -326,6 +347,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param rect	<CODE>Rectangle</CODE> to copy from
 	 */
+	@Override
 	public void cloneNonPositionParameters(Rectangle rect) {
 		throwReadOnlyError();
 	}
@@ -336,6 +358,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * 
 	 * @param rect	<CODE>Rectangle</CODE> to copy from
 	 */
+	@Override
 	public void softCloneNonPositionParameters(Rectangle rect) {
 		throwReadOnlyError();
 	}
@@ -344,6 +367,7 @@ public class RectangleReadOnly extends Rectangle {
 	 * @return	String version of the most important rectangle properties
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("RectangleReadOnly: ");
 		buf.append(getWidth());

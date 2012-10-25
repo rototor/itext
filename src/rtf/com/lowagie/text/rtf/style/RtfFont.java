@@ -329,7 +329,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * Writes the font definition
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    @Override
+	public void writeDefinition(final OutputStream result) throws IOException
     {
         result.write(FONT_FAMILY);
         result.write(FONT_CHARSET);
@@ -445,7 +446,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * unused
      */
-    public void writeContent(OutputStream out) throws IOException
+    @Override
+	public void writeContent(OutputStream out) throws IOException
     {    	
     }
     
@@ -456,7 +458,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * @param obj The RtfFont to compare with this RtfFont
      * @return <code>True</code> if the RtfFonts are equal, <code>false</code> otherwise
      */
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(!(obj instanceof RtfFont)) {
             return false;
         }
@@ -474,7 +477,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * 
      * @return The hash code of this RtfFont
      */
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return (this.fontName + this.fontSize + "-" + this.fontStyle).hashCode();
     }
     
@@ -502,14 +506,16 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * @see com.lowagie.text.Font#getFamilyname()
      */
-    public String getFamilyname() {
+    @Override
+	public String getFamilyname() {
         return this.fontName;
     }
     
     /**
      * @see com.lowagie.text.Font#setFamily(String)
      */
-    public void setFamily(String family){
+    @Override
+	public void setFamily(String family){
         super.setFamily(family);
         setToDefaultFamily(family);
     }
@@ -554,7 +560,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * @see com.lowagie.text.Font#setSize(float)
      */
-    public void setSize(float size){
+    @Override
+	public void setSize(float size){
         super.setSize(size);
         this.fontSize = (int) getSize();
     }
@@ -571,7 +578,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * @see com.lowagie.text.Font#setStyle(int)
      */
-    public void setStyle(int style){
+    @Override
+	public void setStyle(int style){
         super.setStyle(style);
         this.fontStyle = getStyle();
     }
@@ -579,7 +587,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * @see com.lowagie.text.Font#setStyle(String)
      */
-    public void setStyle(String style) {
+    @Override
+	public void setStyle(String style) {
         super.setStyle(style);
         fontStyle = getStyle();
     }
@@ -616,7 +625,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
         if(document != null) {
             this.fontNumber = document.getDocumentHeader().getFontNumber(this);
@@ -630,20 +640,23 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * Unused
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
     }
     
     /**
      * Unused
      * @param inHeader
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
     }
     
     /**
      * @see com.lowagie.text.Font#setColor(Color)
      */
-    public void setColor(Color color) {
+    @Override
+	public void setColor(Color color) {
         super.setColor(color);
         if(color != null) {
             this.color = new RtfColor(document, color);
@@ -655,7 +668,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * @see com.lowagie.text.Font#setColor(int, int, int)
      */
-    public void setColor(int red, int green, int blue) {
+    @Override
+	public void setColor(int red, int green, int blue) {
         super.setColor(red,green,blue);
         this.color = new RtfColor(document, red, green, blue);
     }
@@ -678,7 +692,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * @param font The surrounding font
      * @return A RtfFont
      */
-    public Font difference(Font font) {
+    @Override
+	public Font difference(Font font) {
         String dFamilyname = font.getFamilyname();
         if(dFamilyname == null || dFamilyname.trim().equals("") || dFamilyname.trim().equalsIgnoreCase("unknown")) {
             dFamilyname = this.fontName;
@@ -716,7 +731,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * 
      * @since 2.1.0
      */
-    public boolean isStandardFont() {
+    @Override
+	public boolean isStandardFont() {
         return false;
     }
     
@@ -726,7 +742,8 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * 
      * @since 2.1.0
      */
-    public int compareTo(Object object) {
+    @Override
+	public int compareTo(Object object) {
         if (object == null) {
             return -1;
         }

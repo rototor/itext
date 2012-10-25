@@ -71,7 +71,8 @@ public class BitsetArgument extends AbstractArgument {
      * @see com.lowagie.toolbox.arguments.StringArgument#getUsage()
      * @return String
      */
-    public String getUsage() {
+    @Override
+	public String getUsage() {
         StringBuffer buf = new StringBuffer(super.getUsage());
         buf.append("    possible options:\n");
         for (int i = 0; i < options.length; i++) {
@@ -87,7 +88,8 @@ public class BitsetArgument extends AbstractArgument {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @param evt ActionEvent
      */
-    public void actionPerformed(ActionEvent evt) {
+    @Override
+	public void actionPerformed(ActionEvent evt) {
         Object[] message = new Object[1 + options.length];
         message[0] = "Check the options you need:";
         System.arraycopy(options, 0, message, 1, options.length);

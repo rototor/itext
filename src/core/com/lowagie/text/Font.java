@@ -281,6 +281,7 @@ public class Font implements Comparable {
 	 *            the other <CODE>Font</CODE>
 	 * @return a value
 	 */
+	@Override
 	public int compareTo(Object object) {
 		if (object == null) {
 			return -1;

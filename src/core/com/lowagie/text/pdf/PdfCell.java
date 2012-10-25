@@ -358,7 +358,8 @@ public class PdfCell extends Rectangle {
      * to appropriately align the contents vertically.
      * @param value
      */
-    public void setBottom(float value) {
+    @Override
+	public void setBottom(float value) {
         super.setBottom(value);
         float firstLineRealHeight = firstLineRealHeight();
 
@@ -393,7 +394,8 @@ public class PdfCell extends Rectangle {
      * @return		the lower left x-coordinate
      */
 
-    public float getLeft() {
+    @Override
+	public float getLeft() {
         return super.getLeft(cellspacing);
     }
 
@@ -403,7 +405,8 @@ public class PdfCell extends Rectangle {
      * @return		the upper right x-coordinate
      */
 
-    public float getRight() {
+    @Override
+	public float getRight() {
         return super.getRight(cellspacing);
     }
 
@@ -413,7 +416,8 @@ public class PdfCell extends Rectangle {
      * @return		the upper right y-coordinate
      */
 
-    public float getTop() {
+    @Override
+	public float getTop() {
         return super.getTop(cellspacing);
     }
 
@@ -423,7 +427,8 @@ public class PdfCell extends Rectangle {
      * @return		the lower left y-coordinate
      */
 
-    public float getBottom() {
+    @Override
+	public float getBottom() {
         return super.getBottom(cellspacing);
     }
     
@@ -845,7 +850,8 @@ public class PdfCell extends Rectangle {
      * @return	a <CODE>Rectangle</CODE>
      */
 
-    public Rectangle rectangle(float top, float bottom) {
+    @Override
+	public Rectangle rectangle(float top, float bottom) {
         Rectangle tmp = new Rectangle(getLeft(), getBottom(), getRight(), getTop());
         tmp.cloneNonPositionParameters(this);
         if (getTop() > top) {

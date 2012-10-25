@@ -139,7 +139,8 @@ public class PdfLayer extends PdfDictionary implements PdfOCG {
      * Gets the <CODE>PdfIndirectReference</CODE> that represents this layer.
      * @return the <CODE>PdfIndirectReference</CODE> that represents this layer
      */    
-    public PdfIndirectReference getRef() {
+    @Override
+	public PdfIndirectReference getRef() {
         return ref;
     }
     
@@ -165,7 +166,8 @@ public class PdfLayer extends PdfDictionary implements PdfOCG {
      * Gets the dictionary representing the layer. It just returns <CODE>this</CODE>.
      * @return the dictionary representing the layer
      */    
-    public PdfObject getPdfObject() {
+    @Override
+	public PdfObject getPdfObject() {
         return this;
     }
     

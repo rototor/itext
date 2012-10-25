@@ -189,7 +189,8 @@ public class Anchor extends Phrase {
      * @param	listener	an <CODE>ElementListener</CODE>
      * @return	<CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
             Chunk chunk;
             Iterator i = getChunks().iterator();
@@ -218,7 +219,8 @@ public class Anchor extends Phrase {
      *
      * @return	an <CODE>ArrayList</CODE>
      */
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         ArrayList tmp = new ArrayList();
         Chunk chunk;
         Iterator i = iterator();
@@ -245,7 +247,8 @@ public class Anchor extends Phrase {
      *
      * @return	a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.ANCHOR;
     }
     

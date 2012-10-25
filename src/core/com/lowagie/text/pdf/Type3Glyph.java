@@ -72,17 +72,20 @@ public final class Type3Glyph extends PdfContentByte {
         }
     }
     
-    PageResources getPageResources() {
+    @Override
+	PageResources getPageResources() {
         return pageResources;
     }
 
-    public void addImage(Image image, float a, float b, float c, float d, float e, float f, boolean inlineImage) throws DocumentException {
+    @Override
+	public void addImage(Image image, float a, float b, float c, float d, float e, float f, boolean inlineImage) throws DocumentException {
         if (!colorized && (!image.isMask() || !(image.getBpc() == 1 || image.getBpc() > 0xff)))
             throw new DocumentException("Not colorized Typed3 fonts only accept mask images.");
         super.addImage(image, a, b, c, d, e, f, inlineImage);
     }
     
-    public PdfContentByte getDuplicate() {
+    @Override
+	public PdfContentByte getDuplicate() {
         Type3Glyph dup = new Type3Glyph();
         dup.writer = writer;
         dup.pdf = pdf;

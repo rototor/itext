@@ -73,6 +73,7 @@ public abstract class XmpSchema extends Properties {
 	 * The String representation of the contents.
 	 * @return a String representation.
 	 */
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer();
 		for (Enumeration e = this.propertyNames(); e.hasMoreElements(); ) {
@@ -113,6 +114,7 @@ public abstract class XmpSchema extends Properties {
 	/**
 	 * @see java.util.Properties#setProperty(java.lang.String, java.lang.String)
 	 */
+	@Override
 	public Object setProperty(String key, String value) {
 		return super.setProperty(key, escape(value));
 	}

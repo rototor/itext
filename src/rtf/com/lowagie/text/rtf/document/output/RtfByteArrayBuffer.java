@@ -89,6 +89,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 		buffer = new byte[n];
 	}
 	
+	@Override
 	public String toString()
 	{
 		return("RtfByteArrayBuffer: size="+size()+" #arrays="+arrays.size()+" pos="+pos);
@@ -149,6 +150,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param b
 	 */
+	@Override
 	public void write(final int b)
 	{
 		buffer[pos] = (byte)b;
@@ -160,6 +162,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param src
 	 */
+	@Override
 	public void write(final byte[] src)
 	{
 		if(src == null) throw new NullPointerException();
@@ -179,6 +182,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * @param off
 	 * @param len
 	 */
+	@Override
 	public void write(final byte[] src, int off, int len)
 	{
 		if(src == null) throw new NullPointerException();

@@ -267,7 +267,8 @@ public class Document implements DocListener {
 	 *             when a document isn't open yet, or has been closed
  */
     
-    public boolean add(Element element) throws DocumentException {
+    @Override
+	public boolean add(Element element) throws DocumentException {
         if (close) {
 			throw new DocumentException(
 				"The document has been closed. You can't add any Elements.");
@@ -301,7 +302,8 @@ public class Document implements DocListener {
 	 * begin to add content to the body of the document.
  */
     
-    public void open() {
+    @Override
+	public void open() {
 		if (!close) {
             open = true;
         }
@@ -323,7 +325,8 @@ public class Document implements DocListener {
  * @return	a <CODE>boolean</CODE>
  */
     
-    public boolean setPageSize(Rectangle pageSize) {
+    @Override
+	public boolean setPageSize(Rectangle pageSize) {
         this.pageSize = pageSize;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -347,6 +350,7 @@ public class Document implements DocListener {
  * @return	a <CODE>boolean</CODE>
  */
     
+	@Override
 	public boolean setMargins(float marginLeft, float marginRight,
 			float marginTop, float marginBottom) {
         this.marginLeft = marginLeft;
@@ -369,7 +373,8 @@ public class Document implements DocListener {
 	 *         if not.
  */
     
-    public boolean newPage() {
+    @Override
+	public boolean newPage() {
         if (!open || close) {
             return false;
         }
@@ -388,7 +393,8 @@ public class Document implements DocListener {
 	 *            the new header
  */
     
-    public void setHeader(HeaderFooter header) {
+    @Override
+	public void setHeader(HeaderFooter header) {
         this.header = header;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -401,7 +407,8 @@ public class Document implements DocListener {
  * Resets the header of this document.
  */
     
-    public void resetHeader() {
+    @Override
+	public void resetHeader() {
         this.header = null;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -417,7 +424,8 @@ public class Document implements DocListener {
 	 *            the new footer
  */
     
-    public void setFooter(HeaderFooter footer) {
+    @Override
+	public void setFooter(HeaderFooter footer) {
         this.footer = footer;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -430,7 +438,8 @@ public class Document implements DocListener {
  * Resets the footer of this document.
  */
     
-    public void resetFooter() {
+    @Override
+	public void resetFooter() {
         this.footer = null;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -443,7 +452,8 @@ public class Document implements DocListener {
  * Sets the page number to 0.
  */
     
-    public void resetPageCount() {
+    @Override
+	public void resetPageCount() {
         pageN = 0;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -459,7 +469,8 @@ public class Document implements DocListener {
 	 *            the new page number
  */
     
-    public void setPageCount(int pageN) {
+    @Override
+	public void setPageCount(int pageN) {
         this.pageN = pageN;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -485,7 +496,8 @@ public class Document implements DocListener {
 	 * body. After that nothing can be written to the body anymore.
  */
     
-    public void close() {
+    @Override
+	public void close() {
 		if (!close) {
             open = false;
             close = true;
@@ -878,7 +890,8 @@ public class Document implements DocListener {
 	 *            <CODE>true</CODE> to mirror the margins
      * @return always <CODE>true</CODE>
      */    
-    public boolean setMarginMirroring(boolean marginMirroring) {
+    @Override
+	public boolean setMarginMirroring(boolean marginMirroring) {
         this.marginMirroring = marginMirroring;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
@@ -898,7 +911,8 @@ public class Document implements DocListener {
      * @return always <CODE>true</CODE>
      * @since	2.1.6
      */    
-    public boolean setMarginMirroringTopBottom(boolean marginMirroringTopBottom) {
+    @Override
+	public boolean setMarginMirroringTopBottom(boolean marginMirroringTopBottom) {
         this.marginMirroringTopBottom = marginMirroringTopBottom;
         DocListener listener;
 		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {

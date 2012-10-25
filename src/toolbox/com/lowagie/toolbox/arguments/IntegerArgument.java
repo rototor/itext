@@ -69,7 +69,8 @@ public class IntegerArgument extends AbstractArgument {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @param e ActionEvent
      */
-    public void actionPerformed(ActionEvent e) {
+    @Override
+	public void actionPerformed(ActionEvent e) {
         CustomDialog cd = new CustomDialog("Enter a value for " + name +
                                            ":",
                                            CustomDialog.instantiateIntegerDocument());

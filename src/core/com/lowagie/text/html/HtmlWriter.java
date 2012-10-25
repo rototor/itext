@@ -202,7 +202,8 @@ public class HtmlWriter extends DocWriter {
  * @return  <CODE>true</CODE> if this action succeeded, <CODE>false</CODE> if not.
  */
     
-    public boolean newPage() {
+    @Override
+	public boolean newPage() {
         try {
             writeStart(HtmlTags.DIV);
             write(" ");
@@ -226,7 +227,8 @@ public class HtmlWriter extends DocWriter {
  * @throws  DocumentException when a document isn't open yet, or has been closed
  */
     
-    public boolean add(Element element) throws DocumentException {
+    @Override
+	public boolean add(Element element) throws DocumentException {
         if (pause) {
             return false;
         }
@@ -314,7 +316,8 @@ public class HtmlWriter extends DocWriter {
  * The <CODE>HEAD</CODE>-section of the HTML-document is written.
  */
     
-    public void open() {
+    @Override
+	public void open() {
         super.open();
         try {
             writeComment(Document.getVersion());
@@ -360,7 +363,8 @@ public class HtmlWriter extends DocWriter {
  * <CODE>Elements</CODE> will be added.
  */
     
-    public void close() {
+    @Override
+	public void close() {
         try {
             initFooter(); // line added by David Freels
             addTabs(1);
@@ -571,7 +575,8 @@ public class HtmlWriter extends DocWriter {
  * @param header    the new header
  */
     
-    public void setHeader(HeaderFooter header) {
+    @Override
+	public void setHeader(HeaderFooter header) {
         this.header = header;
     }
     
@@ -581,7 +586,8 @@ public class HtmlWriter extends DocWriter {
  * @param footer    the new footer
  */
     
-    public void setFooter(HeaderFooter footer) {
+    @Override
+	public void setFooter(HeaderFooter footer) {
         this.footer = footer;
     }
     

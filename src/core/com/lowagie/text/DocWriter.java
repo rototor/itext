@@ -149,7 +149,8 @@ public abstract class DocWriter implements DocListener {
  * @throws  DocumentException when a document isn't open yet, or has been closed
  */
 
-    public boolean add(Element element) throws DocumentException {
+    @Override
+	public boolean add(Element element) throws DocumentException {
         return false;
     }
 
@@ -157,7 +158,8 @@ public abstract class DocWriter implements DocListener {
  * Signals that the <CODE>Document</CODE> was opened.
  */
 
-    public void open() {
+    @Override
+	public void open() {
         open = true;
     }
 
@@ -168,7 +170,8 @@ public abstract class DocWriter implements DocListener {
  * @return  a <CODE>boolean</CODE>
  */
 
-    public boolean setPageSize(Rectangle pageSize) {
+    @Override
+	public boolean setPageSize(Rectangle pageSize) {
         this.pageSize = pageSize;
         return true;
     }
@@ -185,7 +188,8 @@ public abstract class DocWriter implements DocListener {
  * @return  <CODE>false</CODE>
  */
 
-    public boolean setMargins(float marginLeft, float marginRight, float marginTop, float marginBottom) {
+    @Override
+	public boolean setMargins(float marginLeft, float marginRight, float marginTop, float marginBottom) {
         return false;
     }
 
@@ -197,7 +201,8 @@ public abstract class DocWriter implements DocListener {
  * @return  <CODE>true</CODE> if the page was added, <CODE>false</CODE> if not.
  */
 
-    public boolean newPage() {
+    @Override
+	public boolean newPage() {
         if (!open) {
             return false;
         }
@@ -214,7 +219,8 @@ public abstract class DocWriter implements DocListener {
  * @param header    the new header
  */
 
-    public void setHeader(HeaderFooter header) {
+    @Override
+	public void setHeader(HeaderFooter header) {
     }
 
 /**
@@ -225,7 +231,8 @@ public abstract class DocWriter implements DocListener {
  * headers.
  */
 
-    public void resetHeader() {
+    @Override
+	public void resetHeader() {
     }
 
 /**
@@ -238,7 +245,8 @@ public abstract class DocWriter implements DocListener {
  * @param footer    the new footer
  */
 
-    public void setFooter(HeaderFooter footer) {
+    @Override
+	public void setFooter(HeaderFooter footer) {
     }
 
 /**
@@ -249,7 +257,8 @@ public abstract class DocWriter implements DocListener {
  * footers.
  */
 
-    public void resetFooter() {
+    @Override
+	public void resetFooter() {
     }
 
 /**
@@ -260,7 +269,8 @@ public abstract class DocWriter implements DocListener {
  * pagenumbers.
  */
 
-    public void resetPageCount() {
+    @Override
+	public void resetPageCount() {
     }
 
 /**
@@ -273,7 +283,8 @@ public abstract class DocWriter implements DocListener {
  * @param pageN   the new page number
  */
 
-    public void setPageCount(int pageN) {
+    @Override
+	public void setPageCount(int pageN) {
     }
 
 /**
@@ -281,7 +292,8 @@ public abstract class DocWriter implements DocListener {
  * <CODE>Elements</CODE> will be added.
  */
 
-    public void close() {
+    @Override
+	public void close() {
         open = false;
         try {
             os.flush();
@@ -473,7 +485,8 @@ public abstract class DocWriter implements DocListener {
     /**
      * @see com.lowagie.text.DocListener#setMarginMirroring(boolean)
      */
-    public boolean setMarginMirroring(boolean MarginMirroring) {
+    @Override
+	public boolean setMarginMirroring(boolean MarginMirroring) {
         return false;
     }
     
@@ -481,7 +494,8 @@ public abstract class DocWriter implements DocListener {
      * @see com.lowagie.text.DocListener#setMarginMirroring(boolean)
      * @since	2.1.6
      */
-    public boolean setMarginMirroringTopBottom(boolean MarginMirroring) {
+    @Override
+	public boolean setMarginMirroringTopBottom(boolean MarginMirroring) {
         return false;
     }
     

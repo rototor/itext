@@ -91,6 +91,7 @@ public class PdfVersionImp implements PdfVersion {
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfVersion#setPdfVersion(char)
 	 */
+	@Override
 	public void setPdfVersion(char version) {
 		if (headerWasWritten || appendmode) {
 			setPdfVersion(getVersionAsName(version));
@@ -103,6 +104,7 @@ public class PdfVersionImp implements PdfVersion {
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfVersion#setAtLeastPdfVersion(char)
 	 */
+	@Override
 	public void setAtLeastPdfVersion(char version) {
 		if (version > header_version) {
 			setPdfVersion(version);
@@ -112,6 +114,7 @@ public class PdfVersionImp implements PdfVersion {
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfVersion#setPdfVersion(com.lowagie.text.pdf.PdfName)
 	 */
+	@Override
 	public void setPdfVersion(PdfName version) {
 		if (catalog_version == null || catalog_version.compareTo(version) < 0) {
 			this.catalog_version = version;
@@ -186,6 +189,7 @@ public class PdfVersionImp implements PdfVersion {
 	 * @see com.lowagie.text.pdf.interfaces.PdfVersion#addDeveloperExtension(com.lowagie.text.pdf.PdfDeveloperExtension)
 	 * @since	2.1.6
 	 */
+	@Override
 	public void addDeveloperExtension(PdfDeveloperExtension de) {
 		if (extensions == null) {
 			extensions = new PdfDictionary();

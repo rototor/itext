@@ -156,7 +156,8 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * @param tag the tag name
      * @param h the tag's attributes
      */    
-    public void startElement(String tag, HashMap h)
+    @Override
+	public void startElement(String tag, HashMap h)
     {
         if ( !foundRoot ) {
             if (!tag.equals("xfdf"))
@@ -183,7 +184,8 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * Called when an end tag is found.
      * @param tag the tag name
      */    
-    public void endElement(String tag) {
+    @Override
+	public void endElement(String tag) {
         if ( tag.equals("value") ) {
             String	fName = "";
             for (int k = 0; k < fieldNames.size(); ++k) {
@@ -212,14 +214,16 @@ public class XfdfReader implements SimpleXMLDocHandler {
     /**
      * Called when the document starts to be parsed.
      */    
-    public void startDocument()
+    @Override
+	public void startDocument()
     {
         fileSpec = "";
     }
     /**
      * Called after the document is parsed.
      */    
-    public void endDocument()
+    @Override
+	public void endDocument()
 	{
     	
 	}
@@ -227,7 +231,8 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * Called when a text element is found.
      * @param str the text element, probably a fragment.
      */    
-    public void text(String str)
+    @Override
+	public void text(String str)
     {
         if (fieldNames.isEmpty() || fieldValues.isEmpty())
             return;

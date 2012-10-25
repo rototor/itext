@@ -69,7 +69,8 @@ public class Hyphenation {
         return hyphenPoints;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         StringBuffer str = new StringBuffer();
         int start = 0;
         for (int i = 0; i < len; i++) {

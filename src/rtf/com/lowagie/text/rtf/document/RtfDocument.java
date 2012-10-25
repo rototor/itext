@@ -133,7 +133,8 @@ public class RtfDocument extends RtfElement {
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    @Override
+	public void writeContent(final OutputStream out) throws IOException
     {    	
     }
     

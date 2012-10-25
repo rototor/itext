@@ -445,12 +445,12 @@ public class PdfReader implements PdfViewerPreferences {
      * of <CODE>String</CODE>.
      * @return content of the document information dictionary
      */
-    public HashMap getInfo() {
-        HashMap map = new HashMap();
+    public HashMap<String, String> getInfo() {
+        HashMap<String, String> map = new HashMap<String, String>();
         PdfDictionary info = trailer.getAsDict(PdfName.INFO);
         if (info == null)
             return map;
-        for (Iterator it = info.getKeys().iterator(); it.hasNext();) {
+        for (Iterator<PdfName> it = info.getKeys().iterator(); it.hasNext();) {
             PdfName key = (PdfName)it.next();
             PdfObject obj = getPdfObject(info.get(key));
             if (obj == null)

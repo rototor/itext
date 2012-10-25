@@ -539,7 +539,8 @@ public class PdfEncodings {
     
     private static class WingdingsConversion implements ExtraEncoding {
         
-        public byte[] charToByte(char char1, String encoding) {
+        @Override
+		public byte[] charToByte(char char1, String encoding) {
             if (char1 == ' ')
                 return new byte[]{(byte)char1};
             else if (char1 >= '\u2701' && char1 <= '\u27BE') {
@@ -550,7 +551,8 @@ public class PdfEncodings {
             return new byte[0];
         }
         
-        public byte[] charToByte(String text, String encoding) {
+        @Override
+		public byte[] charToByte(String text, String encoding) {
             char cc[] = text.toCharArray();
             byte b[] = new byte[cc.length];
             int ptr = 0;
@@ -572,7 +574,8 @@ public class PdfEncodings {
             return b2;
         }
         
-        public String byteToChar(byte[] b, String encoding) {
+        @Override
+		public String byteToChar(byte[] b, String encoding) {
             return null;
         }
 
@@ -603,7 +606,8 @@ public class PdfEncodings {
     private static class Cp437Conversion implements ExtraEncoding {
         private static IntHashtable c2b = new IntHashtable();
         
-        public byte[] charToByte(String text, String encoding) {
+        @Override
+		public byte[] charToByte(String text, String encoding) {
             char cc[] = text.toCharArray();
             byte b[] = new byte[cc.length];
             int ptr = 0;
@@ -625,7 +629,8 @@ public class PdfEncodings {
             return b2;
         }
         
-        public byte[] charToByte(char char1, String encoding) {
+        @Override
+		public byte[] charToByte(char char1, String encoding) {
             if (char1 < 128)
                 return new byte[]{(byte)char1};
             else {
@@ -637,7 +642,8 @@ public class PdfEncodings {
             }
         }
         
-        public String byteToChar(byte[] b, String encoding) {
+        @Override
+		public String byteToChar(byte[] b, String encoding) {
             int len = b.length;
             char cc[] = new char[len];
             int ptr = 0;
@@ -685,7 +691,8 @@ public class PdfEncodings {
                 translation = t2;
         }
         
-        public byte[] charToByte(String text, String encoding) {
+        @Override
+		public byte[] charToByte(String text, String encoding) {
             char cc[] = text.toCharArray();
             byte b[] = new byte[cc.length];
             int ptr = 0;
@@ -703,7 +710,8 @@ public class PdfEncodings {
             return b2;
         }
         
-        public byte[] charToByte(char char1, String encoding) {
+        @Override
+		public byte[] charToByte(char char1, String encoding) {
             byte v = (byte)translation.get(char1);
             if (v != 0)
                 return new byte[]{v};
@@ -711,7 +719,8 @@ public class PdfEncodings {
                 return new byte[0];
         }
         
-        public String byteToChar(byte[] b, String encoding) {
+        @Override
+		public String byteToChar(byte[] b, String encoding) {
             return null;
         }
 
@@ -765,14 +774,16 @@ public class PdfEncodings {
     
     private static class SymbolTTConversion implements ExtraEncoding {
         
-        public byte[] charToByte(char char1, String encoding) {
+        @Override
+		public byte[] charToByte(char char1, String encoding) {
             if ((char1 & 0xff00) == 0 || (char1 & 0xff00) == 0xf000)
                 return new byte[]{(byte)char1};
             else
                 return new byte[0];
         }
         
-        public byte[] charToByte(String text, String encoding) {
+        @Override
+		public byte[] charToByte(String text, String encoding) {
             char ch[] = text.toCharArray();
             byte b[] = new byte[ch.length];
             int ptr = 0;
@@ -789,7 +800,8 @@ public class PdfEncodings {
             return b2;
         }
         
-        public String byteToChar(byte[] b, String encoding) {
+        @Override
+		public String byteToChar(byte[] b, String encoding) {
             return null;
         }
         

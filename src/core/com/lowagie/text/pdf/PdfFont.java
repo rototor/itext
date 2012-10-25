@@ -97,7 +97,8 @@ class PdfFont implements Comparable {
      * @return	a value
      */
     
-    public int compareTo(Object object) {
+    @Override
+	public int compareTo(Object object) {
         if (image != null)
             return 0;
         if (object == null) {

@@ -404,7 +404,8 @@ public class PdfDocument extends Document {
      * @return <CODE>true</CODE> if the element was added, <CODE>false</CODE> if not.
      * @throws DocumentException when a document isn't open yet, or has been closed
      */
-    public boolean add(Element element) throws DocumentException {
+    @Override
+	public boolean add(Element element) throws DocumentException {
         if (writer != null && writer.isPaused()) {
             return false;
         }
@@ -780,7 +781,8 @@ public class PdfDocument extends Document {
      * You have to open the document before you can begin to add content
      * to the body of the document.
      */
-    public void open() {
+    @Override
+	public void open() {
         if (!open) {
             super.open();
             writer.open();
@@ -803,7 +805,8 @@ public class PdfDocument extends Document {
      * Once all the content has been written in the body, you have to close
      * the body. After that nothing can be written to the body anymore.
      */
-    public void close() {
+    @Override
+	public void close() {
         if (close) {
             return;
         }
@@ -848,7 +851,8 @@ public class PdfDocument extends Document {
      *
      * @return a <CODE>boolean</CODE>
      */
-    public boolean newPage() {
+    @Override
+	public boolean newPage() {
         lastElementType = -1;
         if (writer == null || (writer.getDirectContent().size() == 0 && writer.getDirectContentUnder().size() == 0 && (pageEmpty || writer.isPaused()))) {
         	setNewPageSizeAndMargins();
@@ -981,7 +985,8 @@ public class PdfDocument extends Document {
      * @param pageSize the new pagesize
      * @return <CODE>true</CODE> if the page size was set
      */
-    public boolean setPageSize(Rectangle pageSize) {
+    @Override
+	public boolean setPageSize(Rectangle pageSize) {
         if (writer != null && writer.isPaused()) {
             return false;
         }
@@ -1012,7 +1017,8 @@ public class PdfDocument extends Document {
      * @param	marginBottom	the margin on the bottom
      * @return	a <CODE>boolean</CODE>
      */
-    public boolean setMargins(float marginLeft, float marginRight, float marginTop, float marginBottom) {
+    @Override
+	public boolean setMargins(float marginLeft, float marginRight, float marginTop, float marginBottom) {
         if (writer != null && writer.isPaused()) {
             return false;
         }
@@ -1028,7 +1034,8 @@ public class PdfDocument extends Document {
     /**
      * @see com.lowagie.text.DocListener#setMarginMirroring(boolean)
      */
-    public boolean setMarginMirroring(boolean MarginMirroring) {
+    @Override
+	public boolean setMarginMirroring(boolean MarginMirroring) {
         if (writer != null && writer.isPaused()) {
             return false;
         }
@@ -1039,7 +1046,8 @@ public class PdfDocument extends Document {
      * @see com.lowagie.text.DocListener#setMarginMirroring(boolean)
      * @since	2.1.6
      */
-    public boolean setMarginMirroringTopBottom(boolean MarginMirroringTopBottom) {
+    @Override
+	public boolean setMarginMirroringTopBottom(boolean MarginMirroringTopBottom) {
         if (writer != null && writer.isPaused()) {
             return false;
         }
@@ -1053,7 +1061,8 @@ public class PdfDocument extends Document {
      *
      * @param	pageN		the new page number
      */
-    public void setPageCount(int pageN) {
+    @Override
+	public void setPageCount(int pageN) {
         if (writer != null && writer.isPaused()) {
             return;
         }
@@ -1065,7 +1074,8 @@ public class PdfDocument extends Document {
     /**
      * Sets the page number to 0.
      */
-    public void resetPageCount() {
+    @Override
+	public void resetPageCount() {
         if (writer != null && writer.isPaused()) {
             return;
         }
@@ -1079,7 +1089,8 @@ public class PdfDocument extends Document {
      *
      * @param header the new header
      */
-    public void setHeader(HeaderFooter header) {
+    @Override
+	public void setHeader(HeaderFooter header) {
         if (writer != null && writer.isPaused()) {
             return;
         }
@@ -1091,7 +1102,8 @@ public class PdfDocument extends Document {
     /**
      * Resets the header of this document.
      */
-    public void resetHeader() {
+    @Override
+	public void resetHeader() {
         if (writer != null && writer.isPaused()) {
             return;
         }
@@ -1105,7 +1117,8 @@ public class PdfDocument extends Document {
      *
      * @param	footer		the new footer
      */
-    public void setFooter(HeaderFooter footer) {
+    @Override
+	public void setFooter(HeaderFooter footer) {
         if (writer != null && writer.isPaused()) {
             return;
         }
@@ -1117,7 +1130,8 @@ public class PdfDocument extends Document {
     /**
      * Resets the footer of this document.
      */
-    public void resetFooter() {
+    @Override
+	public void resetFooter() {
         if (writer != null && writer.isPaused()) {
             return;
         }

@@ -115,7 +115,8 @@ public class RtfColorList extends RtfElement implements RtfExtendedElement {
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    @Override
+	public void writeContent(final OutputStream out) throws IOException
     {    	
     }
     
@@ -123,7 +124,8 @@ public class RtfColorList extends RtfElement implements RtfExtendedElement {
      * Write the definition part of the color list. Calls the writeDefinition
      * methods of the RtfColors in the color list. 
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    @Override
+	public void writeDefinition(final OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         result.write(COLOR_TABLE);

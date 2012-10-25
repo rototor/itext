@@ -287,7 +287,8 @@ public class RtfImage extends RtfElement {
     /**
      * Writes the RtfImage content
      */ 
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
     	
         if(this.topLevelElement) {

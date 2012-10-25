@@ -78,14 +78,16 @@ public class RtfMemoryCache implements RtfDataCache {
     /**
      * Gets the ByteArrayOutputStream.
      */
-    public OutputStream getOutputStream() {
+    @Override
+	public OutputStream getOutputStream() {
         return this.data;
     }
 
     /**
      * Writes the content of the ByteArrayOutputStream into the OutputStream.
      */
-    public void writeTo(OutputStream target) throws IOException {
+    @Override
+	public void writeTo(OutputStream target) throws IOException {
         this.data.writeTo(target);
     }
 

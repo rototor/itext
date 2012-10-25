@@ -84,7 +84,8 @@ public class PageSizeArgument extends OptionArgument {
      * @param description the description of the option
      * @param value the value of the option
      */
-    public void addOption(Object description, Object value) {
+    @Override
+	public void addOption(Object description, Object value) {
         options.put(description, value);
     }
 
@@ -101,7 +102,8 @@ public class PageSizeArgument extends OptionArgument {
      * @return an object
      * @throws InstantiationException
      */
-    public Object getArgument() throws InstantiationException {
+    @Override
+	public Object getArgument() throws InstantiationException {
         if (value == null) {
             return null;
         }
@@ -117,7 +119,8 @@ public class PageSizeArgument extends OptionArgument {
      * @see com.lowagie.toolbox.arguments.StringArgument#getUsage()
      * @return String
      */
-    public String getUsage() {
+    @Override
+	public String getUsage() {
         StringBuffer buf = new StringBuffer("  ");
         buf.append(name);
         buf.append(" -  ");
@@ -139,7 +142,8 @@ public class PageSizeArgument extends OptionArgument {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @param evt ActionEvent
      */
-    public void actionPerformed(ActionEvent evt) {
+    @Override
+	public void actionPerformed(ActionEvent evt) {
         Object[] message = new Object[2];
         message[0] = "Choose one of the following pagesizes:";
         JComboBox cb = new JComboBox();
@@ -166,7 +170,8 @@ public class PageSizeArgument extends OptionArgument {
      *
      * @return a string representation of the object.
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return super.getValue().toString();
     }
 

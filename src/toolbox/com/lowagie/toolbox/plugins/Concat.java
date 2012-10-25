@@ -75,6 +75,7 @@ public class Concat extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#createFrame()
 	 */
+	@Override
 	protected void createFrame() {
 		internalFrame = new JInternalFrame("Concatenate 2 PDF files", true, false, true);
 		internalFrame.setSize(300, 80);
@@ -85,6 +86,7 @@ public class Concat extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#execute()
 	 */
+	@Override
 	public void execute() {
 		try {
 			String[] files = new String[2];
@@ -144,7 +146,8 @@ public class Concat extends AbstractTool {
      * @see com.lowagie.toolbox.AbstractTool#valueHasChanged(com.lowagie.toolbox.arguments.AbstractArgument)
      * @param arg StringArgument
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
 		if (internalFrame == null) {
 			// if the internal frame is null, the tool was called from the command line
 			return;
@@ -173,7 +176,8 @@ public class Concat extends AbstractTool {
      * @throws InstantiationException
      * @return File
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
 		return (File)getValue("destfile");
 	}
 

@@ -440,7 +440,8 @@ public class BarcodeEAN extends Barcode{
      * any, will occupy. The lower left corner is always (0, 0).
      * @return the size the barcode occupies.
      */    
-    public Rectangle getBarcodeSize() {
+    @Override
+	public Rectangle getBarcodeSize() {
         float width = 0;
         float height = barHeight;
         if (font != null) {
@@ -519,7 +520,8 @@ public class BarcodeEAN extends Barcode{
      * @param textColor the color of the text. It can be <CODE>null</CODE>
      * @return the dimensions the barcode occupies
      */    
-    public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
+    @Override
+	public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
         Rectangle rect = getBarcodeSize();
         float barStartX = 0;
         float barStartY = 0;
@@ -660,7 +662,8 @@ public class BarcodeEAN extends Barcode{
      * @param background the color of the background
      * @return the image
      */    
-    public java.awt.Image createAwtImage(Color foreground, Color background) {
+    @Override
+	public java.awt.Image createAwtImage(Color foreground, Color background) {
         int f = foreground.getRGB();
         int g = background.getRGB();
         Canvas canvas = new Canvas();

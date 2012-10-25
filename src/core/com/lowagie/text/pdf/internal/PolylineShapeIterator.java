@@ -89,6 +89,7 @@ public class PolylineShapeIterator implements PathIterator {
 	 * @see #SEG_CLOSE
 	 * @see java.awt.geom.PathIterator#currentSegment(double[])
 	 */
+	@Override
 	public int currentSegment(double[] coords) {
 		if (isDone()) {
 			throw new NoSuchElementException("line iterator out of bounds");
@@ -120,6 +121,7 @@ public class PolylineShapeIterator implements PathIterator {
 	 * @see #SEG_CLOSE
 	 * @see java.awt.geom.PathIterator#currentSegment(float[])
 	 */
+	@Override
 	public int currentSegment(float[] coords) {
 		if (isDone()) {
 			throw new NoSuchElementException("line iterator out of bounds");
@@ -140,6 +142,7 @@ public class PolylineShapeIterator implements PathIterator {
 	 * @see #WIND_NON_ZERO
 	 * @see java.awt.geom.PathIterator#getWindingRule()
 	 */
+	@Override
 	public int getWindingRule() {
 		return WIND_NON_ZERO;
 	}
@@ -149,6 +152,7 @@ public class PolylineShapeIterator implements PathIterator {
 	 * @return true if there are more points to read
 	 * @see java.awt.geom.PathIterator#isDone()
 	 */
+	@Override
 	public boolean isDone() {
 		return (index >= poly.np);
 	}
@@ -159,6 +163,7 @@ public class PolylineShapeIterator implements PathIterator {
 	 * more points in that direction.
 	 * @see java.awt.geom.PathIterator#next()
 	 */
+	@Override
 	public void next() {
 		index++;
 	}

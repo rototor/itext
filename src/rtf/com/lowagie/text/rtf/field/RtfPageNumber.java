@@ -113,7 +113,8 @@ public class RtfPageNumber extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldInstContent(final OutputStream result) throws IOException 
+    @Override
+	protected void writeFieldInstContent(final OutputStream result) throws IOException 
     {
     	result.write(PAGE_NUMBER);
     }
@@ -124,6 +125,7 @@ public class RtfPageNumber extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(final OutputStream result) throws IOException {        
+    @Override
+	protected void writeFieldResultContent(final OutputStream result) throws IOException {        
     }
 }

@@ -899,7 +899,8 @@ public class PdfAnnotation extends PdfDictionary {
     	 * @return	a String representation of the imported link
     	 * @since	2.1.6
     	 */
-    	public String toString() {
+    	@Override
+		public String toString() {
     		StringBuffer buf = new StringBuffer("Imported link: location [");
     		buf.append(llx);
     		buf.append(' ');

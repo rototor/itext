@@ -186,7 +186,8 @@ public class MappedRandomAccessFile {
      * invokes the close method
      * @see java.lang.Object#finalize()
      */
-    protected void finalize() throws Throwable {
+    @Override
+	protected void finalize() throws Throwable {
         close();
         super.finalize();
     }
@@ -201,7 +202,8 @@ public class MappedRandomAccessFile {
             return false;
         
         Boolean b = (Boolean) AccessController.doPrivileged(new PrivilegedAction() {
-            public Object run() {
+            @Override
+			public Object run() {
                 Boolean success = Boolean.FALSE;
                 try {
                     Method getCleanerMethod = buffer.getClass().getMethod("cleaner", (Class[])null);

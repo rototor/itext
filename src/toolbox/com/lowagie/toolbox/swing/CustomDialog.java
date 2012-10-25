@@ -78,7 +78,8 @@ public class CustomDialog {
         PlainDocument floatDocument = new PlainDocument() {
             private static final long serialVersionUID = 1874451914306029381L;
 
-            public void insertString(int offset, String str, AttributeSet a) throws
+            @Override
+			public void insertString(int offset, String str, AttributeSet a) throws
                     BadLocationException {
                 super.insertString(offset, str, a);
                 try {
@@ -97,7 +98,8 @@ public class CustomDialog {
         PlainDocument intDocument = new PlainDocument() {
             private static final long serialVersionUID = -8735280090112457273L;
 
-            public void insertString(int offset, String str, AttributeSet a) throws
+            @Override
+			public void insertString(int offset, String str, AttributeSet a) throws
                     BadLocationException {
                 super.insertString(offset, str, a);
                 try {
@@ -116,7 +118,8 @@ public class CustomDialog {
         PlainDocument stringDocument = new PlainDocument() {
             private static final long serialVersionUID = -1244429733606195330L;
 
-            public void insertString(int offset, String str, AttributeSet a) throws
+            @Override
+			public void insertString(int offset, String str, AttributeSet a) throws
                     BadLocationException {
                 super.insertString(offset, str, a);
             }

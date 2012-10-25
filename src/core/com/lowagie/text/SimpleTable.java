@@ -248,6 +248,7 @@ public class SimpleTable extends Rectangle implements PdfPTableEvent, TextElemen
 	/**
      * @see com.lowagie.text.pdf.PdfPTableEvent#tableLayout(com.lowagie.text.pdf.PdfPTable, float[][], float[], int, int, com.lowagie.text.pdf.PdfContentByte[])
  	 */
+	@Override
 	public void tableLayout(PdfPTable table, float[][] widths, float[] heights, int headerRows, int rowStart, PdfContentByte[] canvases) {
 		float[] width = widths[0];
 		Rectangle rect = new Rectangle(width[0], heights[heights.length - 1], width[width.length - 1], heights[0]);
@@ -300,6 +301,7 @@ public class SimpleTable extends Rectangle implements PdfPTableEvent, TextElemen
 	/**
 	 * @return Returns the width.
 	 */
+	@Override
 	public float getWidth() {
 		return width;
 	}
@@ -324,6 +326,7 @@ public class SimpleTable extends Rectangle implements PdfPTableEvent, TextElemen
 	/**
 	 * @see com.lowagie.text.Element#type()
 	 */
+	@Override
 	public int type() {
 		return Element.TABLE;
 	}
@@ -332,6 +335,7 @@ public class SimpleTable extends Rectangle implements PdfPTableEvent, TextElemen
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}
@@ -339,6 +343,7 @@ public class SimpleTable extends Rectangle implements PdfPTableEvent, TextElemen
 	/**
 	 * @see com.lowagie.text.TextElementArray#add(java.lang.Object)
 	 */
+	@Override
 	public boolean add(Object o) {
 		try {
 			addElement((SimpleCell)o);

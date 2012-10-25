@@ -118,7 +118,8 @@ public class TagMap extends HashMap {
  * @param	attrs		the list of attributes
  */
         
-        public void startElement(String uri, String lname, String tag, Attributes attrs) {
+        @Override
+		public void startElement(String uri, String lname, String tag, Attributes attrs) {
             String name = attrs.getValue(NAME);
             String alias = attrs.getValue(ALIAS);
             String value = attrs.getValue(VALUE);
@@ -149,7 +150,8 @@ public class TagMap extends HashMap {
  * @param	length	the number of characters to read from the array
  */
         
-        public void ignorableWhitespace(char[] ch, int start, int length) {
+        @Override
+		public void ignorableWhitespace(char[] ch, int start, int length) {
             // do nothing
         }
         
@@ -161,7 +163,8 @@ public class TagMap extends HashMap {
  * @param	length	the number of characters to read from the array
  */
         
-        public void characters(char[] ch, int start, int length) {
+        @Override
+		public void characters(char[] ch, int start, int length) {
             // do nothing
         }
         
@@ -173,7 +176,8 @@ public class TagMap extends HashMap {
  * @param	tag		the name of the tag that ends
  */
         
-        public void endElement(String uri, String lname, String tag) {
+        @Override
+		public void endElement(String uri, String lname, String tag) {
             if (TAG.equals(tag))
                 tagMap.put(currentPeer.getAlias(), currentPeer);
         }

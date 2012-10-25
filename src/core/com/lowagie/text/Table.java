@@ -299,7 +299,8 @@ public class Table extends Rectangle implements LargeElement {
      * @param       listener        an <CODE>ElementListener</CODE>
      * @return <CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
             return listener.add(this);
         }
@@ -313,7 +314,8 @@ public class Table extends Rectangle implements LargeElement {
      *
      * @return  a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.TABLE;
     }
     
@@ -323,7 +325,8 @@ public class Table extends Rectangle implements LargeElement {
      * @return  an <CODE>ArrayList</CODE>
      */
     
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         return new ArrayList();
     }
 
@@ -331,6 +334,7 @@ public class Table extends Rectangle implements LargeElement {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}
@@ -499,7 +503,8 @@ public class Table extends Rectangle implements LargeElement {
      *
      * @return      the table width
      */
-    public float getWidth() {
+    @Override
+	public float getWidth() {
         return width;
     }
     
@@ -1446,6 +1451,7 @@ public class Table extends Rectangle implements LargeElement {
 	 * @since	iText 2.0.8
 	 * @see com.lowagie.text.LargeElement#flushContent()
 	 */
+	@Override
 	public void flushContent() {		
 		this.setNotAddedYet(false);
         ArrayList headerrows = new ArrayList();
@@ -1459,6 +1465,7 @@ public class Table extends Rectangle implements LargeElement {
      * @since	iText 2.0.8
 	 * @see com.lowagie.text.LargeElement#isComplete()
 	 */
+	@Override
 	public boolean isComplete() {
 		return complete;
 	}
@@ -1467,6 +1474,7 @@ public class Table extends Rectangle implements LargeElement {
      * @since	iText 2.0.8
 	 * @see com.lowagie.text.LargeElement#setComplete(boolean)
 	 */
+	@Override
 	public void setComplete(boolean complete) {
 		this.complete = complete;
 	}

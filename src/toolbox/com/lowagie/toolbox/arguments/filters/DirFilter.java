@@ -51,7 +51,8 @@ public class DirFilter extends FileFilter {
      * @param f File
      * @return boolean
      */
-    public boolean accept(File f) {
+    @Override
+	public boolean accept(File f) {
 		if (f.isDirectory()) return true;
 		return false;
 	}
@@ -61,7 +62,8 @@ public class DirFilter extends FileFilter {
      * @see javax.swing.filechooser.FileFilter#getDescription()
      * @return String
      */
-    public String getDescription() {
+    @Override
+	public String getDescription() {
 		return "directories";
 	}
 

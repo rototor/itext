@@ -91,7 +91,8 @@ public class Watermarker extends AbstractTool {
     /**
      * Creates the internal frame.
      */
-    protected void createFrame() {
+    @Override
+	protected void createFrame() {
         internalFrame = new JInternalFrame("Watermark", true, false, true);
         internalFrame.setSize(300, 80);
         internalFrame.setJMenuBar(getMenubar());
@@ -101,7 +102,8 @@ public class Watermarker extends AbstractTool {
     /**
      * Executes the tool (in most cases this generates a PDF file).
      */
-    public void execute() {
+    @Override
+	public void execute() {
         try {
             if (getValue("srcfile") == null) {
                 throw new InstantiationException(
@@ -168,7 +170,8 @@ public class Watermarker extends AbstractTool {
      * @return the PDF file that should be generated
      * @throws InstantiationException
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
         return (File) getValue("destfile");
     }
 
@@ -178,7 +181,8 @@ public class Watermarker extends AbstractTool {
      * @param arg
      *            the argument that has changed
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
         if (internalFrame == null) {
             // if the internal frame is null, the tool was called from the
             // command line

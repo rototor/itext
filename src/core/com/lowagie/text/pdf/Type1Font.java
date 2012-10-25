@@ -289,7 +289,8 @@ class Type1Font extends BaseFont
  * @param name the glyph name
  * @return the width of the char
  */
-    int getRawWidth(int c, String name) {
+    @Override
+	int getRawWidth(int c, String name) {
         Object metrics[];
         if (name == null) { // font specific
             metrics = (Object[])CharMetrics.get(new Integer(c));
@@ -311,7 +312,8 @@ class Type1Font extends BaseFont
  * @param char2 the second char
  * @return the kerning to be applied
  */
-    public int getKerning(int char1, int char2)
+    @Override
+	public int getKerning(int char1, int char2)
     {
         String first = GlyphList.unicodeToName(char1);
         if (first == null)
@@ -498,7 +500,8 @@ class Type1Font extends BaseFont
  * @throws DocumentException if there is an error reading the font
  * @since 2.1.3
  */
-    public PdfStream getFullFontStream() throws DocumentException
+    @Override
+	public PdfStream getFullFontStream() throws DocumentException
     {
         if (builtinFont || !embedded)
             return null;
@@ -647,7 +650,8 @@ class Type1Font extends BaseFont
      * @throws IOException on error
      * @throws DocumentException error in generating the object
      */
-    void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
+    @Override
+	void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
         int firstChar = ((Integer)params[0]).intValue();
         int lastChar = ((Integer)params[1]).intValue();
         byte shortTag[] = (byte[])params[2];
@@ -683,7 +687,8 @@ class Type1Font extends BaseFont
      * @param fontSize the font size in points
      * @return the parameter in points
      */    
-    public float getFontDescriptor(int key, float fontSize) {
+    @Override
+	public float getFontDescriptor(int key, float fontSize) {
         switch (key) {
             case AWT_ASCENT:
             case ASCENT:
@@ -718,7 +723,8 @@ class Type1Font extends BaseFont
     /** Gets the postscript font name.
      * @return the postscript font name
      */
-    public String getPostscriptFontName() {
+    @Override
+	public String getPostscriptFontName() {
         return FontName;
     }
     
@@ -730,7 +736,8 @@ class Type1Font extends BaseFont
      * font name}.
      * @return the full name of the font
      */
-    public String[][] getFullFontName() {
+    @Override
+	public String[][] getFullFontName() {
         return new String[][]{{"", "", "", FullName}};
     }
     
@@ -742,7 +749,8 @@ class Type1Font extends BaseFont
      * font name}.
      * @return the full name of the font
      */
-    public String[][] getAllNameEntries() {
+    @Override
+	public String[][] getAllNameEntries() {
         return new String[][]{{"4", "", "", "", FullName}};
     }
     
@@ -754,14 +762,16 @@ class Type1Font extends BaseFont
      * font name}.
      * @return the family name of the font
      */
-    public String[][] getFamilyFontName() {
+    @Override
+	public String[][] getFamilyFontName() {
         return new String[][]{{"", "", "", FamilyName}};
     }
     
     /** Checks if the font has any kerning pairs.
      * @return <CODE>true</CODE> if the font has any kerning pairs
      */    
-    public boolean hasKernPairs() {
+    @Override
+	public boolean hasKernPairs() {
         return !KernPairs.isEmpty();
     }
     
@@ -770,7 +780,8 @@ class Type1Font extends BaseFont
      * Use with care as it can easily make a font unreadable if not embedded.
      * @param name the new font name
      */    
-    public void setPostscriptFontName(String name) {
+    @Override
+	public void setPostscriptFontName(String name) {
         FontName = name;
     }
     
@@ -781,7 +792,8 @@ class Type1Font extends BaseFont
      * @param kern the kerning to apply in normalized 1000 units
      * @return <code>true</code> if the kerning was applied, <code>false</code> otherwise
      */
-    public boolean setKerning(int char1, int char2, int kern) {
+    @Override
+	public boolean setKerning(int char1, int char2, int kern) {
         String first = GlyphList.unicodeToName(char1);
         if (first == null)
             return false;
@@ -809,7 +821,8 @@ class Type1Font extends BaseFont
         return true;
     }
     
-    protected int[] getRawCharBBox(int c, String name) {
+    @Override
+	protected int[] getRawCharBBox(int c, String name) {
         Object metrics[];
         if (name == null) { // font specific
             metrics = (Object[])CharMetrics.get(new Integer(c));

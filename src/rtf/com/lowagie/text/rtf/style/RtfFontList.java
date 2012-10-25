@@ -99,7 +99,8 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
     /**
      * unused
      */
-    public void writeContent(OutputStream out) throws IOException
+    @Override
+	public void writeContent(OutputStream out) throws IOException
     {	
     }
     
@@ -130,7 +131,8 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
     /**
      * Writes the definition of the font list
      */
-    public void writeDefinition(final OutputStream result) throws IOException 
+    @Override
+	public void writeDefinition(final OutputStream result) throws IOException 
     {
         result.write(DEFAULT_FONT);
         result.write(intToByteArray(0));

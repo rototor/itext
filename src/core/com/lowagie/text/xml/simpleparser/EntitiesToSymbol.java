@@ -64,10 +64,10 @@ public class EntitiesToSymbol {
      * This is a map that contains all possible id values of the entity tag
      * that can be translated to a character in font Symbol.
      */
-    public static final HashMap map;
+    public static final HashMap<String,Character> map;
     
     static {
-        map = new HashMap();
+        map = new HashMap<String,Character>();
         map.put("169", new Character((char)227));
         map.put("172", new Character((char)216));
         map.put("174", new Character((char)210));

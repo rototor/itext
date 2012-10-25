@@ -88,6 +88,7 @@ public class PolylineShape implements Shape {
 	 * 	bounding box of this line.
 	 * @see java.awt.Shape#getBounds2D()
 	 */
+	@Override
 	public Rectangle2D getBounds2D() {
 		int[] r = rect();
 		return r==null?null:new Rectangle2D.Double(r[0], r[1], r[2], r[3]);
@@ -97,6 +98,7 @@ public class PolylineShape implements Shape {
 	 * Returns the bounding box of this polyline.
 	 * @see java.awt.Shape#getBounds()
 	 */
+	@Override
 	public Rectangle getBounds() {
 		return getBounds2D().getBounds();
 	}
@@ -124,24 +126,28 @@ public class PolylineShape implements Shape {
 	 * A polyline can't contain a point.
 	 * @see java.awt.Shape#contains(double, double)
 	 */
+	@Override
 	public boolean contains(double x, double y) { return false; }
 	
 	/**
 	 * A polyline can't contain a point.
 	 * @see java.awt.Shape#contains(java.awt.geom.Point2D)
 	 */
+	@Override
 	public boolean contains(Point2D p) { return false; }
 	
 	/**
 	 * A polyline can't contain a point.
 	 * @see java.awt.Shape#contains(double, double, double, double)
 	 */
+	@Override
 	public boolean contains(double x, double y, double w, double h) { return false; }
 	
 	/**
 	 * A polyline can't contain a point.
 	 * @see java.awt.Shape#contains(java.awt.geom.Rectangle2D)
 	 */
+	@Override
 	public boolean contains(Rectangle2D r) { return false; }
 
 	/**
@@ -149,6 +155,7 @@ public class PolylineShape implements Shape {
 	 * with a given rectangle.
 	 * @see java.awt.Shape#intersects(double, double, double, double)
 	 */
+	@Override
 	public boolean intersects(double x, double y, double w, double h) {
 		return intersects(new Rectangle2D.Double(x, y, w, h));
 	}
@@ -158,6 +165,7 @@ public class PolylineShape implements Shape {
 	 * with a given rectangle.
 	 * @see java.awt.Shape#intersects(java.awt.geom.Rectangle2D)
 	 */
+	@Override
 	public boolean intersects(Rectangle2D r) {
 		if(np==0)return false;
 		Line2D line = new Line2D.Double(x[0],y[0],x[0],y[0]);
@@ -174,6 +182,7 @@ public class PolylineShape implements Shape {
 	 * @return a {@link PathIterator} that defines the boundary of this polyline.
 	 * @see java.awt.Shape#intersects(java.awt.geom.Rectangle2D)
 	 */
+	@Override
 	public PathIterator getPathIterator(AffineTransform at) {
 		return new PolylineShapeIterator(this, at);
 	}
@@ -182,6 +191,7 @@ public class PolylineShape implements Shape {
 	 * There's no difference with getPathIterator(AffineTransform at);
 	 * we just need this method to implement the Shape interface.
 	 */
+	@Override
 	public PathIterator getPathIterator(AffineTransform at, double flatness) {
 		return new PolylineShapeIterator(this, at);
 	}

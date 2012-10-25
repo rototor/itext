@@ -272,7 +272,8 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
         if(this.document != null) {
             for(int i = 0; i < this.content.length; i++) {
@@ -294,7 +295,8 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
     /**
      * Writes the content of this RtfHeaderFooter
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         if(this.type == TYPE_HEADER) {
@@ -360,21 +362,24 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
      * Unused
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
     }
     
     /**
      * Unused
      * @param inHeader
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
     }
     
     /**
      * Set the alignment of this RtfHeaderFooter. Passes the setting
      * on to the contained element.
      */
-    public void setAlignment(int alignment) {
+    @Override
+	public void setAlignment(int alignment) {
         super.setAlignment(alignment);
         for(int i = 0; i < this.content.length; i++) {
             if(this.content[i] instanceof Paragraph) {

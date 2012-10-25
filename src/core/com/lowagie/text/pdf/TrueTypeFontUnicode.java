@@ -121,7 +121,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @param char1 the unicode <CODE>char</CODE> to get the width of
      * @return the width in normalized 1000 units
      */
-    public int getWidth(int char1) {
+    @Override
+	public int getWidth(int char1) {
         if (vertical)
             return 1000;
         if (fontSpecific) {
@@ -140,7 +141,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @param text the <CODE>String</CODE> to get the width of
      * @return the width in normalized 1000 units
      */
-    public int getWidth(String text) {
+    @Override
+	public int getWidth(String text) {
         if (vertical)
             return text.length() * 1000;
         int total = 0;
@@ -316,7 +318,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @param o2 the second element
      * @return the comparison
      */    
-    public int compare(Object o1, Object o2) {
+    @Override
+	public int compare(Object o1, Object o2) {
         int m1 = ((int[])o1)[0];
         int m2 = ((int[])o2)[0];
         if (m1 < m2)
@@ -335,7 +338,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @throws IOException on error
      * @throws DocumentException error in generating the object
      */
-    void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
+    @Override
+	void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
         HashMap longTag = (HashMap)params[0];
         addRangeUni(longTag, true, subset);
         Object metrics[] = longTag.values().toArray();
@@ -413,7 +417,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @return	a PdfStream with the font program
      * @since	2.1.3
      */
-    public PdfStream getFullFontStream() throws IOException, DocumentException {
+    @Override
+	public PdfStream getFullFontStream() throws IOException, DocumentException {
     	if (cff) {
 			return new StreamFont(readCffFont(), "CIDFontType0C", compressionLevel);
         }
@@ -424,11 +429,13 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @param text the text
      * @return always <CODE>null</CODE>
      */    
-    byte[] convertToBytes(String text) {
+    @Override
+	byte[] convertToBytes(String text) {
         return null;
     }
 
-    byte[] convertToBytes(int char1) {
+    @Override
+	byte[] convertToBytes(int char1) {
         return null;
     }
 
@@ -436,7 +443,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @param c the character
      * @return an <CODE>int</CODE> array with {glyph index, width}
      */    
-    public int[] getMetricsTT(int c) {
+    @Override
+	public int[] getMetricsTT(int c) {
         if (cmapExt != null)
             return (int[])cmapExt.get(new Integer(c));
         HashMap map = null;
@@ -462,7 +470,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @return <CODE>true</CODE> if the character has a glyph,
      * <CODE>false</CODE> otherwise
      */
-    public boolean charExists(int c) {
+    @Override
+	public boolean charExists(int c) {
         return getMetricsTT(c) != null;
     }
     
@@ -473,7 +482,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
      * @return <CODE>true</CODE> if the advance was set,
      * <CODE>false</CODE> otherwise
      */
-    public boolean setCharAdvance(int c, int advance) {
+    @Override
+	public boolean setCharAdvance(int c, int advance) {
         int[] m = getMetricsTT(c);
         if (m == null)
             return false;
@@ -481,7 +491,8 @@ class TrueTypeFontUnicode extends TrueTypeFont implements Comparator{
         return true;
     }
     
-    public int[] getCharBBox(int c) {
+    @Override
+	public int[] getCharBBox(int c) {
         if (bboxes == null)
             return null;
         int[] m = getMetricsTT(c);

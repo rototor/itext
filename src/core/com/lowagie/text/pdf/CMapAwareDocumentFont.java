@@ -158,7 +158,8 @@ public class CMapAwareDocumentFont extends DocumentFont {
      * Override to allow special handling for fonts that don't specify width of space character
      * @see com.lowagie.text.pdf.DocumentFont#getWidth(int)
      */
-    public int getWidth(int char1) {
+    @Override
+	public int getWidth(int char1) {
         if (char1 == ' ')
             return spaceWidth;
         

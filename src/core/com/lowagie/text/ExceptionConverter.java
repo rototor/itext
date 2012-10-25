@@ -100,7 +100,8 @@ public class ExceptionConverter extends RuntimeException {
      * We print the message of the checked exception 
      * @return message of the original exception
      */
-    public String getMessage() {
+    @Override
+	public String getMessage() {
         return ex.getMessage();
     }
 
@@ -108,7 +109,8 @@ public class ExceptionConverter extends RuntimeException {
      * and make sure we also produce a localized version
      * @return localized version of the message
      */
-    public String getLocalizedMessage() {
+    @Override
+	public String getLocalizedMessage() {
         return ex.getLocalizedMessage();
     }
 
@@ -116,12 +118,14 @@ public class ExceptionConverter extends RuntimeException {
      * The toString() is changed to be prefixed with ExceptionConverter 
      * @return String version of the exception
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return prefix + ex;
     }
 
     /** we have to override this as well */
-    public void printStackTrace() {
+    @Override
+	public void printStackTrace() {
         printStackTrace(System.err);
     }
 
@@ -130,7 +134,8 @@ public class ExceptionConverter extends RuntimeException {
      * trace with "ExceptionConverter:" 
      * @param s
      */
-    public void printStackTrace(java.io.PrintStream s) {
+    @Override
+	public void printStackTrace(java.io.PrintStream s) {
         synchronized (s) {
             s.print(prefix);
             ex.printStackTrace(s);
@@ -141,7 +146,8 @@ public class ExceptionConverter extends RuntimeException {
      * Again, we prefix the stack trace with "ExceptionConverter:" 
      * @param s
      */
-    public void printStackTrace(java.io.PrintWriter s) {
+    @Override
+	public void printStackTrace(java.io.PrintWriter s) {
         synchronized (s) {
             s.print(prefix);
             ex.printStackTrace(s);
@@ -154,7 +160,8 @@ public class ExceptionConverter extends RuntimeException {
      * is called by the constructor of Throwable 
      * @return a Throwable
      */
-    public Throwable fillInStackTrace() {
+    @Override
+	public Throwable fillInStackTrace() {
         return this;
     }
 }

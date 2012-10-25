@@ -163,7 +163,8 @@ public class PdfRectangle extends PdfArray {
  * @return		<CODE>false</CODE>
  */
 
-    public boolean add(PdfObject object) {
+    @Override
+	public boolean add(PdfObject object) {
         return false;
     }
 
@@ -174,7 +175,8 @@ public class PdfRectangle extends PdfArray {
      * @since 2.1.5
      */
 
-    public boolean add( float values[] ) {
+    @Override
+	public boolean add( float values[] ) {
         return false;
     }
 
@@ -185,7 +187,8 @@ public class PdfRectangle extends PdfArray {
      * @since 2.1.5
      */
 
-    public boolean add( int values[] ) {
+    @Override
+	public boolean add( int values[] ) {
         return false;
     }
 
@@ -195,7 +198,8 @@ public class PdfRectangle extends PdfArray {
      * @since 2.1.5
      */
 
-    public void addFirst( PdfObject object ) {
+    @Override
+	public void addFirst( PdfObject object ) {
     }
 /**
  * Returns the lower left x-coordinate.

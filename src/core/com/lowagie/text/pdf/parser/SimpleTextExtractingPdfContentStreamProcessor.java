@@ -66,7 +66,8 @@ public class SimpleTextExtractingPdfContentStreamProcessor extends PdfContentStr
     public SimpleTextExtractingPdfContentStreamProcessor() {
     }
 
-    public void reset() {
+    @Override
+	public void reset() {
         super.reset();
         lastTextLineMatrix = null;
         lastEndingTextMatrix = null;
@@ -87,7 +88,8 @@ public class SimpleTextExtractingPdfContentStreamProcessor extends PdfContentStr
      * @param endingTextMatrix	a text matrix
      * @see com.lowagie.text.pdf.parser.PdfContentStreamProcessor#displayText(java.lang.String, com.lowagie.text.pdf.parser.Matrix)
      */
-    public void displayText(String text, Matrix endingTextMatrix){
+    @Override
+	public void displayText(String text, Matrix endingTextMatrix){
         boolean hardReturn = false;
         if (lastTextLineMatrix != null && lastTextLineMatrix.get(Matrix.I32) != getCurrentTextLineMatrix().get(Matrix.I32)){
         //if (!textLineMatrix.equals(lastTextLineMatrix)){

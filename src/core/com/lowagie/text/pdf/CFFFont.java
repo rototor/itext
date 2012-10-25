@@ -411,11 +411,13 @@ public class CFFFont {
             this.length = length;
             this.buf = buf;
         }
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += length;
         }
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             //System.err.println("range emit offset "+offset+" size="+length);
             try {
                 buf.seek(offset);
@@ -440,11 +442,13 @@ public class CFFFont {
         public IndexOffsetItem(int size, int value) {this.size=size; this.value=value;}
         public IndexOffsetItem(int size) {this.size=size; }
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += size;
         }
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             int i=0;
             switch (size) {
                 case 4:
@@ -481,7 +485,8 @@ public class CFFFont {
             this.offItem   = offItem;
             this.indexBase = indexBase;
         }
-        public void xref() {
+        @Override
+		public void xref() {
             //System.err.println("index marker item, base="+indexBase.myOffset+" my="+this.myOffset);
             offItem.set(this.myOffset-indexBase.myOffset+1);
         }
@@ -497,7 +502,8 @@ public class CFFFont {
             this.offItem   = offItem;
             this.indexBase = indexBase;
         }
-        public void xref() {
+        @Override
+		public void xref() {
             //System.err.println("index marker item, base="+indexBase.myOffset+" my="+this.myOffset);
             offItem.set(this.myOffset-indexBase.myOffset);
         }
@@ -511,12 +517,14 @@ public class CFFFont {
         public final int size;
         public DictOffsetItem() {this.size=5; }
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += size;
         }
         // this is incomplete!
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             if (size==5) {
                 buffer[myOffset]   = 29;
                 buffer[myOffset+1] = (byte) ((value >>> 24) & 0xff);
@@ -534,12 +542,14 @@ public class CFFFont {
         public int value;
         public UInt24Item(int value) {this.value=value;}
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += 3;
         }
         // this is incomplete!
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
         	buffer[myOffset+0] = (byte) ((value >>> 16) & 0xff);
             buffer[myOffset+1] = (byte) ((value >>> 8) & 0xff);
             buffer[myOffset+2] = (byte) ((value >>> 0) & 0xff);
@@ -553,12 +563,14 @@ public class CFFFont {
         public int value;
         public UInt32Item(int value) {this.value=value;}
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += 4;
         }
         // this is incomplete!
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
         	buffer[myOffset+0] = (byte) ((value >>> 24) & 0xff);
         	buffer[myOffset+1] = (byte) ((value >>> 16) & 0xff);
             buffer[myOffset+2] = (byte) ((value >>> 8) & 0xff);
@@ -573,12 +585,14 @@ public class CFFFont {
         public char value;
         public UInt16Item(char value) {this.value=value;}
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += 2;
         }
         // this is incomplete!
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             buffer[myOffset+0] = (byte) ((value >>> 8) & 0xff);
             buffer[myOffset+1] = (byte) ((value >>> 0) & 0xff);
         }
@@ -591,12 +605,14 @@ public class CFFFont {
         public char value;
         public UInt8Item(char value) {this.value=value;}
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += 1;
         }
         // this is incomplete!
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             buffer[myOffset+0] = (byte) ((value >>> 0) & 0xff);
         }
     }
@@ -605,11 +621,13 @@ public class CFFFont {
         public String s;
         public StringItem(String s) {this.s=s;}
         
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += s.length();
         }
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             for (int i=0; i<s.length(); i++)
                 buffer[myOffset+i] = (byte) (s.charAt(i) & 0xff);
         }
@@ -625,12 +643,14 @@ public class CFFFont {
         public final int value;
         public int size = 5;
         public DictNumberItem(int value) {this.value=value;}
-        public void increment(int[] currentOffset) {
+        @Override
+		public void increment(int[] currentOffset) {
             super.increment(currentOffset);
             currentOffset[0] += size;
         }
         // this is incomplete!
-        public void emit(byte[] buffer) {
+        @Override
+		public void emit(byte[] buffer) {
             if (size==5) {
                 buffer[myOffset]   = 29;
                 buffer[myOffset+1] = (byte) ((value >>> 24) & 0xff);
@@ -648,7 +668,8 @@ public class CFFFont {
     static protected final class MarkerItem extends Item {
         OffsetItem p;
         public MarkerItem(OffsetItem pointerToMarker) {p=pointerToMarker;}
-        public void xref() {
+        @Override
+		public void xref() {
             p.set(this.myOffset);
         }
     }

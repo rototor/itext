@@ -133,7 +133,8 @@ public class RtfSection extends RtfElement {
     /**
      * Write this RtfSection and its contents
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         result.write(RtfParagraph.PARAGRAPH);
         if(this.title != null) {
@@ -152,7 +153,8 @@ public class RtfSection extends RtfElement {
      * 
      * @param inTable <code>True</code> if this RtfSection is in a table, <code>false</code> otherwise
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
         super.setInTable(inTable);
         for(int i = 0; i < this.items.size(); i++) {
             ((RtfBasicElement) this.items.get(i)).setInTable(inTable);
@@ -165,7 +167,8 @@ public class RtfSection extends RtfElement {
      * 
      * @param inHeader <code>True</code> if this RtfSection is in a header, <code>false</code> otherwise
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
         super.setInHeader(inHeader);
         for(int i = 0; i < this.items.size(); i++) {
             ((RtfBasicElement) this.items.get(i)).setInHeader(inHeader);

@@ -220,11 +220,13 @@ public class RandomAccessFileOrArray implements DataInput {
         return read(b, 0, b.length);
     }
     
-    public void readFully(byte b[]) throws IOException {
+    @Override
+	public void readFully(byte b[]) throws IOException {
         readFully(b, 0, b.length);
     }
     
-    public void readFully(byte b[], int off, int len) throws IOException {
+    @Override
+	public void readFully(byte b[], int off, int len) throws IOException {
         int n = 0;
         do {
             int count = read(b, off + n, len - n);
@@ -238,7 +240,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return skipBytes((int)n);
     }
     
-    public int skipBytes(int n) throws IOException {
+    @Override
+	public int skipBytes(int n) throws IOException {
         if (n <= 0) {
             return 0;
         }
@@ -342,28 +345,32 @@ public class RandomAccessFileOrArray implements DataInput {
             return arrayInPtr - n - startOffset;
     }
     
-    public boolean readBoolean() throws IOException {
+    @Override
+	public boolean readBoolean() throws IOException {
         int ch = this.read();
         if (ch < 0)
             throw new EOFException();
         return (ch != 0);
     }
     
-    public byte readByte() throws IOException {
+    @Override
+	public byte readByte() throws IOException {
         int ch = this.read();
         if (ch < 0)
             throw new EOFException();
         return (byte)(ch);
     }
     
-    public int readUnsignedByte() throws IOException {
+    @Override
+	public int readUnsignedByte() throws IOException {
         int ch = this.read();
         if (ch < 0)
             throw new EOFException();
         return ch;
     }
     
-    public short readShort() throws IOException {
+    @Override
+	public short readShort() throws IOException {
         int ch1 = this.read();
         int ch2 = this.read();
         if ((ch1 | ch2) < 0)
@@ -400,7 +407,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return (short)((ch2 << 8) + (ch1 << 0));
     }
     
-    public int readUnsignedShort() throws IOException {
+    @Override
+	public int readUnsignedShort() throws IOException {
         int ch1 = this.read();
         int ch2 = this.read();
         if ((ch1 | ch2) < 0)
@@ -437,7 +445,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return (ch2 << 8) + (ch1 << 0);
     }
     
-    public char readChar() throws IOException {
+    @Override
+	public char readChar() throws IOException {
         int ch1 = this.read();
         int ch2 = this.read();
         if ((ch1 | ch2) < 0)
@@ -473,7 +482,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return (char)((ch2 << 8) + (ch1 << 0));
     }
     
-    public int readInt() throws IOException {
+    @Override
+	public int readInt() throws IOException {
         int ch1 = this.read();
         int ch2 = this.read();
         int ch3 = this.read();
@@ -554,7 +564,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return ((ch4 << 24) + (ch3 << 16) + (ch2 << 8) + (ch1 << 0));
     }
     
-    public long readLong() throws IOException {
+    @Override
+	public long readLong() throws IOException {
         return ((long)(readInt()) << 32) + (readInt() & 0xFFFFFFFFL);
     }
     
@@ -564,7 +575,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return ((long)i2 << 32) + (i1 & 0xFFFFFFFFL);
     }
     
-    public float readFloat() throws IOException {
+    @Override
+	public float readFloat() throws IOException {
         return Float.intBitsToFloat(readInt());
     }
     
@@ -572,7 +584,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return Float.intBitsToFloat(readIntLE());
     }
     
-    public double readDouble() throws IOException {
+    @Override
+	public double readDouble() throws IOException {
         return Double.longBitsToDouble(readLong());
     }
     
@@ -580,7 +593,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return Double.longBitsToDouble(readLongLE());
     }
     
-    public String readLine() throws IOException {
+    @Override
+	public String readLine() throws IOException {
         StringBuffer input = new StringBuffer();
         int c = -1;
         boolean eol = false;
@@ -610,7 +624,8 @@ public class RandomAccessFileOrArray implements DataInput {
         return input.toString();
     }
     
-    public String readUTF() throws IOException {
+    @Override
+	public String readUTF() throws IOException {
         return DataInputStream.readUTF(this);
     }
     

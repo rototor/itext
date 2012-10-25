@@ -205,7 +205,8 @@ public class SAXiTextHandler extends DefaultHandler {
      *            the list of attributes
      */
 
-    public void startElement(String uri, String lname, String name,
+    @Override
+	public void startElement(String uri, String lname, String name,
             Attributes attrs) {
 
         Properties attributes = new Properties();
@@ -556,7 +557,8 @@ public class SAXiTextHandler extends DefaultHandler {
      *            the number of characters to read from the array
      */
 
-    public void ignorableWhitespace(char[] ch, int start, int length) {
+    @Override
+	public void ignorableWhitespace(char[] ch, int start, int length) {
         characters(ch, start, length);
     }
 
@@ -571,7 +573,8 @@ public class SAXiTextHandler extends DefaultHandler {
      *            the number of characters to read from the array
      */
 
-    public void characters(char[] ch, int start, int length) {
+    @Override
+	public void characters(char[] ch, int start, int length) {
 
         if (ignore)
             return;
@@ -643,7 +646,8 @@ public class SAXiTextHandler extends DefaultHandler {
      *            the name of the tag that ends
      */
 
-    public void endElement(String uri, String lname, String name) {
+    @Override
+	public void endElement(String uri, String lname, String name) {
         handleEndingTags(name);
     }
 

@@ -93,13 +93,15 @@ public class PdfXConformanceImp implements PdfXConformance {
     /**
      * @see com.lowagie.text.pdf.interfaces.PdfXConformance#setPDFXConformance(int)
      */
-    public void setPDFXConformance(int pdfxConformance) {
+    @Override
+	public void setPDFXConformance(int pdfxConformance) {
         this.pdfxConformance = pdfxConformance;
     }
 
 	/**
 	 * @see com.lowagie.text.pdf.interfaces.PdfXConformance#getPDFXConformance()
 	 */
+	@Override
 	public int getPDFXConformance() {
 		return pdfxConformance;
 	}
@@ -108,7 +110,8 @@ public class PdfXConformanceImp implements PdfXConformance {
      * Checks if the PDF/X Conformance is necessary.
      * @return true if the PDF has to be in conformance with any of the PDF/X specifications
      */
-    public boolean isPdfX() {
+    @Override
+	public boolean isPdfX() {
     	return pdfxConformance != PdfWriter.PDFXNONE;
     }
     /**

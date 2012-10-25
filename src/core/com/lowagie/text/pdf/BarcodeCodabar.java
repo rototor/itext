@@ -166,7 +166,8 @@ public class BarcodeCodabar extends Barcode{
      * any, will occupy. The lower left corner is always (0, 0).
      * @return the size the barcode occupies.
      */    
-    public Rectangle getBarcodeSize() {
+    @Override
+	public Rectangle getBarcodeSize() {
         float fontX = 0;
         float fontY = 0;
         String text = code;
@@ -232,7 +233,8 @@ public class BarcodeCodabar extends Barcode{
      * @param textColor the color of the text. It can be <CODE>null</CODE>
      * @return the dimensions the barcode occupies
      */    
-    public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
+    @Override
+	public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
         String fullCode = code;
         if (generateChecksum && checksumText)
             fullCode = calculateChecksum(code);
@@ -306,7 +308,8 @@ public class BarcodeCodabar extends Barcode{
      * @param background the color of the background
      * @return the image
      */    
-    public java.awt.Image createAwtImage(Color foreground, Color background) {
+    @Override
+	public java.awt.Image createAwtImage(Color foreground, Color background) {
         int f = foreground.getRGB();
         int g = background.getRGB();
         Canvas canvas = new Canvas();

@@ -209,7 +209,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      * @param	listener	an <CODE>ElementListener</CODE>
      * @return	<CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
             for (Iterator i = iterator(); i.hasNext(); ) {
                 listener.add((Element) i.next());
@@ -226,7 +227,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      *
      * @return	a type
      */    
-    public int type() {
+    @Override
+	public int type() {
         return Element.PHRASE;
     }
     
@@ -235,7 +237,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      *
      * @return	an <CODE>ArrayList</CODE>
      */ 
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         ArrayList tmp = new ArrayList();
         for (Iterator i = iterator(); i.hasNext(); ) {
             tmp.addAll(((Element) i.next()).getChunks());
@@ -247,6 +250,7 @@ public class Phrase extends ArrayList implements TextElementArray {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -255,6 +259,7 @@ public class Phrase extends ArrayList implements TextElementArray {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}
@@ -269,7 +274,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      * @param	o   	an object of type <CODE>Chunk</CODE>, <CODE>Anchor</CODE> or <CODE>Phrase</CODE>
      * @throws	ClassCastException	when you try to add something that isn't a <CODE>Chunk</CODE>, <CODE>Anchor</CODE> or <CODE>Phrase</CODE>
      */
-    public void add(int index, Object o) {
+    @Override
+	public void add(int index, Object o) {
     	if (o == null) return;
         try {
             Element element = (Element) o;
@@ -308,7 +314,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      * @return	a boolean
      * @throws	ClassCastException	when you try to add something that isn't a <CODE>Chunk</CODE>, <CODE>Anchor</CODE> or <CODE>Phrase</CODE>
      */
-    public boolean add(Object o) {
+    @Override
+	public boolean add(Object o) {
     	if (o == null) return false;
         if (o instanceof String) {
             return super.add(new Chunk((String) o, font));
@@ -362,7 +369,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      * @return	<CODE>true</CODE> if the action succeeded, <CODE>false</CODE> if not.
      * @throws	ClassCastException	when you try to add something that isn't a <CODE>Chunk</CODE>, <CODE>Anchor</CODE> or <CODE>Phrase</CODE>
      */
-    public boolean addAll(Collection collection) {
+    @Override
+	public boolean addAll(Collection collection) {
         for (Iterator iterator = collection.iterator(); iterator.hasNext(); ) {
             this.add(iterator.next());
         }
@@ -488,7 +496,8 @@ public class Phrase extends ArrayList implements TextElementArray {
      * @return	<CODE>false</CODE> if the <CODE>Phrase</CODE>
      * contains more than one or more non-empty<CODE>Chunk</CODE>s.
      */
-    public boolean isEmpty() {
+    @Override
+	public boolean isEmpty() {
         switch(size()) {
             case 0:
                 return true;

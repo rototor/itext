@@ -298,7 +298,8 @@ public class Toolbox extends JFrame implements ActionListener {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @param evt ActionEvent
      */
-    public void actionPerformed(ActionEvent evt) {
+    @Override
+	public void actionPerformed(ActionEvent evt) {
         if (ToolMenuItems.CLOSE.equals(evt.getActionCommand())) {
             System.out.println("The Toolbox is closed.");
             System.exit(0);
@@ -419,7 +420,8 @@ public class Toolbox extends JFrame implements ActionListener {
             /**
              * @see java.lang.Thread#run()
              */
-            public void run() {
+            @Override
+			public void run() {
                 final byte[] buf = new byte[1024];
 
                 while (true) {

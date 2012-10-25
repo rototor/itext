@@ -84,7 +84,8 @@ public class BarcodeEANSUPP extends Barcode{
      * any, will occupy. The lower left corner is always (0, 0).
      * @return the size the barcode occupies.
      */
-    public Rectangle getBarcodeSize() {
+    @Override
+	public Rectangle getBarcodeSize() {
         Rectangle rect = ean.getBarcodeSize();
         rect.setRight(rect.getWidth() + supp.getBarcodeSize().getWidth() + n);
         return rect;
@@ -126,7 +127,8 @@ public class BarcodeEANSUPP extends Barcode{
      * @param textColor the color of the text. It can be <CODE>null</CODE>
      * @return the dimensions the barcode occupies
      */
-    public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
+    @Override
+	public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
         if (supp.getFont() != null)
             supp.setBarHeight(ean.getBarHeight() + supp.getBaseline() - supp.getFont().getFontDescriptor(BaseFont.CAPHEIGHT, supp.getSize()));
         else
@@ -148,7 +150,8 @@ public class BarcodeEANSUPP extends Barcode{
      * @param background the color of the background
      * @return the image
      */    
-    public java.awt.Image createAwtImage(Color foreground, Color background) {
+    @Override
+	public java.awt.Image createAwtImage(Color foreground, Color background) {
         throw new UnsupportedOperationException("The two barcodes must be composed externally.");
     }    
 }

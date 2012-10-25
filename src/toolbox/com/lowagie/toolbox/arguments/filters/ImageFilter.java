@@ -107,7 +107,8 @@ public class ImageFilter extends FileFilter {
      * @param f File
      * @return boolean
      */
-    public boolean accept(File f) {
+    @Override
+	public boolean accept(File f) {
 		if (f.isDirectory()) return true;
 		for (int i = 0; i < IMAGES.length; i++) {
 			if (filter[i] && f.getName().toLowerCase().endsWith(IMAGES[i])) return true;
@@ -120,7 +121,8 @@ public class ImageFilter extends FileFilter {
      * @see javax.swing.filechooser.FileFilter#getDescription()
      * @return String
      */
-    public String getDescription() {
+    @Override
+	public String getDescription() {
 		return "Image files";
 	}
 }

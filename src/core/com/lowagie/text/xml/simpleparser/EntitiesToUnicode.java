@@ -60,7 +60,7 @@ public class EntitiesToUnicode {
     /**
      * This is a map that contains the names of entities and their unicode value.
      */
-    public static final HashMap map = new HashMap();
+    public static final HashMap<String,Character> map = new HashMap<String,Character>();
     static {
         map.put("nbsp", new Character('\u00a0')); // no-break space = non-breaking space, U+00A0 ISOnum
         map.put("iexcl", new Character('\u00a1')); // inverted exclamation mark, U+00A1 ISOnum

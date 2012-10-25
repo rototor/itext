@@ -287,7 +287,8 @@ public class PdfStamper
      * Optionally DO_NOT_ENCRYPT_METADATA can be ored to output the metadata in cleartext
      * @throws DocumentException if the document is already open
      */
-    public void setEncryption(byte userPassword[], byte ownerPassword[], int permissions, int encryptionType) throws DocumentException {
+    @Override
+	public void setEncryption(byte userPassword[], byte ownerPassword[], int permissions, int encryptionType) throws DocumentException {
         if (stamper.isAppend())
             throw new DocumentException("Append mode does not support changing the encryption status.");
         if (stamper.isContentWritten())
@@ -343,7 +344,8 @@ public class PdfStamper
      * @param encryptionType the type of encryption. It can be one of STANDARD_ENCRYPTION_40, STANDARD_ENCRYPTION_128 or ENCRYPTION_AES128.
      * @throws DocumentException if the encryption was set too late
      */
-     public void setEncryption(Certificate[] certs, int[] permissions, int encryptionType) throws DocumentException {
+     @Override
+	public void setEncryption(Certificate[] certs, int[] permissions, int encryptionType) throws DocumentException {
         if (stamper.isAppend())
             throw new DocumentException("Append mode does not support changing the encryption status.");
         if (stamper.isContentWritten())
@@ -534,7 +536,8 @@ public class PdfStamper
      * @param preferences the viewer preferences
      * @see PdfViewerPreferences#setViewerPreferences(int)
      */
-    public void setViewerPreferences(int preferences) {
+    @Override
+	public void setViewerPreferences(int preferences) {
         stamper.setViewerPreferences(preferences);
     }
     
@@ -544,7 +547,8 @@ public class PdfStamper
      * @see PdfViewerPreferences#addViewerPreference
      */
     
-    public void addViewerPreference(PdfName key, PdfObject value) {
+    @Override
+	public void addViewerPreference(PdfName key, PdfObject value) {
     	stamper.addViewerPreference(key, value);
     }
 

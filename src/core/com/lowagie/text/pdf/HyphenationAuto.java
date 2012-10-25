@@ -78,7 +78,8 @@ public class HyphenationAuto implements HyphenationEvent {
     /** Gets the hyphen symbol.
      * @return the hyphen symbol
      */    
-    public String getHyphenSymbol() {
+    @Override
+	public String getHyphenSymbol() {
         return "-";
     }
     
@@ -91,7 +92,8 @@ public class HyphenationAuto implements HyphenationEvent {
      * @return the first part of the hyphenated word including
      * the hyphen symbol, if any
      */    
-    public String getHyphenatedWordPre(String word, BaseFont font, float fontSize, float remainingWidth) {
+    @Override
+	public String getHyphenatedWordPre(String word, BaseFont font, float fontSize, float remainingWidth) {
         post = word;
         String hyphen = getHyphenSymbol();
         float hyphenWidth = font.getWidthPoint(hyphen, fontSize);
@@ -118,7 +120,8 @@ public class HyphenationAuto implements HyphenationEvent {
      * after <CODE>getHyphenatedWordPre()</CODE>.
      * @return the second part of the hyphenated word
      */    
-    public String getHyphenatedWordPost() {
+    @Override
+	public String getHyphenatedWordPost() {
         return post;
     }
     

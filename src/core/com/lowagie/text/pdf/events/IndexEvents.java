@@ -79,7 +79,8 @@ public class IndexEvents extends PdfPageEventHelper {
      *      com.lowagie.text.pdf.PdfWriter, com.lowagie.text.Document,
      *      com.lowagie.text.Rectangle, java.lang.String)
      */
-    public void onGenericTag(PdfWriter writer, Document document,
+    @Override
+	public void onGenericTag(PdfWriter writer, Document document,
             Rectangle rect, String text) {
         indextag.put(text, new Integer(writer.getPageNumber()));
     }
@@ -183,7 +184,8 @@ public class IndexEvents extends PdfPageEventHelper {
      */
     private Comparator comparator = new Comparator() {
 
-        public int compare(Object arg0, Object arg1) {
+        @Override
+		public int compare(Object arg0, Object arg1) {
             Entry en1 = (Entry) arg0;
             Entry en2 = (Entry) arg1;
 
@@ -380,7 +382,8 @@ public class IndexEvents extends PdfPageEventHelper {
          * print the entry (only for test)
          * @return the toString implementation of the entry
          */
-        public String toString() {
+        @Override
+		public String toString() {
             StringBuffer buf = new StringBuffer();
             buf.append(in1).append(' ');
             buf.append(in2).append(' ');

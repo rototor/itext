@@ -228,7 +228,8 @@ public class PdfContentByte {
      * @return      a <CODE>String</CODE>
      */
 
-    public String toString() {
+    @Override
+	public String toString() {
         return content.toString();
     }
 

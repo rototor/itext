@@ -83,6 +83,7 @@ public class Txt2Pdf extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#createFrame()
 	 */
+	@Override
 	protected void createFrame() {
 		internalFrame = new JInternalFrame("Txt2Pdf", true, true, true);
 		internalFrame.setSize(300, 80);
@@ -93,6 +94,7 @@ public class Txt2Pdf extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#execute()
 	 */
+	@Override
 	public void execute() {
 		try {
             String line = null;
@@ -128,7 +130,8 @@ public class Txt2Pdf extends AbstractTool {
      * @see com.lowagie.toolbox.AbstractTool#valueHasChanged(com.lowagie.toolbox.arguments.AbstractArgument)
      * @param arg StringArgument
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
 		if (internalFrame == null) {
 			// if the internal frame is null, the tool was called from the command line
 			return;
@@ -157,7 +160,8 @@ public class Txt2Pdf extends AbstractTool {
      * @throws InstantiationException
      * @return File
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
 		return (File)getValue("destfile");
 	}
 }

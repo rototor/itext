@@ -203,7 +203,8 @@ public class ListItem extends Paragraph {
      *
      * @return	a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.LISTITEM;
     }
     

@@ -451,7 +451,8 @@ public class RtfParagraphStyle extends RtfFont {
      * 
      * @param fontName The font name to use 
      */
-    public void setFontName(String fontName) {
+    @Override
+	public void setFontName(String fontName) {
         this.modified = this.modified | MODIFIED_FONT_NAME;
         super.setFontName(fontName);
     }
@@ -461,7 +462,8 @@ public class RtfParagraphStyle extends RtfFont {
      * 
      * @param fontSize The font size to use.
      */
-    public void setSize(float fontSize) {
+    @Override
+	public void setSize(float fontSize) {
         this.modified = this.modified | MODIFIED_FONT_SIZE;
         super.setSize(fontSize);
     }
@@ -471,7 +473,8 @@ public class RtfParagraphStyle extends RtfFont {
      * 
      * @param fontStyle The font style to use.
      */
-    public void setStyle(int fontStyle) {
+    @Override
+	public void setStyle(int fontStyle) {
         this.modified = this.modified | MODIFIED_FONT_STYLE;
         super.setStyle(fontStyle);
     }
@@ -481,7 +484,8 @@ public class RtfParagraphStyle extends RtfFont {
      * 
      * @param color The Color to use.
      */
-    public void setColor(Color color) {
+    @Override
+	public void setColor(Color color) {
         this.modified = this.modified | MODIFIED_FONT_COLOR;
         super.setColor(color);
     }
@@ -646,7 +650,8 @@ public class RtfParagraphStyle extends RtfFont {
     /**
      * Writes the definition of this RtfParagraphStyle for the stylesheet list.
      */
-    public void writeDefinition(final OutputStream result) throws IOException 
+    @Override
+	public void writeDefinition(final OutputStream result) throws IOException 
     {
         result.write(DocWriter.getISOBytes("{"));
         result.write(DocWriter.getISOBytes("\\style"));
@@ -668,7 +673,8 @@ public class RtfParagraphStyle extends RtfFont {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    public void writeBegin(final OutputStream result) throws IOException {
+    @Override
+	public void writeBegin(final OutputStream result) throws IOException {
         result.write(DocWriter.getISOBytes("\\s"));
         result.write(intToByteArray(this.styleNumber));
         writeParagraphSettings(result);
@@ -680,13 +686,15 @@ public class RtfParagraphStyle extends RtfFont {
      * @param result The <code>OutputStream</code> that nothing is written to
      * @throws IOException On i/o errors.
      */
-    public void writeEnd(final OutputStream result) throws IOException {
+    @Override
+	public void writeEnd(final OutputStream result) throws IOException {
     }
     
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    @Override
+	public void writeContent(final OutputStream out) throws IOException
     {    	
     }
     
@@ -694,7 +702,8 @@ public class RtfParagraphStyle extends RtfFont {
      * Tests whether two RtfParagraphStyles are equal. Equality
      * is determined via the name.
      */
-    public boolean equals(Object o) {
+    @Override
+	public boolean equals(Object o) {
         if(!(o instanceof RtfParagraphStyle)) {
             return false;
         }
@@ -706,7 +715,8 @@ public class RtfParagraphStyle extends RtfFont {
     /**
      * Gets the hash code of this RtfParagraphStyle.
      */
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return this.styleName.hashCode();
     }
     

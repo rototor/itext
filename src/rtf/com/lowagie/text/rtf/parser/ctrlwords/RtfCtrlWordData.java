@@ -139,6 +139,7 @@ public class RtfCtrlWordData implements Cloneable {
 		return value;
 	}
 	
+	@Override
 	public String toString() {
 		String out = "";
 		out = this.prefix + this.ctrlWord;
@@ -150,6 +151,7 @@ public class RtfCtrlWordData implements Cloneable {
 		return out;
 	}
 	
+	@Override
 	public Object clone() throws CloneNotSupportedException{
 		Object cl = (RtfCtrlWordData)super.clone();
 		return cl;

@@ -180,14 +180,16 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    @Override
+	public void writeContent(final OutputStream out) throws IOException
     {    	
     }
     
     /**
      * Write the definition part of this RtfColor.
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    @Override
+	public void writeDefinition(final OutputStream result) throws IOException
     {
         result.write(COLOR_RED);
         result.write(intToByteArray(red));
@@ -226,7 +228,8 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      * @return <code>True</code> if red, green and blue values of the two colors match,
      *   <code>false</code> otherwise.
      */
-    public boolean equals(Object obj) {
+    @Override
+	public boolean equals(Object obj) {
         if(!(obj instanceof RtfColor)) {
             return false;
         }
@@ -241,7 +244,8 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      * 
      * @return The hash code of this RtfColor
      */
-    public int hashCode() {
+    @Override
+	public int hashCode() {
         return (this.red << 16) | (this.green << 8) | this.blue;
     }
     
@@ -286,7 +290,8 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         super.setRtfDocument(doc);
         if(document != null) {
             this.colorNumber = document.getDocumentHeader().getColorNumber(this);

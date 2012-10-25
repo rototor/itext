@@ -1380,7 +1380,8 @@ public class PdfSignatureAppearance {
         /**
          * @see java.io.InputStream#read()
          */
-        public int read() throws IOException {
+        @Override
+		public int read() throws IOException {
             int n = read(b);
             if (n != 1)
                 return -1;
@@ -1390,7 +1391,8 @@ public class PdfSignatureAppearance {
         /**
          * @see java.io.InputStream#read(byte[], int, int)
          */
-        public int read(byte[] b, int off, int len) throws IOException {
+        @Override
+		public int read(byte[] b, int off, int len) throws IOException {
             if (b == null) {
                 throw new NullPointerException();
             } else if ((off < 0) || (off > b.length) || (len < 0) ||

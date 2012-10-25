@@ -127,7 +127,8 @@ public class PdfBoolean extends PdfObject {
         return value;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
     	return value ? TRUE : FALSE;
     }
 }

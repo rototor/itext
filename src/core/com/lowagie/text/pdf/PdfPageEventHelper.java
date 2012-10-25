@@ -69,7 +69,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param writer the <CODE>PdfWriter</CODE> for this document
  * @param document the document
  */
-    public void onOpenDocument(PdfWriter writer,Document document) {
+    @Override
+	public void onOpenDocument(PdfWriter writer,Document document) {
     }
     
 /**
@@ -82,7 +83,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param writer the <CODE>PdfWriter</CODE> for this document
  * @param document the document
  */
-    public void onStartPage(PdfWriter writer,Document document) {
+    @Override
+	public void onStartPage(PdfWriter writer,Document document) {
     }
     
 /**
@@ -91,7 +93,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param writer the <CODE>PdfWriter</CODE> for this document
  * @param document the document
  */
-    public void onEndPage(PdfWriter writer,Document document) {
+    @Override
+	public void onEndPage(PdfWriter writer,Document document) {
     }
     
 /**
@@ -103,7 +106,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param writer the <CODE>PdfWriter</CODE> for this document
  * @param document the document
  */
-    public void onCloseDocument(PdfWriter writer,Document document) {
+    @Override
+	public void onCloseDocument(PdfWriter writer,Document document) {
     }
     
 /**
@@ -117,7 +121,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param document the document
  * @param paragraphPosition the position the paragraph will be written to
  */
-    public void onParagraph(PdfWriter writer,Document document,float paragraphPosition) {
+    @Override
+	public void onParagraph(PdfWriter writer,Document document,float paragraphPosition) {
     }
     
 /**
@@ -129,7 +134,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param document the document
  * @param paragraphPosition the position of the end of the paragraph
  */
-    public void onParagraphEnd(PdfWriter writer,Document document,float paragraphPosition) {
+    @Override
+	public void onParagraphEnd(PdfWriter writer,Document document,float paragraphPosition) {
     }
     
 /**
@@ -143,7 +149,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param paragraphPosition the position the chapter will be written to
  * @param title             the title of the Chapter
  */
-    public void onChapter(PdfWriter writer,Document document,float paragraphPosition,Paragraph title) {
+    @Override
+	public void onChapter(PdfWriter writer,Document document,float paragraphPosition,Paragraph title) {
     }
     
 /**
@@ -155,7 +162,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param document the document
  * @param position the position of the end of the chapter.
  */
-    public void onChapterEnd(PdfWriter writer,Document document,float position) {
+    @Override
+	public void onChapterEnd(PdfWriter writer,Document document,float position) {
     }
     
 /**
@@ -170,7 +178,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param depth				the number depth of the Section
  * @param title             the title of the section
  */
-    public void onSection(PdfWriter writer,Document document,float paragraphPosition,int depth,Paragraph title) {
+    @Override
+	public void onSection(PdfWriter writer,Document document,float paragraphPosition,int depth,Paragraph title) {
     }
     
 /**
@@ -182,7 +191,8 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param document the document
  * @param position the position of the end of the section
  */
-    public void onSectionEnd(PdfWriter writer,Document document,float position) {
+    @Override
+	public void onSectionEnd(PdfWriter writer,Document document,float position) {
     }
     
 /**
@@ -196,6 +206,7 @@ public class PdfPageEventHelper implements PdfPageEvent {
  * @param rect the <CODE>Rectangle</CODE> containing the <CODE>Chunk</CODE>
  * @param text the text of the tag
  */
-    public void onGenericTag(PdfWriter writer,Document document,Rectangle rect,String text) {
+    @Override
+	public void onGenericTag(PdfWriter writer,Document document,Rectangle rect,String text) {
     }
 }

@@ -374,7 +374,8 @@ public class IntHashtable implements Cloneable {
         public int getValue() {
         	return value;
         }
-        protected Object clone() {
+        @Override
+		protected Object clone() {
         	Entry entry = new Entry(hash, key, value, (next != null) ? (Entry)next.clone() : null);
         	return entry;
         }
@@ -390,7 +391,8 @@ public class IntHashtable implements Cloneable {
         	this.table = table;
         	this.index = table.length;
         }
-        public boolean hasNext() {
+        @Override
+		public boolean hasNext() {
         	if (entry != null) {
         		return true;
         	}
@@ -402,7 +404,8 @@ public class IntHashtable implements Cloneable {
         	return false;
         }
         
-        public Object next() {
+        @Override
+		public Object next() {
             if (entry == null) {
                 while ((index-- > 0) && ((entry = table[index]) == null));
             }
@@ -413,7 +416,8 @@ public class IntHashtable implements Cloneable {
             }
         	throw new NoSuchElementException("IntHashtableIterator");
         }
-        public void remove() {
+        @Override
+		public void remove() {
         	throw new UnsupportedOperationException("remove() not supported.");
         }
     }
@@ -458,7 +462,8 @@ public class IntHashtable implements Cloneable {
     	return entry.key;
     }
     
-    public Object clone() {
+    @Override
+	public Object clone() {
     	try {
     		IntHashtable t = (IntHashtable)super.clone();
     		t.table = new Entry[table.length];

@@ -308,7 +308,8 @@ public class PdfFormField extends PdfAnnotation {
         mergeResources(result, source, null);
     }
 
-    public void setUsed() {
+    @Override
+	public void setUsed() {
         used = true;
         if (parent != null)
             put(PdfName.PARENT, parent.getIndirectReference());

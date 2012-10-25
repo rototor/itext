@@ -91,7 +91,8 @@ public class PdfSmartCopy extends PdfCopy {
      * we do from their namespace to ours is *at best* heuristic, and guaranteed to
      * fail under some circumstances.
      */
-    protected PdfIndirectReference copyIndirect(PRIndirectReference in) throws IOException, BadPdfFormatException {
+    @Override
+	protected PdfIndirectReference copyIndirect(PRIndirectReference in) throws IOException, BadPdfFormatException {
         PdfObject srcObj = PdfReader.getPdfObjectRelease(in);
         ByteStore streamKey = null;
         boolean validStream = false;
@@ -206,7 +207,8 @@ public class PdfSmartCopy extends PdfCopy {
             md5 = null;
         }
 
-        public boolean equals(Object obj) {
+        @Override
+		public boolean equals(Object obj) {
             if (!(obj instanceof ByteStore))
                 return false;
             if (hashCode() != obj.hashCode())
@@ -214,7 +216,8 @@ public class PdfSmartCopy extends PdfCopy {
             return Arrays.equals(b, ((ByteStore)obj).b);
         }
 
-        public int hashCode() {
+        @Override
+		public int hashCode() {
             if (hash == 0) {
                 int len = b.length;
                 for (int k = 0; k < len; ++k) {

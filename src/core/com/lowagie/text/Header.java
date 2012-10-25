@@ -90,7 +90,8 @@ public class Header extends Meta {
      *
      * @return	a <CODE>String</CODE>
      */
-    public String getName() {
+    @Override
+	public String getName() {
         return name.toString();
     }
 

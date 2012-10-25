@@ -139,17 +139,20 @@ public abstract class AbstractArgument implements ActionListener, PropertyChange
                 this.value));
     }
 
-    public void propertyChange(PropertyChangeEvent evt) {
+    @Override
+	public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("AbstractArgument PropertyChange");
     }
 
-    public abstract void actionPerformed(ActionEvent e);
+    @Override
+	public abstract void actionPerformed(ActionEvent e);
     /**
      * Returns a string representation of the object.
      *
      * @return a string representation of the object.
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return getValue().toString();
     }
 

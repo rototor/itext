@@ -131,6 +131,7 @@ public class JBIG2SegmentReader {
 		}
 
 		// for the globals treeset
+		@Override
 		public int compareTo(Object o) {
 			return this.compareTo((JBIG2Segment)o);
 		}
@@ -435,6 +436,7 @@ public class JBIG2SegmentReader {
 		return os.toByteArray();
 	}
 	
+	@Override
 	public String toString() {
 		if ( this.read ) {
 			return "Jbig2SegmentReader: number of pages: " + this.numberOfPages();

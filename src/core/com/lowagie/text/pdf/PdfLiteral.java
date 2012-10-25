@@ -82,7 +82,8 @@ public class PdfLiteral extends PdfObject {
         super(type, b);
     }
     
-    public void toPdf(PdfWriter writer, java.io.OutputStream os) throws java.io.IOException {
+    @Override
+	public void toPdf(PdfWriter writer, java.io.OutputStream os) throws java.io.IOException {
         if (os instanceof OutputStreamCounter)
             position = ((OutputStreamCounter)os).getCounter();
         super.toPdf(writer, os);

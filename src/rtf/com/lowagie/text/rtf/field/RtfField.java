@@ -176,7 +176,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
         this.font.setRtfDocument(this.document);
     }
@@ -282,7 +283,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         this.font.writeBegin(result);
         writeFieldBegin(result);
@@ -390,7 +392,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * 
      * @param inTable <code>True</code> if this RtfField is in a table, <code>false</code> otherwise
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
         this.inTable = inTable;
     }
     
@@ -409,7 +412,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * 
      * @param inHeader <code>True</code> if this RtfField is in a header, <code>false</code> otherwise
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
     }
     
@@ -426,14 +430,16 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
     /**
      * An RtfField is never empty.
      */
-    public boolean isEmpty() {
+    @Override
+	public boolean isEmpty() {
         return false;
     }
     
     /**
      * Override setFont to perform the correct font handling.
      */
-    public void setFont(Font font) {
+    @Override
+	public void setFont(Font font) {
         super.setFont(font);
         this.font = new RtfFont(this.document, font);
     }

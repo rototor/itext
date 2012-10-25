@@ -1020,7 +1020,8 @@ public class PdfPTable implements LargeElement{
      *
      * @return	an <CODE>ArrayList</CODE>
      */
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         return new ArrayList();
     }
     
@@ -1029,7 +1030,8 @@ public class PdfPTable implements LargeElement{
      *
      * @return	a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.PTABLE;
     }
     
@@ -1037,6 +1039,7 @@ public class PdfPTable implements LargeElement{
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -1045,6 +1048,7 @@ public class PdfPTable implements LargeElement{
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}
@@ -1056,7 +1060,8 @@ public class PdfPTable implements LargeElement{
      * @param	listener	an <CODE>ElementListener</CODE>
      * @return	<CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
             return listener.add(this);
         }
@@ -1539,6 +1544,7 @@ public class PdfPTable implements LargeElement{
 	 * @since	iText 2.0.8
 	 * @see com.lowagie.text.LargeElement#flushContent()
 	 */
+	@Override
 	public void flushContent() {
 		deleteBodyRows();
 		setSkipFirstHeader(true);
@@ -1548,6 +1554,7 @@ public class PdfPTable implements LargeElement{
      * @since	iText 2.0.8
 	 * @see com.lowagie.text.LargeElement#isComplete()
 	 */
+	@Override
 	public boolean isComplete() {
 		return complete;
 	}
@@ -1556,6 +1563,7 @@ public class PdfPTable implements LargeElement{
      * @since	iText 2.0.8
 	 * @see com.lowagie.text.LargeElement#setComplete(boolean)
 	 */
+	@Override
 	public void setComplete(boolean complete) {
 		this.complete = complete;
 	}

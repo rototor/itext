@@ -99,6 +99,7 @@ public final class RtfDestinationNull extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		return true;
 	}
@@ -106,6 +107,7 @@ public final class RtfDestinationNull extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#setDefaults()
 	 */
+	@Override
 	public void setToDefaults() {
 	}
 
@@ -114,12 +116,14 @@ public final class RtfDestinationNull extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#closeDestination()
 	 */
+	@Override
 	public boolean closeDestination() {
 		return true;
 	}
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupEnd()
 	 */
+	@Override
 	public boolean handleCloseGroup() {
 		//this.rtfParser.setTokeniserStateNormal();
 		return true;
@@ -128,6 +132,7 @@ public final class RtfDestinationNull extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupStart()
 	 */
+	@Override
 	public boolean handleOpenGroup() {
 		//this.rtfParser.setTokeniserStateSkipGroup();
 		return true;
@@ -135,12 +140,14 @@ public final class RtfDestinationNull extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleCharacter(char[])
 	 */
+	@Override
 	public boolean handleCharacter(int ch) {
 		return true;
 	}
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleControlWord(com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData)
 	 */
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		return true;
 	}
@@ -149,6 +156,7 @@ public final class RtfDestinationNull extends RtfDestination {
 		return RtfDestinationNull.class.getName();
 	}
 	
+	@Override
 	public int getNewTokeniserState() {
 		return RtfParser.TOKENISER_SKIP_GROUP;
 	}

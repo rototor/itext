@@ -205,7 +205,8 @@ public class RtfBorderGroup extends RtfElement {
     /**
      * Writes the borders of this RtfBorderGroup
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         Iterator it = this.borders.values().iterator();
         while(it.hasNext()) {

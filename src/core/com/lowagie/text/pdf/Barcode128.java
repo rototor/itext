@@ -521,7 +521,8 @@ public class Barcode128 extends Barcode{
      * any, will occupy. The lower left corner is always (0, 0).
      * @return the size the barcode occupies.
      */
-    public Rectangle getBarcodeSize() {
+    @Override
+	public Rectangle getBarcodeSize() {
         float fontX = 0;
         float fontY = 0;
         String fullCode;
@@ -596,7 +597,8 @@ public class Barcode128 extends Barcode{
      * @param textColor the color of the text. It can be <CODE>null</CODE>
      * @return the dimensions the barcode occupies
      */
-    public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
+    @Override
+	public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
         String fullCode;
         if (codeType == CODE128_RAW) {
             int idx = code.indexOf('\uffff');
@@ -684,7 +686,8 @@ public class Barcode128 extends Barcode{
      * @param background the color of the background
      * @return the image
      */    
-    public java.awt.Image createAwtImage(Color foreground, Color background) {
+    @Override
+	public java.awt.Image createAwtImage(Color foreground, Color background) {
         int f = foreground.getRGB();
         int g = background.getRGB();
         Canvas canvas = new Canvas();
@@ -731,7 +734,8 @@ public class Barcode128 extends Barcode{
      * <code>(01)00000090311314(10)ABC123(15)060916</code>
      * @param code the code to generate
      */
-    public void setCode(String code) {
+    @Override
+	public void setCode(String code) {
         if (getCodeType() == Barcode128.CODE128_UCC && code.startsWith("(")) {
             int idx = 0;
             String ret = "";

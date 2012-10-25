@@ -104,22 +104,26 @@ public class IncCell implements TextElementArray {
         cell.setBackgroundColor(Markup.decodeColor(value));
     }
     
-    public boolean add(Object o) {
+    @Override
+	public boolean add(Object o) {
         if (!(o instanceof Element))
             return false;
         cell.addElement((Element)o);
         return true;
     }
     
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         return chunks;
     }
     
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         return true;
     }
     
-    public int type() {
+    @Override
+	public int type() {
         return Element.RECTANGLE;
     }
     
@@ -131,6 +135,7 @@ public class IncCell implements TextElementArray {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -139,6 +144,7 @@ public class IncCell implements TextElementArray {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}  

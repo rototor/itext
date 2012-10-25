@@ -81,7 +81,8 @@ public class ImageXRefViewer extends AbstractTool {
          * @see javax.swing.event.ChangeListener#stateChanged(javax.swing.event.ChangeEvent)
          * @param e ChangeEvent
          */
-        public void stateChanged(ChangeEvent e) {
+        @Override
+		public void stateChanged(ChangeEvent e) {
 			adaptee.propertyChange(e);
 		}
 	}
@@ -117,13 +118,15 @@ public class ImageXRefViewer extends AbstractTool {
      * @throws InstantiationException
      * @return File
      */
-    protected File getDestPathPDF() throws InstantiationException {
+    @Override
+	protected File getDestPathPDF() throws InstantiationException {
 		throw new InstantiationException("There is no file to show.");
 	}
 
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#createFrame()
 	 */
+	@Override
 	protected void createFrame() {
 		internalFrame = new JInternalFrame("View Image XObjects", true, false,
 				true);
@@ -166,7 +169,8 @@ public class ImageXRefViewer extends AbstractTool {
      * @see com.lowagie.toolbox.AbstractTool#valueHasChanged(com.lowagie.toolbox.arguments.AbstractArgument)
      * @param arg StringArgument
      */
-    public void valueHasChanged(AbstractArgument arg) {
+    @Override
+	public void valueHasChanged(AbstractArgument arg) {
 		// do nothing
 	}
 
@@ -206,6 +210,7 @@ public class ImageXRefViewer extends AbstractTool {
 	/**
 	 * @see com.lowagie.toolbox.AbstractTool#execute()
 	 */
+	@Override
 	public void execute() {
 		total_number_of_pictures = 0;
 		try {
@@ -213,6 +218,7 @@ public class ImageXRefViewer extends AbstractTool {
 				throw new InstantiationException(
 						"You need to choose a sourcefile");
 			EventDispatchingThread task = new EventDispatchingThread() {
+				@Override
 				public Object construct() {
 					try {
 						PdfReader reader = new PdfReader(

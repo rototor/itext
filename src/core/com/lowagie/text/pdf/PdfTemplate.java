@@ -253,7 +253,8 @@ public class PdfTemplate extends PdfContentByte {
      * @return a copy of this <CODE>PdfTemplate</CODE>
      */
     
-    public PdfContentByte getDuplicate() {
+    @Override
+	public PdfContentByte getDuplicate() {
         PdfTemplate tpl = new PdfTemplate();
         tpl.writer = writer;
         tpl.pdf = pdf;
@@ -273,7 +274,8 @@ public class PdfTemplate extends PdfContentByte {
         return type;
     }
     
-    PageResources getPageResources() {
+    @Override
+	PageResources getPageResources() {
         return pageResources;
     }
     

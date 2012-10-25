@@ -114,7 +114,8 @@ public class RtfTOCEntry extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */ 
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {    	
         result.write(TEXT_HIDDEN_ON);
         result.write(OPEN_GROUP);
@@ -141,14 +142,16 @@ public class RtfTOCEntry extends RtfField {
     /**
      * unused
      */
-    protected void writeFieldInstContent(OutputStream out) throws IOException 
+    @Override
+	protected void writeFieldInstContent(OutputStream out) throws IOException 
     {
     }
 
     /**
      * unused
      */
-    protected void writeFieldResultContent(OutputStream out) throws IOException
+    @Override
+	protected void writeFieldResultContent(OutputStream out) throws IOException
     {
     }
 

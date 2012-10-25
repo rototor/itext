@@ -53,7 +53,8 @@ public class ColorArgument extends AbstractArgument {
         super(tool, name, description, null);
     }
 
-    public Object getArgument() throws InstantiationException {
+    @Override
+	public Object getArgument() throws InstantiationException {
         if (value == null) {
             return null;
         }
@@ -64,7 +65,8 @@ public class ColorArgument extends AbstractArgument {
         }
     }
 
-    public void actionPerformed(ActionEvent e) {
+    @Override
+	public void actionPerformed(ActionEvent e) {
         Color initialColor = new Color(0xFF, 0xFF, 0xFF);
         if (value != null) {
             initialColor = Color.decode(value.toString());

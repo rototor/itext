@@ -110,15 +110,18 @@ public class PdfCopy extends PdfWriter {
             num = ref.getNumber();
             gen = ref.getGeneration();
         }
-        public int hashCode() {
+        @Override
+		public int hashCode() {
             return (gen<<16)+num;
         }
-        public boolean equals(Object o) {
+        @Override
+		public boolean equals(Object o) {
             if (!(o instanceof RefKey)) return false;
             RefKey other = (RefKey)o;
             return this.gen == other.gen && this.num == other.num;
         }
-        public String toString() {
+        @Override
+		public String toString() {
             return Integer.toString(num) + ' ' + gen;
         }
     }
@@ -157,7 +160,8 @@ public class PdfCopy extends PdfWriter {
      * @param pageNumber which page to get
      * @return the page
      */
-    public PdfImportedPage getImportedPage(PdfReader reader, int pageNumber) {
+    @Override
+	public PdfImportedPage getImportedPage(PdfReader reader, int pageNumber) {
         if (currentPdfReaderInstance != null) {
             if (currentPdfReaderInstance.getReader() != reader) {
                 try {
@@ -415,7 +419,8 @@ public class PdfCopy extends PdfWriter {
      * the getCatalog method is part of PdfWriter.
      * we wrap this so that we can extend it
      */
-    protected PdfDictionary getCatalog(PdfIndirectReference rootObj) {
+    @Override
+	protected PdfDictionary getCatalog(PdfIndirectReference rootObj) {
         try {
             PdfDictionary theCat = pdf.getCatalog(rootObj);
             if (fieldArray == null) {
@@ -478,7 +483,8 @@ public class PdfCopy extends PdfWriter {
      * to the outputstream embedded in a Trailer.
      */
     
-    public void close() {
+    @Override
+	public void close() {
         if (open) {
             PdfReaderInstance ri = currentPdfReaderInstance;
             pdf.close();
@@ -495,10 +501,13 @@ public class PdfCopy extends PdfWriter {
         }
     }
     public PdfIndirectReference add(PdfOutline outline) { return null; }
-    public void addAnnotation(PdfAnnotation annot) {  }
-    PdfIndirectReference add(PdfPage page, PdfContents contents) throws PdfException { return null; }
+    @Override
+	public void addAnnotation(PdfAnnotation annot) {  }
+    @Override
+	PdfIndirectReference add(PdfPage page, PdfContents contents) throws PdfException { return null; }
 
-    public void freeReader(PdfReader reader) throws IOException {
+    @Override
+	public void freeReader(PdfReader reader) throws IOException {
         indirectMap.remove(reader);
         if (currentPdfReaderInstance != null) {
             if (currentPdfReaderInstance.getReader() == reader) {
@@ -764,11 +773,13 @@ public class PdfCopy extends PdfWriter {
          *
          * @return a copy of this <CODE>PdfContentByte</CODE>
          */
-        public PdfContentByte getDuplicate() {
+        @Override
+		public PdfContentByte getDuplicate() {
             return new PdfCopy.StampContent(writer, pageResources);
         }
         
-        PageResources getPageResources() {
+        @Override
+		PageResources getPageResources() {
             return pageResources;
         }
     }

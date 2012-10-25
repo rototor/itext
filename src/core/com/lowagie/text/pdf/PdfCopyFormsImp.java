@@ -96,7 +96,8 @@ class PdfCopyFormsImp extends PdfCopyFieldsImp {
      * This merge fields is slightly different from the mergeFields method
      * of PdfCopyFields.
      */
-    void mergeFields() {
+    @Override
+	void mergeFields() {
         for (int k = 0; k < fields.size(); ++k) {
             HashMap fd = ((AcroFields)fields.get(k)).getFields();
             mergeWithMaster(fd);

@@ -150,6 +150,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see java.lang.Object#finalize()
 	 */
+	@Override
 	protected void finalize() throws Throwable {
 		// TODO Auto-generated method stub
 		if(this.rtfParser.isConvert()) {
@@ -158,6 +159,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 		super.finalize();
 	}
 
+	@Override
 	public void setParser(RtfParser parser) {
 		this.rtfParser = parser;
 		this.rtfDoc = parser.getRtfDocument();
@@ -173,6 +175,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#closeDestination()
 	 */
+	@Override
 	public boolean closeDestination() {
 		if(this.rtfParser.isImport()) {
 			if(this.buffer.length()>0) {
@@ -188,6 +191,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupStart()
 	 */
+	@Override
 	public boolean handleOpenGroup() {
 		this.onOpenGroup();	// event handler
 		
@@ -201,6 +205,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		if(this.rtfParser.isImport()) {
 			if(this.buffer.length()>0) {
@@ -212,6 +217,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupEnd()
 	 */
+	@Override
 	public boolean handleCloseGroup() {
 		this.onCloseGroup();	// event handler
 		
@@ -239,6 +245,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleCharacter(int)
 	 */
+	@Override
 	public boolean handleCharacter(int ch) {
 		boolean result = true;
 		this.onCharacter(ch);	// event handler
@@ -256,6 +263,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	}
 
 	
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		boolean result = false;
 		this.onCtrlWord(ctrlWordData);	// event handler
@@ -534,12 +542,14 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#setDefaults()
 	 */
+	@Override
 	public void setToDefaults() {
 		this.buffer = new StringBuffer(255);
 	}
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.properties.RtfPropertyListener#afterChange(java.lang.String)
 	 */
+	@Override
 	public void afterPropertyChange(String propertyName) {
 		if(propertyName.startsWith(RtfProperty.CHARACTER)) {
 		} else {
@@ -558,6 +568,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.properties.RtfPropertyListener#beforeChange(java.lang.String)
 	 */
+	@Override
 	public void beforePropertyChange(String propertyName) {
 		// do we have any text to do anything with?
 		// if not, then just return without action.

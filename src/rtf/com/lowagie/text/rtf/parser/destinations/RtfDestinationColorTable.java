@@ -151,6 +151,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 		this.setToDefaults();
 	}
 	
+	@Override
 	public void setParser(RtfParser parser) {
 		this.rtfParser = parser;
 		colorMap = new HashMap();
@@ -161,22 +162,27 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		return true;
 	}
 
+	@Override
 	public boolean closeDestination() {
 		return true;
 	}
 
+	@Override
 	public boolean handleCloseGroup() {
 		processColor();
 		return true;
 	}
+	@Override
 	public boolean handleOpenGroup() {
 		return true;
 	}
 	
+	@Override
 	public boolean handleCharacter(int ch) {
 		// color elements end with a semicolon (;)
 		if(ch == ';') {
@@ -185,6 +191,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 		return true;
 	}
 	
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		if(ctrlWordData.ctrlWord.equals("blue")) this.setBlue(ctrlWordData.intValue());
 		if(ctrlWordData.ctrlWord.equals("red")) this.setRed(ctrlWordData.intValue());
@@ -213,6 +220,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * Set default values.
 	 */
+	@Override
 	public void setToDefaults() {
 		this.red = -1;
 		this.green = -1;

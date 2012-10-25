@@ -75,7 +75,8 @@ public class PdfPSXObject extends PdfTemplate {
      * @throws IOException
      */
     
-    PdfStream getFormXObject(int compressionLevel) throws IOException {
+    @Override
+	PdfStream getFormXObject(int compressionLevel) throws IOException {
         PdfStream s = new PdfStream(content.toByteArray());
         s.put(PdfName.TYPE, PdfName.XOBJECT);
         s.put(PdfName.SUBTYPE, PdfName.PS);
@@ -89,7 +90,8 @@ public class PdfPSXObject extends PdfTemplate {
      * @return a copy of this <CODE>PdfPSXObject</CODE>
      */
     
-    public PdfContentByte getDuplicate() {
+    @Override
+	public PdfContentByte getDuplicate() {
         PdfPSXObject tpl = new PdfPSXObject();
         tpl.writer = writer;
         tpl.pdf = pdf;

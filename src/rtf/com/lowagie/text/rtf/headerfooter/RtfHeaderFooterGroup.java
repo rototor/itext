@@ -199,7 +199,8 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
         if(headerAll != null) {
             headerAll.setRtfDocument(this.document);
@@ -218,7 +219,8 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
     /**
      * Write the content of this RtfHeaderFooterGroup.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         if(this.mode == MODE_SINGLE) {
         	headerAll.writeContent(result);
@@ -350,14 +352,16 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
      * Unused
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
     }
     
     /**
      * Unused
      * @param inHeader
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
     }
     
     /**

@@ -180,9 +180,11 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 		return il.toString();
 	}
 
+	@Override
 	public void endDocument() {
 	}
 
+	@Override
 	public void endElement(String tag) {
 		if (token.length() > 0) {
 			String word = token.toString();
@@ -215,9 +217,11 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 		}
 	}
 
+	@Override
 	public void startDocument() {
 	}
 
+	@Override
 	public void startElement(String tag, java.util.HashMap h) {
 		if (tag.equals("hyphen-char")) {
 			String hh = (String) h.get("value");
@@ -242,6 +246,7 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 		token.setLength(0);
 	}
 
+	@Override
 	public void text(String str) {
 		StringTokenizer tk = new StringTokenizer(str);
 		while (tk.hasMoreTokens()) {
@@ -267,14 +272,17 @@ public class SimplePatternParser implements SimpleXMLDocHandler,
 	}
 
 	// PatternConsumer implementation for testing purposes
+	@Override
 	public void addClass(String c) {
 		System.out.println("class: " + c);
 	}
 
+	@Override
 	public void addException(String w, ArrayList e) {
 		System.out.println("exception: " + w + " : " + e.toString());
 	}
 
+	@Override
 	public void addPattern(String p, String v) {
 		System.out.println("pattern: " + p + " : " + v);
 	}

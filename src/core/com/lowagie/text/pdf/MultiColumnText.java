@@ -390,7 +390,8 @@ public class MultiColumnText implements Element {
      * @param	listener	an <CODE>ElementListener</CODE>
      * @return	<CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
             return listener.add(this);
         } catch (DocumentException de) {
@@ -404,7 +405,8 @@ public class MultiColumnText implements Element {
      * @return	a type
      */
 
-    public int type() {
+    @Override
+	public int type() {
         return Element.MULTI_COLUMN_TEXT;
     }
 
@@ -414,7 +416,8 @@ public class MultiColumnText implements Element {
      * @return	null
      */
 
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         return null;
     }
     
@@ -422,6 +425,7 @@ public class MultiColumnText implements Element {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -430,6 +434,7 @@ public class MultiColumnText implements Element {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return false;
 	}

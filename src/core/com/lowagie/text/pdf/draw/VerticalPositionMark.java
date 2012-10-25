@@ -93,6 +93,7 @@ public class VerticalPositionMark implements DrawInterface, Element {
 	/**
 	 * @see com.lowagie.text.pdf.draw.DrawInterface#draw(com.lowagie.text.pdf.PdfContentByte, float, float, float, float, float)
 	 */
+	@Override
 	public void draw(PdfContentByte canvas, float llx, float lly, float urx, float ury, float y) {
 		if (drawInterface != null) {
 			drawInterface.draw(canvas, llx, lly, urx, ury, y + offset);
@@ -102,7 +103,8 @@ public class VerticalPositionMark implements DrawInterface, Element {
     /**
      * @see com.lowagie.text.Element#process(com.lowagie.text.ElementListener)
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
 		try {
 			return listener.add(this);
 		} catch (DocumentException e) {
@@ -113,28 +115,32 @@ public class VerticalPositionMark implements DrawInterface, Element {
     /**
      * @see com.lowagie.text.Element#type()
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.YMARK;
     }
 
     /**
      * @see com.lowagie.text.Element#isContent()
      */
-    public boolean isContent() {
+    @Override
+	public boolean isContent() {
         return true;
     }
 
     /**
      * @see com.lowagie.text.Element#isNestable()
      */
-    public boolean isNestable() {
+    @Override
+	public boolean isNestable() {
         return false;
     }
 
     /**
      * @see com.lowagie.text.Element#getChunks()
      */
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
     	ArrayList list = new ArrayList();
     	list.add(new Chunk(this, true));
         return list;

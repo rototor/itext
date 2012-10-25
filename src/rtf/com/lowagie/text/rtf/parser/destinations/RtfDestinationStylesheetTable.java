@@ -164,6 +164,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 		this.importHeader = parser.getImportManager();
 		this.type = type;
 	}
+	@Override
 	public void setParser(RtfParser parser) {
 		this.rtfParser = parser;
 		this.importHeader = parser.getImportManager();
@@ -177,6 +178,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		// TODO Auto-generated method stub
 		return false;
@@ -184,11 +186,13 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#closeDestination()
 	 */
+	@Override
 	public boolean closeDestination() {
 
 		return true;
 	}
 
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		boolean result = true;
 		this.onCtrlWord(ctrlWordData);	// event handler
@@ -293,6 +297,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupEnd()
 	 */
+	@Override
 	public boolean handleCloseGroup() {
 
 		return true;
@@ -301,6 +306,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupStart()
 	 */
+	@Override
 	public boolean handleOpenGroup() {
 
 		return true;
@@ -308,6 +314,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleCharacter(int)
 	 */
+	@Override
 	public boolean handleCharacter(int ch) {
 		styleName += (char)ch;
 		return true;
@@ -569,6 +576,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#setToDefaults()
 	 */
+	@Override
 	public void setToDefaults() {
 		styleName = "";
 		styleNr = 0;

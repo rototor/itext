@@ -103,7 +103,8 @@ public class DefaultFontMapper implements FontMapper {
      * @return	a BaseFont which has similar properties to the provided Font
      */
     
-    public BaseFont awtToPdf(Font font) {
+    @Override
+	public BaseFont awtToPdf(Font font) {
         try {
             BaseFontParameters p = getBaseFontParameters(font.getFontName());
             if (p != null)
@@ -182,7 +183,8 @@ public class DefaultFontMapper implements FontMapper {
      * @return	a Font which has similar properties to the provided BaseFont
      */
     
-    public Font pdfToAwt(BaseFont font, int size) {
+    @Override
+	public Font pdfToAwt(BaseFont font, int size) {
         String names[][] = font.getFullFontName();
         if (names.length == 1)
             return new Font(names[0][3], 0, size);

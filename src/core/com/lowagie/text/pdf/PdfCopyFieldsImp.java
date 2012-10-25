@@ -351,7 +351,8 @@ class PdfCopyFieldsImp extends PdfWriter {
             form.put(PdfName.CO, co);
     }
     
-    public void close() {
+    @Override
+	public void close() {
         if (closing) {
             super.close();
             return;
@@ -535,11 +536,13 @@ class PdfCopyFieldsImp extends PdfWriter {
         }
     }
 
-    public PdfIndirectReference getPageReference(int page) {
+    @Override
+	public PdfIndirectReference getPageReference(int page) {
         return (PdfIndirectReference)pageRefs.get(page - 1);
     }
     
-    protected PdfDictionary getCatalog(PdfIndirectReference rootObj) {
+    @Override
+	protected PdfDictionary getCatalog(PdfIndirectReference rootObj) {
         try {
             PdfDictionary cat = pdf.getCatalog(rootObj);
             if (form != null) {
@@ -557,7 +560,8 @@ class PdfCopyFieldsImp extends PdfWriter {
         return new PdfIndirectReference(0, getNewObjectNumber(ref.getReader(), ref.getNumber(), 0));
     }
     
-    protected int getNewObjectNumber(PdfReader reader, int number, int generation) {
+    @Override
+	protected int getNewObjectNumber(PdfReader reader, int number, int generation) {
         IntHashtable refs = (IntHashtable)readers2intrefs.get(reader);
         int n = refs.get(number);
         if (n == 0) {
@@ -612,7 +616,8 @@ class PdfCopyFieldsImp extends PdfWriter {
         	return false;
     }
 
-    RandomAccessFileOrArray getReaderFile(PdfReader reader) {
+    @Override
+	RandomAccessFileOrArray getReaderFile(PdfReader reader) {
             return file;
     }
 

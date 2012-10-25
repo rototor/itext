@@ -911,7 +911,8 @@ public class PdfPCell extends Rectangle{
      *
      * @return the rotation of the cell.
      */
-    public int getRotation() {
+    @Override
+	public int getRotation() {
         return rotation;
     }
 

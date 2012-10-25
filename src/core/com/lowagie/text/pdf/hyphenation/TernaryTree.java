@@ -346,7 +346,8 @@ public class TernaryTree implements Cloneable, Serializable {
         return length;
     }
 
-    public Object clone() {
+    @Override
+	public Object clone() {
         TernaryTree t = new TernaryTree();
         t.lo = (char[])this.lo.clone();
         t.hi = (char[])this.hi.clone();
@@ -483,7 +484,8 @@ public class TernaryTree implements Cloneable, Serializable {
                 child = c;
             }
 
-            public Object clone() {
+            @Override
+			public Object clone() {
                 return new Item(parent, child);
             }
 
@@ -513,7 +515,8 @@ public class TernaryTree implements Cloneable, Serializable {
             run();
         }
 
-        public Object nextElement() {
+        @Override
+		public Object nextElement() {
             String res = curkey;
             cur = up();
             run();
@@ -527,7 +530,8 @@ public class TernaryTree implements Cloneable, Serializable {
             return 0;
         }
 
-        public boolean hasMoreElements() {
+        @Override
+		public boolean hasMoreElements() {
             return (cur != -1);
         }
 

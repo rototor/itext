@@ -200,7 +200,8 @@ public class PRStream extends PdfStream {
         return reader;
     }
     
-    public byte[] getBytes() {
+    @Override
+	public byte[] getBytes() {
         return bytes;
     }
     
@@ -217,7 +218,8 @@ public class PRStream extends PdfStream {
         return objGen;
     }
     
-    public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
+    @Override
+	public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
         byte[] b = PdfReader.getStreamBytesRaw(this);
         PdfEncryption crypto = null;
         if (writer != null)

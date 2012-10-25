@@ -94,7 +94,8 @@ public class PdfImportedPage extends com.lowagie.text.pdf.PdfTemplate {
      * @param e dummy
      * @param f dummy
      * @throws DocumentException  dummy */    
-    public void addImage(Image image, float a, float b, float c, float d, float e, float f) throws DocumentException {
+    @Override
+	public void addImage(Image image, float a, float b, float c, float d, float e, float f) throws DocumentException {
         throwError();
     }
     
@@ -106,13 +107,15 @@ public class PdfImportedPage extends com.lowagie.text.pdf.PdfTemplate {
      * @param d dummy
      * @param e dummy
      * @param f  dummy */    
-    public void addTemplate(PdfTemplate template, float a, float b, float c, float d, float e, float f) {
+    @Override
+	public void addTemplate(PdfTemplate template, float a, float b, float c, float d, float e, float f) {
         throwError();
     }
     
     /** Always throws an error. This operation is not allowed.
      * @return  dummy */    
-    public PdfContentByte getDuplicate() {
+    @Override
+	public PdfContentByte getDuplicate() {
         throwError();
         return null;
     }
@@ -124,26 +127,31 @@ public class PdfImportedPage extends com.lowagie.text.pdf.PdfTemplate {
      * @return the stream representing this page
      * @since	2.1.3	(replacing the method without param compressionLevel)
      */
-    PdfStream getFormXObject(int compressionLevel) throws IOException {
+    @Override
+	PdfStream getFormXObject(int compressionLevel) throws IOException {
          return readerInstance.getFormXObject(pageNumber, compressionLevel);
     }
     
-    public void setColorFill(PdfSpotColor sp, float tint) {
+    @Override
+	public void setColorFill(PdfSpotColor sp, float tint) {
         throwError();
     }
     
-    public void setColorStroke(PdfSpotColor sp, float tint) {
+    @Override
+	public void setColorStroke(PdfSpotColor sp, float tint) {
         throwError();
     }
     
-    PdfObject getResources() {
+    @Override
+	PdfObject getResources() {
         return readerInstance.getResources(pageNumber);
     }
     
     /** Always throws an error. This operation is not allowed.
      * @param bf dummy
      * @param size dummy */    
-    public void setFontAndSize(BaseFont bf, float size) {
+    @Override
+	public void setFontAndSize(BaseFont bf, float size) {
         throwError();
     }
     
@@ -152,7 +160,8 @@ public class PdfImportedPage extends com.lowagie.text.pdf.PdfTemplate {
      * @param group New value of property group.
      * @since	2.1.6
      */ 
-    public void setGroup(PdfTransparencyGroup group) {
+    @Override
+	public void setGroup(PdfTransparencyGroup group) {
         throwError();
 	}
 

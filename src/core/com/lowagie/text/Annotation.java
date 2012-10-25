@@ -399,6 +399,7 @@ public class Annotation implements Element {
 	 * 
 	 * @return a type
 	 */
+	@Override
 	public int type() {
 		return Element.ANNOTATION;
 	}
@@ -411,6 +412,7 @@ public class Annotation implements Element {
 	 *            an <CODE>ElementListener</CODE>
 	 * @return <CODE>true</CODE> if the element was processed successfully
 	 */
+	@Override
 	public boolean process(ElementListener listener) {
 		try {
 			return listener.add(this);
@@ -425,6 +427,7 @@ public class Annotation implements Element {
 	 * @return an <CODE>ArrayList</CODE>
 	 */
 
+	@Override
 	public ArrayList getChunks() {
 		return new ArrayList();
 	}
@@ -586,6 +589,7 @@ public class Annotation implements Element {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -594,6 +598,7 @@ public class Annotation implements Element {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}

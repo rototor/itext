@@ -96,7 +96,8 @@ public class PdfLayerMembership extends PdfDictionary implements PdfOCG {
      * Gets the <CODE>PdfIndirectReference</CODE> that represents this membership layer.
      * @return the <CODE>PdfIndirectReference</CODE> that represents this layer
      */    
-    public PdfIndirectReference getRef() {
+    @Override
+	public PdfIndirectReference getRef() {
         return ref;
     }
     
@@ -133,7 +134,8 @@ public class PdfLayerMembership extends PdfDictionary implements PdfOCG {
      * Gets the dictionary representing the membership layer. It just returns <CODE>this</CODE>.
      * @return the dictionary representing the layer
      */    
-    public PdfObject getPdfObject() {
+    @Override
+	public PdfObject getPdfObject() {
         return this;
     }
 }

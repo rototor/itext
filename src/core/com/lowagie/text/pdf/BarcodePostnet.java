@@ -115,7 +115,8 @@ public class BarcodePostnet extends Barcode{
      * any, will occupy. The lower left corner is always (0, 0).
      * @return the size the barcode occupies.
      */
-    public Rectangle getBarcodeSize() {
+    @Override
+	public Rectangle getBarcodeSize() {
         float width = ((code.length() + 1) * 5 + 1) * n + x;
         return new Rectangle(width, barHeight);
     }
@@ -156,7 +157,8 @@ public class BarcodePostnet extends Barcode{
      * @param textColor the color of the text. It can be <CODE>null</CODE>
      * @return the dimensions the barcode occupies
      */
-    public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
+    @Override
+	public Rectangle placeBarcode(PdfContentByte cb, Color barColor, Color textColor) {
         if (barColor != null)
             cb.setColorFill(barColor);
         byte bars[] = getBarsPostnet(code);
@@ -182,7 +184,8 @@ public class BarcodePostnet extends Barcode{
      * @return the image
      *
      */
-    public java.awt.Image createAwtImage(Color foreground, Color background) {
+    @Override
+	public java.awt.Image createAwtImage(Color foreground, Color background) {
         int f = foreground.getRGB();
         int g = background.getRGB();
         Canvas canvas = new Canvas();

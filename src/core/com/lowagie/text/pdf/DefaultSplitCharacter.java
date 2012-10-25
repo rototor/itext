@@ -77,7 +77,8 @@ public class DefaultSplitCharacter implements SplitCharacter {
 	 * @param ck chunk array
 	 * @return	<CODE>true</CODE> if the character can be used to split a string, <CODE>false</CODE> otherwise
 	 */
-    public boolean isSplitCharacter(int start, int current, int end, char[] cc, PdfChunk[] ck) {
+    @Override
+	public boolean isSplitCharacter(int start, int current, int end, char[] cc, PdfChunk[] ck) {
         char c = getCurrentCharacter(current, cc, ck);
         if (c <= ' ' || c == '-' || c == '\u2010') {
             return true;

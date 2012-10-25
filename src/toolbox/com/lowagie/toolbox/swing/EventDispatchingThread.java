@@ -61,11 +61,13 @@ public abstract class EventDispatchingThread {
      */
     public EventDispatchingThread() {
         final Runnable doFinished = new Runnable() {
-           public void run() { finished(); }
+           @Override
+		public void run() { finished(); }
         };
 
         Runnable doConstruct = new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 try {
                     value = construct();
                 }

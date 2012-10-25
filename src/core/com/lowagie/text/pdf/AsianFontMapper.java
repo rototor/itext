@@ -81,6 +81,7 @@ public class AsianFontMapper extends DefaultFontMapper {
 		this.encoding = encoding;
 	}
 
+	@Override
 	public BaseFont awtToPdf(Font font) {
 		try {
 			BaseFontParameters p = getBaseFontParameters(font.getFontName());

@@ -109,7 +109,8 @@ public class MarkedSection extends MarkedObject {
      * @param       listener        an <CODE>ElementListener</CODE>
      * @return <CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
         	Element element;
             for (Iterator i = ((Section)this.element).iterator(); i.hasNext(); ) {

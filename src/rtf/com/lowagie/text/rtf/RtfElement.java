@@ -101,14 +101,16 @@ public abstract class RtfElement implements RtfBasicElement {
     /**
      * Writes the element content to the given output stream.
      */    
-    public abstract void writeContent(final OutputStream out) throws IOException;
+    @Override
+	public abstract void writeContent(final OutputStream out) throws IOException;
     
     /**
      * Sets the RtfDocument this RtfElement belongs to
      * 
      * @param doc The RtfDocument to use
      */
-    public void setRtfDocument(RtfDocument doc) {
+    @Override
+	public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
     }
     
@@ -126,7 +128,8 @@ public abstract class RtfElement implements RtfBasicElement {
      * 
      * @param inTable <code>True</code> if this RtfElement is in a table, <code>false</code> otherwise
      */
-    public void setInTable(boolean inTable) {
+    @Override
+	public void setInTable(boolean inTable) {
         this.inTable = inTable;
     }
     
@@ -135,7 +138,8 @@ public abstract class RtfElement implements RtfBasicElement {
      * 
      * @param inHeader <code>True</code> if this RtfElement is in a header, <code>false</code> otherwise
      */
-    public void setInHeader(boolean inHeader) {
+    @Override
+	public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
     }
     

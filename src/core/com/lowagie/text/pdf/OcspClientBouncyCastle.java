@@ -135,7 +135,8 @@ public class OcspClientBouncyCastle implements OcspClient {
      * @return 	a byte array
      * @see com.lowagie.text.pdf.OcspClient#getEncoded()
      */
-    public byte[] getEncoded() {
+    @Override
+	public byte[] getEncoded() {
         try {
             OCSPReq request = generateOCSPRequest(rootCert, checkCert.getSerialNumber());
             byte[] array = request.getEncoded();

@@ -148,7 +148,8 @@ public class PdfInformationPanel extends JPanel implements PropertyChangeListene
      * @see java.beans.PropertyChangeListener#propertyChange(java.beans.PropertyChangeEvent)
      * @param evt PropertyChangeEvent
      */
-    public void propertyChange(PropertyChangeEvent evt) {
+    @Override
+	public void propertyChange(PropertyChangeEvent evt) {
 		filename = evt.getPropertyName();
 		if (filename.equals(JFileChooser.SELECTED_FILE_CHANGED_PROPERTY)) {
 			File file = (File) evt.getNewValue();

@@ -102,7 +102,7 @@ public class PdfDictionary extends PdfObject {
     private PdfName dictionaryType = null;
     
     /** This is the hashmap that contains all the values and keys of the dictionary */
-    protected HashMap hashMap;
+    protected HashMap<PdfName, PdfObject> hashMap;
     
     // CONSTRUCTORS
     
@@ -135,7 +135,8 @@ public class PdfDictionary extends PdfObject {
      * @param os the <CODE>OutputStream</CODE> to write the bytes to.
      * @throws IOException
      */
-    public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
+    @Override
+	public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
         os.write('<');
         os.write('<');
         // loop over all the object-pairs in the HashMap
@@ -165,7 +166,8 @@ public class PdfDictionary extends PdfObject {
      * @return the string representation of this <CODE>PdfDictionary</CODE>
      * @see com.lowagie.text.pdf.PdfObject#toString()
      */
-    public String toString() {
+    @Override
+	public String toString() {
         if (get(PdfName.TYPE) == null)
             return "Dictionary";
         return "Dictionary of type: " + get(PdfName.TYPE);
@@ -345,8 +347,8 @@ public class PdfDictionary extends PdfObject {
     }
     
     public void mergeDifferent(PdfDictionary other) {
-        for (Iterator i = other.hashMap.keySet().iterator(); i.hasNext();) {
-            Object key = i.next();
+        for (Iterator<PdfName> i = other.hashMap.keySet().iterator(); i.hasNext();) {
+            PdfName key = i.next();
             if (!hashMap.containsKey(key))
                 hashMap.put(key, other.hashMap.get(key));
         }

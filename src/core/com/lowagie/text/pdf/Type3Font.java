@@ -151,53 +151,65 @@ public class Type3Font extends BaseFont {
         return glyph;
     }
     
-    public String[][] getFamilyFontName() {
+    @Override
+	public String[][] getFamilyFontName() {
         return getFullFontName();
     }
     
-    public float getFontDescriptor(int key, float fontSize) {
+    @Override
+	public float getFontDescriptor(int key, float fontSize) {
         return 0;
     }
     
-    public String[][] getFullFontName() {
+    @Override
+	public String[][] getFullFontName() {
         return new String[][]{{"", "", "", ""}};
     }
     
     /**
      * @since 2.0.8
      */    
-    public String[][] getAllNameEntries() {
+    @Override
+	public String[][] getAllNameEntries() {
         return new String[][]{{"4", "", "", "", ""}};
     }
     
-    public int getKerning(int char1, int char2) {
+    @Override
+	public int getKerning(int char1, int char2) {
         return 0;
     }
     
-    public String getPostscriptFontName() {
+    @Override
+	public String getPostscriptFontName() {
         return "";
     }
     
-    protected int[] getRawCharBBox(int c, String name) {
+    @Override
+	protected int[] getRawCharBBox(int c, String name) {
         return null;
     }
     
-    int getRawWidth(int c, String name) {
+    @Override
+	int getRawWidth(int c, String name) {
         return 0;
     }
     
-    public boolean hasKernPairs() {
+    @Override
+	public boolean hasKernPairs() {
         return false;
     }
     
-    public boolean setKerning(int char1, int char2, int kern) {
+    @Override
+	public boolean setKerning(int char1, int char2, int kern) {
         return false;
     }
     
-    public void setPostscriptFontName(String name) {
+    @Override
+	public void setPostscriptFontName(String name) {
     }
     
-    void writeFont(PdfWriter writer, PdfIndirectReference ref, Object[] params) throws com.lowagie.text.DocumentException, java.io.IOException {
+    @Override
+	void writeFont(PdfWriter writer, PdfIndirectReference ref, Object[] params) throws com.lowagie.text.DocumentException, java.io.IOException {
         if (this.writer != writer)
             throw new IllegalArgumentException("Type3 font used with the wrong PdfWriter");
         
@@ -267,12 +279,14 @@ public class Type3Font extends BaseFont {
    	 * @return	null
      * @since	2.1.3
      */
-    public PdfStream getFullFontStream() {
+    @Override
+	public PdfStream getFullFontStream() {
     	return null;
     }
     
     
-    byte[] convertToBytes(String text) {
+    @Override
+	byte[] convertToBytes(String text) {
         char[] cc = text.toCharArray();
         byte[] b = new byte[cc.length];
         int p = 0;
@@ -288,19 +302,22 @@ public class Type3Font extends BaseFont {
         return b2;
     }
     
-    byte[] convertToBytes(int char1) {
+    @Override
+	byte[] convertToBytes(int char1) {
         if (charExists(char1))
             return new byte[]{(byte)char1};
         else return new byte[0];
     }
     
-    public int getWidth(int char1) {
+    @Override
+	public int getWidth(int char1) {
         if (!widths3.containsKey(char1))
             throw new IllegalArgumentException("The char " + char1 + " is not defined in a Type3 font");
         return widths3.get(char1);
     }
     
-    public int getWidth(String text) {
+    @Override
+	public int getWidth(String text) {
         char[] c = text.toCharArray();
         int total = 0;
         for (int k = 0; k < c.length; ++k)
@@ -308,11 +325,13 @@ public class Type3Font extends BaseFont {
         return total;
     }
     
-    public int[] getCharBBox(int c) {
+    @Override
+	public int[] getCharBBox(int c) {
         return null;
     }
     
-    public boolean charExists(int c) {
+    @Override
+	public boolean charExists(int c) {
         if (c > 0 && c < 256) {
             return usedSlot[c];
         } else {
@@ -320,7 +339,8 @@ public class Type3Font extends BaseFont {
         }
     }
     
-    public boolean setCharAdvance(int c, int advance) {
+    @Override
+	public boolean setCharAdvance(int c, int advance) {
         return false;
     }
     

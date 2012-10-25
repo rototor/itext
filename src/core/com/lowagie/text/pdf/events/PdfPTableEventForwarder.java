@@ -79,6 +79,7 @@ public class PdfPTableEventForwarder implements PdfPTableEvent {
 	/**
 	 * @see com.lowagie.text.pdf.PdfPTableEvent#tableLayout(com.lowagie.text.pdf.PdfPTable, float[][], float[], int, int, com.lowagie.text.pdf.PdfContentByte[])
 	 */
+	@Override
 	public void tableLayout(PdfPTable table, float[][] widths, float[] heights, int headerRows, int rowStart, PdfContentByte[] canvases) {
 		PdfPTableEvent event;
 		for (Iterator i = events.iterator(); i.hasNext(); ) {

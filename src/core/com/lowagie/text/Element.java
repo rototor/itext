@@ -350,5 +350,6 @@ public interface Element {
 	 * @return a type
 	 */
 
+	@Override
 	public String toString();
 }

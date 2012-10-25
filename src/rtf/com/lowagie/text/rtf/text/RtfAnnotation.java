@@ -105,7 +105,8 @@ public class RtfAnnotation extends RtfElement {
     /**
      * Writes the content of the RtfAnnotation
      */
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         result.write(ANNOTATION_ID);

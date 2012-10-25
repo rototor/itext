@@ -91,7 +91,8 @@ public class FdfReader extends PdfReader {
         super(is);
     }
     
-    protected void readPdf() throws IOException {
+    @Override
+	protected void readPdf() throws IOException {
         fields = new HashMap();
         try {
             tokens.checkFdfHeader();

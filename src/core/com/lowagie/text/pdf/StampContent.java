@@ -57,7 +57,8 @@ public class StampContent extends PdfContentByte {
         pageResources = ps.pageResources;
     }
     
-    public void setAction(PdfAction action, float llx, float lly, float urx, float ury) {
+    @Override
+	public void setAction(PdfAction action, float llx, float lly, float urx, float ury) {
         ((PdfStamperImp)writer).addAnnotation(new PdfAnnotation(writer, llx, lly, urx, ury, action), ps.pageN);
     }
 
@@ -67,15 +68,18 @@ public class StampContent extends PdfContentByte {
      *
      * @return a copy of this <CODE>PdfContentByte</CODE>
      */
-    public PdfContentByte getDuplicate() {
+    @Override
+	public PdfContentByte getDuplicate() {
         return new StampContent((PdfStamperImp)writer, ps);
     }
 
-    PageResources getPageResources() {
+    @Override
+	PageResources getPageResources() {
         return pageResources;
     }
     
-    void addAnnotation(PdfAnnotation annot) {
+    @Override
+	void addAnnotation(PdfAnnotation annot) {
         ((PdfStamperImp)writer).addAnnotation(annot, ps.pageN);
     }
 }

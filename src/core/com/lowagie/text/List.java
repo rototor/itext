@@ -225,7 +225,8 @@ public class List implements TextElementArray {
      * @param	listener	an <CODE>ElementListener</CODE>
      * @return	<CODE>true</CODE> if the element was processed successfully
      */
-    public boolean process(ElementListener listener) {
+    @Override
+	public boolean process(ElementListener listener) {
         try {
             for (Iterator i = list.iterator(); i.hasNext(); ) {
                 listener.add((Element) i.next());
@@ -242,7 +243,8 @@ public class List implements TextElementArray {
      *
      * @return	a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.LIST;
     }
     
@@ -251,7 +253,8 @@ public class List implements TextElementArray {
      *
      * @return	an <CODE>ArrayList</CODE>
      */
-    public ArrayList getChunks() {
+    @Override
+	public ArrayList getChunks() {
         ArrayList tmp = new ArrayList();
         for (Iterator i = list.iterator(); i.hasNext(); ) {
             tmp.addAll(((Element) i.next()).getChunks());
@@ -267,7 +270,8 @@ public class List implements TextElementArray {
      * @param	o		the object to add.
      * @return true if adding the object succeeded
      */
-    public boolean add(Object o) {
+    @Override
+	public boolean add(Object o) {
         if (o instanceof ListItem) {
             ListItem item = (ListItem) o;
             if (numbered || lettered) {
@@ -537,6 +541,7 @@ public class List implements TextElementArray {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -545,6 +550,7 @@ public class List implements TextElementArray {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}

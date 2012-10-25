@@ -65,7 +65,8 @@ public class FileArrayArgument extends AbstractArgument {
         }
     }
 
-    public void actionPerformed(ActionEvent e) {
+    @Override
+	public void actionPerformed(ActionEvent e) {
         fileList1.setLocation(10, 10);
         fileList1.setVisible(true);
         this.getTool().getInternalFrame().getDesktopPane().add(fileList1);
@@ -82,7 +83,8 @@ public class FileArrayArgument extends AbstractArgument {
     }
 
 
-    public Object getArgument() throws InstantiationException {
+    @Override
+	public Object getArgument() throws InstantiationException {
         if (value == null) {
             return null;
         }
@@ -102,7 +104,8 @@ public class FileArrayArgument extends AbstractArgument {
     }
 
     FileList fileList1 = new FileList();
-    public void propertyChange(PropertyChangeEvent evt) {
+    @Override
+	public void propertyChange(PropertyChangeEvent evt) {
         String propertyname = evt.getPropertyName();
         if (propertyname.equals("filevector")) {
             File[] filear = (File[]) evt.getNewValue();
@@ -116,7 +119,8 @@ public class FileArrayArgument extends AbstractArgument {
      *
      * @return a string representation of the object.
      */
-    public String toString() {
+    @Override
+	public String toString() {
 
         return fileList1.getStringreprasentation();
     }

@@ -72,7 +72,8 @@ public class OutputStreamCounter extends OutputStream {
      * @exception  IOException  if an I/O error occurs.
      *
      */
-    public void close() throws IOException {
+    @Override
+	public void close() throws IOException {
         out.close();
     }
     
@@ -88,7 +89,8 @@ public class OutputStreamCounter extends OutputStream {
      * @exception  IOException  if an I/O error occurs.
      *
      */
-    public void flush() throws IOException {
+    @Override
+	public void flush() throws IOException {
         out.flush();
     }
     
@@ -102,7 +104,8 @@ public class OutputStreamCounter extends OutputStream {
      * @see        java.io.OutputStream#write(byte[], int, int)
      *
      */
-    public void write(byte[] b) throws IOException {
+    @Override
+	public void write(byte[] b) throws IOException {
         counter += b.length;
         out.write(b);
     }
@@ -122,7 +125,8 @@ public class OutputStreamCounter extends OutputStream {
      *             output stream has been closed.
      *
      */
-    public void write(int b) throws IOException {
+    @Override
+	public void write(int b) throws IOException {
         ++counter;
         out.write(b);
     }
@@ -155,7 +159,8 @@ public class OutputStreamCounter extends OutputStream {
      *             stream is closed.
      *
      */
-    public void write(byte[] b, int off, int len) throws IOException {
+    @Override
+	public void write(byte[] b, int off, int len) throws IOException {
         counter += len;
         out.write(b, off, len);
     }

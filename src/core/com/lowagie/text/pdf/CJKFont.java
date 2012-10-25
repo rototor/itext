@@ -202,7 +202,8 @@ class CJKFont extends BaseFont {
      * @param char1 the unicode <CODE>char</CODE> to get the width of
      * @return the width in normalized 1000 units
      */
-    public int getWidth(int char1) {
+    @Override
+	public int getWidth(int char1) {
         int c = char1;
         if (!cidDirect)
             c = translationMap[c];
@@ -217,7 +218,8 @@ class CJKFont extends BaseFont {
             return 1000;
     }
     
-    public int getWidth(String text) {
+    @Override
+	public int getWidth(String text) {
         int total = 0;
         for (int k = 0; k < text.length(); ++k) {
             int c = text.charAt(k);
@@ -236,11 +238,13 @@ class CJKFont extends BaseFont {
         return total;
     }
     
-    int getRawWidth(int c, String name) {
+    @Override
+	int getRawWidth(int c, String name) {
         return 0;
     }
   
-    public int getKerning(int char1, int char2) {
+    @Override
+	public int getKerning(int char1, int char2) {
         return 0;
     }
 
@@ -297,7 +301,8 @@ class CJKFont extends BaseFont {
         return dic;
     }
     
-    void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
+    @Override
+	void writeFont(PdfWriter writer, PdfIndirectReference ref, Object params[]) throws DocumentException, IOException {
         IntHashtable cjkTag = (IntHashtable)params[0];
         PdfIndirectReference ind_font = null;
         PdfObject pobj = null;
@@ -322,7 +327,8 @@ class CJKFont extends BaseFont {
    	 * @return	null
      * @since	2.1.3
      */
-    public PdfStream getFullFontStream() {
+    @Override
+	public PdfStream getFullFontStream() {
     	return null;
     }
     
@@ -346,7 +352,8 @@ class CJKFont extends BaseFont {
      * @param fontSize the font size in points
      * @return the parameter in points
      */
-    public float getFontDescriptor(int key, float fontSize) {
+    @Override
+	public float getFontDescriptor(int key, float fontSize) {
         switch (key) {
             case AWT_ASCENT:
             case ASCENT:
@@ -374,7 +381,8 @@ class CJKFont extends BaseFont {
         return 0;
     }
     
-    public String getPostscriptFontName() {
+    @Override
+	public String getPostscriptFontName() {
         return fontName;
     }
     
@@ -386,7 +394,8 @@ class CJKFont extends BaseFont {
      * font name}.
      * @return the full name of the font
      */
-    public String[][] getFullFontName() {
+    @Override
+	public String[][] getFullFontName() {
         return new String[][]{{"", "", "", fontName}};
     }
     
@@ -398,7 +407,8 @@ class CJKFont extends BaseFont {
      * font name}.
      * @return the full name of the font
      */
-    public String[][] getAllNameEntries() {
+    @Override
+	public String[][] getAllNameEntries() {
         return new String[][]{{"4", "", "", "", fontName}};
     }
     
@@ -410,7 +420,8 @@ class CJKFont extends BaseFont {
      * font name}.
      * @return the family name of the font
      */
-    public String[][] getFamilyFontName() {
+    @Override
+	public String[][] getFamilyFontName() {
         return getFullFontName();
     }
     
@@ -606,13 +617,15 @@ class CJKFont extends BaseFont {
         return null;
     }
 
-    public int getUnicodeEquivalent(int c) {
+    @Override
+	public int getUnicodeEquivalent(int c) {
         if (cidDirect)
             return translationMap[c];
         return c;
     }
     
-    public int getCidCode(int c) {
+    @Override
+	public int getCidCode(int c) {
         if (cidDirect)
             return c;
         return translationMap[c];
@@ -621,7 +634,8 @@ class CJKFont extends BaseFont {
     /** Checks if the font has any kerning pairs.
      * @return always <CODE>false</CODE>
      */    
-    public boolean hasKernPairs() {
+    @Override
+	public boolean hasKernPairs() {
         return false;
     }
     
@@ -631,7 +645,8 @@ class CJKFont extends BaseFont {
      * @return <CODE>true</CODE> if the character has a glyph,
      * <CODE>false</CODE> otherwise
      */
-    public boolean charExists(int c) {
+    @Override
+	public boolean charExists(int c) {
         return translationMap[c] != 0;
     }
     
@@ -642,7 +657,8 @@ class CJKFont extends BaseFont {
      * @return <CODE>true</CODE> if the advance was set,
      * <CODE>false</CODE> otherwise. Will always return <CODE>false</CODE>
      */
-    public boolean setCharAdvance(int c, int advance) {
+    @Override
+	public boolean setCharAdvance(int c, int advance) {
         return false;
     }
     
@@ -651,19 +667,23 @@ class CJKFont extends BaseFont {
      * Use with care as it can easily make a font unreadable if not embedded.
      * @param name the new font name
      */    
-    public void setPostscriptFontName(String name) {
+    @Override
+	public void setPostscriptFontName(String name) {
         fontName = name;
     }   
     
-    public boolean setKerning(int char1, int char2, int kern) {
+    @Override
+	public boolean setKerning(int char1, int char2, int kern) {
         return false;
     }
     
-    public int[] getCharBBox(int c) {
+    @Override
+	public int[] getCharBBox(int c) {
         return null;
     }
     
-    protected int[] getRawCharBBox(int c, String name) {
+    @Override
+	protected int[] getRawCharBBox(int c, String name) {
         return null;
     }
 }

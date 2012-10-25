@@ -84,6 +84,7 @@ public class HtmlPeer extends XmlPeer {
 	 *            the custom tagname
 	 */
 
+	@Override
 	public void addAlias(String name, String alias) {
 		attributeAliases.put(alias.toLowerCase(), name);
 	}
@@ -91,6 +92,7 @@ public class HtmlPeer extends XmlPeer {
 	/**
 	 * @see com.lowagie.text.xml.XmlPeer#getAttributes(org.xml.sax.Attributes)
 	 */
+	@Override
 	public Properties getAttributes(Attributes attrs) {
 		Properties attributes = new Properties();
 		attributes.putAll(attributeValues);

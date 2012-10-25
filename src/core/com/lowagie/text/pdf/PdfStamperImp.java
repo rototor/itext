@@ -459,7 +459,8 @@ class PdfStamperImp extends PdfWriter {
         ps.pageN.put(PdfName.RESOURCES, ps.pageResources.getResources());
     }
 
-    protected int getNewObjectNumber(PdfReader reader, int number, int generation) {
+    @Override
+	protected int getNewObjectNumber(PdfReader reader, int number, int generation) {
         IntHashtable ref = (IntHashtable)readers2intrefs.get(reader);
         if (ref != null) {
             int n = ref.get(number);
@@ -483,7 +484,8 @@ class PdfStamperImp extends PdfWriter {
             return currentPdfReaderInstance.getNewObjectNumber(number, generation);
     }
 
-    RandomAccessFileOrArray getReaderFile(PdfReader reader) {
+    @Override
+	RandomAccessFileOrArray getReaderFile(PdfReader reader) {
         if (readers2intrefs.containsKey(reader)) {
             RandomAccessFileOrArray raf = (RandomAccessFileOrArray)readers2file.get(reader);
             if (raf != null)
@@ -1066,7 +1068,8 @@ class PdfStamperImp extends PdfWriter {
     /**
      * @see com.lowagie.text.pdf.PdfWriter#getPageReference(int)
      */
-    public PdfIndirectReference getPageReference(int page) {
+    @Override
+	public PdfIndirectReference getPageReference(int page) {
         PdfIndirectReference ref = reader.getPageOrigRef(page);
         if (ref == null)
             throw new IllegalArgumentException("Invalid page number " + page);
@@ -1076,7 +1079,8 @@ class PdfStamperImp extends PdfWriter {
     /**
      * @see com.lowagie.text.pdf.PdfWriter#addAnnotation(com.lowagie.text.pdf.PdfAnnotation)
      */
-    public void addAnnotation(PdfAnnotation annot) {
+    @Override
+	public void addAnnotation(PdfAnnotation annot) {
         throw new RuntimeException("Unsupported in this context. Use PdfStamper.addAnnotation()");
     }
 
@@ -1240,7 +1244,8 @@ class PdfStamperImp extends PdfWriter {
         }
     }
 
-    void addAnnotation(PdfAnnotation annot, int page) {
+    @Override
+	void addAnnotation(PdfAnnotation annot, int page) {
     	annot.setPage(page);
         addAnnotation(annot, reader.getPageN(page));
     }
@@ -1340,7 +1345,8 @@ class PdfStamperImp extends PdfWriter {
      * @param preferences the viewer preferences
      * @see PdfWriter#setViewerPreferences(int)
      */
-    public void setViewerPreferences(int preferences) {
+    @Override
+	public void setViewerPreferences(int preferences) {
         useVp = true;
         this.viewerPreferences.setViewerPreferences(preferences);
     }
@@ -1350,7 +1356,8 @@ class PdfStamperImp extends PdfWriter {
      * @param value the value for the viewer preference
      * @see PdfViewerPreferences#addViewerPreference
      */
-    public void addViewerPreference(PdfName key, PdfObject value) {
+    @Override
+	public void addViewerPreference(PdfName key, PdfObject value) {
     	useVp = true;
     	this.viewerPreferences.addViewerPreference(key, value);
     }
@@ -1359,7 +1366,8 @@ class PdfStamperImp extends PdfWriter {
      * Set the signature flags.
      * @param f the flags. This flags are ORed with current ones
      */
-    public void setSigFlags(int f) {
+    @Override
+	public void setSigFlags(int f) {
         sigFlags |= f;
     }
 
@@ -1369,7 +1377,8 @@ class PdfStamperImp extends PdfWriter {
      * @throws PdfException ignore
      * @see PdfStamper#setPageAction(PdfName, PdfAction, int)
      */
-    public void setPageAction(PdfName actionType, PdfAction action) throws PdfException {
+    @Override
+	public void setPageAction(PdfName actionType, PdfAction action) throws PdfException {
         throw new UnsupportedOperationException("Use setPageAction(PdfName actionType, PdfAction action, int page)");
     }
 
@@ -1399,7 +1408,8 @@ class PdfStamperImp extends PdfWriter {
      * Always throws an <code>UnsupportedOperationException</code>.
      * @param seconds ignore
      */
-    public void setDuration(int seconds) {
+    @Override
+	public void setDuration(int seconds) {
         throw new UnsupportedOperationException("Use setPageAction(PdfName actionType, PdfAction action, int page)");
     }
 
@@ -1407,7 +1417,8 @@ class PdfStamperImp extends PdfWriter {
      * Always throws an <code>UnsupportedOperationException</code>.
      * @param transition ignore
      */
-    public void setTransition(PdfTransition transition) {
+    @Override
+	public void setTransition(PdfTransition transition) {
         throw new UnsupportedOperationException("Use setPageAction(PdfName actionType, PdfAction action, int page)");
     }
 
@@ -1474,7 +1485,8 @@ class PdfStamperImp extends PdfWriter {
      * @param action the action to execute in response to the trigger
      * @throws PdfException on invalid action type
      */
-    public void setAdditionalAction(PdfName actionType, PdfAction action) throws PdfException {
+    @Override
+	public void setAdditionalAction(PdfName actionType, PdfAction action) throws PdfException {
         if (!(actionType.equals(DOCUMENT_CLOSE) ||
         actionType.equals(WILL_SAVE) ||
         actionType.equals(DID_SAVE) ||
@@ -1499,21 +1511,24 @@ class PdfStamperImp extends PdfWriter {
     /**
      * @see com.lowagie.text.pdf.PdfWriter#setOpenAction(com.lowagie.text.pdf.PdfAction)
      */
-    public void setOpenAction(PdfAction action) {
+    @Override
+	public void setOpenAction(PdfAction action) {
         openAction = action;
     }
 
     /**
      * @see com.lowagie.text.pdf.PdfWriter#setOpenAction(java.lang.String)
      */
-    public void setOpenAction(String name) {
+    @Override
+	public void setOpenAction(String name) {
         throw new UnsupportedOperationException("Open actions by name are not supported.");
     }
 
     /**
      * @see com.lowagie.text.pdf.PdfWriter#setThumbnail(com.lowagie.text.Image)
      */
-    public void setThumbnail(com.lowagie.text.Image image) {
+    @Override
+	public void setThumbnail(com.lowagie.text.Image image) {
         throw new UnsupportedOperationException("Use PdfStamper.setThumbnail().");
     }
 
@@ -1525,11 +1540,13 @@ class PdfStamperImp extends PdfWriter {
         reader.resetReleasePage();
     }
 
-    public PdfContentByte getDirectContentUnder() {
+    @Override
+	public PdfContentByte getDirectContentUnder() {
         throw new UnsupportedOperationException("Use PdfStamper.getUnderContent() or PdfStamper.getOverContent()");
     }
 
-    public PdfContentByte getDirectContent() {
+    @Override
+	public PdfContentByte getDirectContent() {
         throw new UnsupportedOperationException("Use PdfStamper.getUnderContent() or PdfStamper.getOverContent()");
     }
 

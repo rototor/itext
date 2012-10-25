@@ -80,6 +80,7 @@ public class PdfPCellEventForwarder implements PdfPCellEvent {
 	/**
 	 * @see com.lowagie.text.pdf.PdfPCellEvent#cellLayout(com.lowagie.text.pdf.PdfPCell, com.lowagie.text.Rectangle, com.lowagie.text.pdf.PdfContentByte[])
 	 */
+	@Override
 	public void cellLayout(PdfPCell cell, Rectangle position, PdfContentByte[] canvases) {
 		PdfPCellEvent event;
 		for (Iterator i = events.iterator(); i.hasNext(); ) {

@@ -158,6 +158,7 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
 		return worker.objectList;
 	}
 
+	@Override
 	public void endDocument() {
 		try {
 			for (int k = 0; k < stack.size(); ++k)
@@ -170,12 +171,14 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
 		}
 	}
 
+	@Override
 	public void startDocument() {
 		HashMap h = new HashMap();
 		style.applyStyle("body", h);
 		cprops.addToChain("body", h);
 	}
 
+	@Override
 	public void startElement(String tag, HashMap h) {
 		if (!tagsSupported.containsKey(tag))
 			return;
@@ -443,6 +446,7 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
 		}
 	}
 
+	@Override
 	public void endElement(String tag) {
 		if (!tagsSupported.containsKey(tag))
 			return;
@@ -618,6 +622,7 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
 		}
 	}
 
+	@Override
 	public void text(String str) {
 		if (skipText)
 			return;
@@ -667,6 +672,7 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
 		currentParagraph.add(chunk);
 	}
 
+	@Override
 	public boolean add(Element element) throws DocumentException {
 		objectList.add(element);
 		return true;
@@ -675,31 +681,40 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
 	public void clearTextWrap() throws DocumentException {
 	}
 
+	@Override
 	public void close() {
 	}
 
+	@Override
 	public boolean newPage() {
 		return true;
 	}
 
+	@Override
 	public void open() {
 	}
 
+	@Override
 	public void resetFooter() {
 	}
 
+	@Override
 	public void resetHeader() {
 	}
 
+	@Override
 	public void resetPageCount() {
 	}
 
+	@Override
 	public void setFooter(HeaderFooter footer) {
 	}
 
+	@Override
 	public void setHeader(HeaderFooter header) {
 	}
 
+	@Override
 	public boolean setMarginMirroring(boolean marginMirroring) {
 		return false;
 	}
@@ -708,18 +723,22 @@ public class HTMLWorker implements SimpleXMLDocHandler, DocListener {
      * @see com.lowagie.text.DocListener#setMarginMirroring(boolean)
 	 * @since	2.1.6
 	 */
+	@Override
 	public boolean setMarginMirroringTopBottom(boolean marginMirroring) {
 		return false;
 	}
 
+	@Override
 	public boolean setMargins(float marginLeft, float marginRight,
 			float marginTop, float marginBottom) {
 		return true;
 	}
 
+	@Override
 	public void setPageCount(int pageN) {
 	}
 
+	@Override
 	public boolean setPageSize(Rectangle pageSize) {
 		return true;
 	}

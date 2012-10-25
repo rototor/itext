@@ -184,6 +184,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public void setParser(RtfParser parser) {
 		if(this.rtfParser != null && this.rtfParser.equals(parser)) return;
 		this.rtfParser = parser;
@@ -211,6 +212,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		return true;
 	}
@@ -219,6 +221,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public boolean closeDestination() {
 		return true;
 	}
@@ -228,6 +231,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public boolean handleCloseGroup() {
 		if(this.state == SETTING_NORMAL) {
 			processFont();
@@ -241,6 +245,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public boolean handleOpenGroup() {
 
 		return true;
@@ -251,6 +256,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public boolean handleCharacter(int ch) {
 		switch(this.state) {
 		case SETTING_NORMAL:
@@ -277,6 +283,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		boolean result = true;
 		// just let fonttbl fall through and set last ctrl word object.
@@ -439,6 +446,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * 
 	 * @since 2.0.8
 	 */
+	@Override
 	public void setToDefaults() {
 		this.themeFont = "";
 		this.fontNr = "";

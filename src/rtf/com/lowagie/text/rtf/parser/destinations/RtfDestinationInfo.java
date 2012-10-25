@@ -80,6 +80,7 @@ public class RtfDestinationInfo extends RtfDestination {
 		setToDefaults();
 		this.elementName = elementname;
 	}
+	@Override
 	public void setParser(RtfParser parser) {
 		this.rtfParser = parser;
 		this.setToDefaults();
@@ -90,6 +91,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
 	 */
+	@Override
 	public boolean handleOpeningSubGroup() {
 		return true;
 	}
@@ -97,6 +99,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#closeDestination()
 	 */
+	@Override
 	public boolean closeDestination() {
 		return true;
 	}
@@ -104,6 +107,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupEnd()
 	 */
+	@Override
 	public boolean handleCloseGroup() {
 		if (this.text.length() > 0) {		
 			Document doc = this.rtfParser.getDocument();
@@ -145,6 +149,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleGroupStart()
 	 */
+	@Override
 	public boolean handleOpenGroup() {
 
 		return true;
@@ -152,6 +157,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#handleCharacter(char[])
 	 */
+	@Override
 	public boolean handleCharacter(int ch) {
 		this.text += (char)ch;
 		return true;
@@ -160,6 +166,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#handleControlWord(com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData)
 	 */
+	@Override
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
 		elementName = ctrlWordData.ctrlWord;
 		return true;
@@ -168,6 +175,7 @@ public class RtfDestinationInfo extends RtfDestination {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.destinations.RtfDestination#setToDefaults()
 	 */
+	@Override
 	public void setToDefaults() {
 		this.text = "";
 	}

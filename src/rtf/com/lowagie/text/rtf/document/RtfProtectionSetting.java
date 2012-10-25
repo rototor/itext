@@ -135,7 +135,8 @@ public class RtfProtectionSetting extends RtfElement {
      * Writes the RTF protection control words
 	 * @since 2.1.1
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    @Override
+	public void writeContent(final OutputStream result) throws IOException
     {
     }
     

@@ -257,7 +257,8 @@ public abstract class AbstractTool implements ActionListener {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @param evt ActionEvent
      */
-    public void actionPerformed(ActionEvent evt) {
+    @Override
+	public void actionPerformed(ActionEvent evt) {
         if (ToolMenuItems.CLOSE.equals(evt.getActionCommand())) {
             System.out.println("=== " + getInternalFrame().getTitle() +
                                " CLOSED ===");

@@ -248,6 +248,7 @@ public class SimpleCell extends Rectangle implements PdfPCellEvent, TextElementA
 	/**
 	 * @see com.lowagie.text.pdf.PdfPCellEvent#cellLayout(com.lowagie.text.pdf.PdfPCell, com.lowagie.text.Rectangle, com.lowagie.text.pdf.PdfContentByte[])
 	 */
+	@Override
 	public void cellLayout(PdfPCell cell, Rectangle position, PdfContentByte[] canvases) {
 		float sp_left = spacing_left;
 		if (Float.isNaN(sp_left)) sp_left = 0f;
@@ -444,6 +445,7 @@ public class SimpleCell extends Rectangle implements PdfPCellEvent, TextElementA
 	/**
 	 * @return Returns the width.
 	 */
+	@Override
 	public float getWidth() {
 		return width;
 	}
@@ -512,6 +514,7 @@ public class SimpleCell extends Rectangle implements PdfPCellEvent, TextElementA
 	/**
 	 * @see com.lowagie.text.TextElementArray#add(java.lang.Object)
 	 */
+	@Override
 	public boolean add(Object o) {
 		try {
 			addElement((Element)o);
@@ -527,6 +530,7 @@ public class SimpleCell extends Rectangle implements PdfPCellEvent, TextElementA
 	/**
 	 * @see com.lowagie.text.Element#type()
 	 */
+	@Override
 	public int type() {
 		return Element.CELL;
 	}

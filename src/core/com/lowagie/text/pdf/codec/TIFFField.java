@@ -471,7 +471,8 @@ public class TIFFField extends Object implements Comparable, Serializable {
      * @throws ClassCastException if the parameter is not a
      *         <code>TIFFField</code>.
      */
-    public int compareTo(Object o) {
+    @Override
+	public int compareTo(Object o) {
         if(o == null) {
             throw new IllegalArgumentException();
         }

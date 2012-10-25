@@ -87,6 +87,7 @@ public class MarkedObject implements Element {
      *
      * @return  an <CODE>ArrayList</CODE>
      */
+	@Override
 	public ArrayList getChunks() {
 		return element.getChunks();
 	}
@@ -98,6 +99,7 @@ public class MarkedObject implements Element {
      * @param       listener        an <CODE>ElementListener</CODE>
      * @return <CODE>true</CODE> if the element was processed successfully
      */
+	@Override
 	public boolean process(ElementListener listener) {
         try {
             return listener.add(element);
@@ -112,6 +114,7 @@ public class MarkedObject implements Element {
      *
      * @return  a type
      */
+	@Override
 	public int type() {
 		return MARKED;
 	}
@@ -120,6 +123,7 @@ public class MarkedObject implements Element {
 	 * @see com.lowagie.text.Element#isContent()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isContent() {
 		return true;
 	}
@@ -128,6 +132,7 @@ public class MarkedObject implements Element {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return true;
 	}

@@ -66,6 +66,7 @@ public class PdfPrinterGraphics2D extends PdfGraphics2D implements PrinterGraphi
 		this.printerJob = printerJob;
 	}
 
+	@Override
 	public PrinterJob getPrinterJob()	{
 		return printerJob;
 	}

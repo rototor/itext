@@ -49,7 +49,8 @@ public class Hyphen implements Serializable {
         postBreak = null;
     }
 
-    public String toString() {
+    @Override
+	public String toString() {
         if (noBreak == null 
                 && postBreak == null 
                 && preBreak != null

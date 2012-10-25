@@ -288,10 +288,12 @@ public final class SimpleNamedDestination implements SimpleXMLDocHandler {
         return buf.toString();
     }
     
-    public void endDocument() {
+    @Override
+	public void endDocument() {
     }
     
-    public void endElement(String tag) {
+    @Override
+	public void endElement(String tag) {
         if (tag.equals("Destination")) {
             if (xmlLast == null && xmlNames != null)
                 return;
@@ -308,10 +310,12 @@ public final class SimpleNamedDestination implements SimpleXMLDocHandler {
         xmlLast = null;
     }
     
-    public void startDocument() {
+    @Override
+	public void startDocument() {
     }
     
-    public void startElement(String tag, HashMap h) {
+    @Override
+	public void startElement(String tag, HashMap h) {
         if (xmlNames == null) {
             if (tag.equals("Destination")) {
                 xmlNames = new HashMap();
@@ -328,7 +332,8 @@ public final class SimpleNamedDestination implements SimpleXMLDocHandler {
         xmlLast.put("Name", "");
     }
     
-    public void text(String str) {
+    @Override
+	public void text(String str) {
         if (xmlLast == null)
             return;
         String name = (String)xmlLast.get("Name");

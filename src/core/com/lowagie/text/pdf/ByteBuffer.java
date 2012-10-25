@@ -578,7 +578,8 @@ public class ByteBuffer extends OutputStream {
      *
      * @return String translated from the buffer's contents.
      */
-    public String toString() {
+    @Override
+	public String toString() {
         return new String(buf, 0, count);
     }
     
@@ -607,11 +608,13 @@ public class ByteBuffer extends OutputStream {
         out.write(buf, 0, count);
     }
     
-    public void write(int b) throws IOException {
+    @Override
+	public void write(int b) throws IOException {
         append((byte)b);
     }
     
-    public void write(byte[] b, int off, int len) {
+    @Override
+	public void write(byte[] b, int off, int len) {
         append(b, off, len);
     }
     

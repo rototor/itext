@@ -404,7 +404,8 @@ public class HyphenationTree extends TernaryTree
      * for letter 'a', for example, should be defined as "aA", the first
      * character being the normalization char.
      */
-    public void addClass(String chargroup) {
+    @Override
+	public void addClass(String chargroup) {
         if (chargroup.length() > 0) {
             char equivChar = chargroup.charAt(0);
             char[] key = new char[2];
@@ -424,7 +425,8 @@ public class HyphenationTree extends TernaryTree
      * @param hyphenatedword a vector of alternating strings and
      * {@link Hyphen hyphen} objects.
      */
-    public void addException(String word, ArrayList hyphenatedword) {
+    @Override
+	public void addException(String word, ArrayList hyphenatedword) {
         stoplist.put(word, hyphenatedword);
     }
 
@@ -438,7 +440,8 @@ public class HyphenationTree extends TernaryTree
      * within the pattern. It should contain only digit characters.
      * (i.e. '0' to '9').
      */
-    public void addPattern(String pattern, String ivalue) {
+    @Override
+	public void addPattern(String pattern, String ivalue) {
         int k = ivalues.find(ivalue);
         if (k <= 0) {
             k = packValues(ivalue);
@@ -447,7 +450,8 @@ public class HyphenationTree extends TernaryTree
         insert(pattern, (char)k);
     }
 
-    public void printStats() {
+    @Override
+	public void printStats() {
         System.out.println("Value space size = "
                            + Integer.toString(vspace.length()));
         super.printStats();

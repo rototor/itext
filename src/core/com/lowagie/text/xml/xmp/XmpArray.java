@@ -80,6 +80,7 @@ public class XmpArray extends ArrayList {
 	 * Returns the String representation of the XmpArray.
 	 * @return a String representation
 	 */
+	@Override
 	public String toString() {
 		StringBuffer buf = new StringBuffer("<");
 		buf.append(type);

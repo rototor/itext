@@ -121,7 +121,8 @@ public class Chapter extends Section {
      *
      * @return	a type
      */
-    public int type() {
+    @Override
+	public int type() {
         return Element.CHAPTER;
     }
 
@@ -129,6 +130,7 @@ public class Chapter extends Section {
 	 * @see com.lowagie.text.Element#isNestable()
 	 * @since	iText 2.0.8
 	 */
+	@Override
 	public boolean isNestable() {
 		return false;
 	}

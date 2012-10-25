@@ -118,7 +118,8 @@ public class TSAClientBouncyCastle implements TSAClient {
      * Returned value reflects the result of the last succesfull call, padded
      * @return an estimate of the token size
      */
-    public int getTokenSizeEstimate() {
+    @Override
+	public int getTokenSizeEstimate() {
         return tokSzEstimate;
     }
     
@@ -131,7 +132,8 @@ public class TSAClientBouncyCastle implements TSAClient {
      * @throws Exception - TSA request failed
      * @see com.lowagie.text.pdf.TSAClient#getTimeStampToken(com.lowagie.text.pdf.PdfPKCS7, byte[])
      */
-    public byte[] getTimeStampToken(PdfPKCS7 caller, byte[] imprint) throws Exception {
+    @Override
+	public byte[] getTimeStampToken(PdfPKCS7 caller, byte[] imprint) throws Exception {
         return getTimeStampToken(imprint);
     }
     

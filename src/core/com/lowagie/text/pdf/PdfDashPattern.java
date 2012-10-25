@@ -122,7 +122,8 @@ public class PdfDashPattern extends PdfArray {
  * Returns the PDF representation of this <CODE>PdfArray</CODE>.
  */
     
-    public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
+    @Override
+	public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
         os.write('[');
 
         if (dash >= 0) {

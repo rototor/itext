@@ -83,7 +83,8 @@ public class PdfEFStream extends PdfStream {
     /**
      * @see com.lowagie.text.pdf.PdfDictionary#toPdf(com.lowagie.text.pdf.PdfWriter, java.io.OutputStream)
      */
-    public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
+    @Override
+	public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
         if (inputStream != null && compressed)
             put(PdfName.FILTER, PdfName.FLATEDECODE);
         PdfEncryption crypto = null;

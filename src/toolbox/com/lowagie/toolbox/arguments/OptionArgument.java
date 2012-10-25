@@ -80,7 +80,8 @@ public class OptionArgument extends AbstractArgument {
          * String representation of the Entry.
          * @return a description of the entry
          */
-        public String toString() {
+        @Override
+		public String toString() {
             return description.toString();
         }
 
@@ -149,7 +150,8 @@ public class OptionArgument extends AbstractArgument {
      * @return an object
      * @throws InstantiationException
      */
-    public Object getArgument() throws InstantiationException {
+    @Override
+	public Object getArgument() throws InstantiationException {
         if (value == null) {
             return null;
         }
@@ -165,7 +167,8 @@ public class OptionArgument extends AbstractArgument {
      * @see com.lowagie.toolbox.arguments.StringArgument#getUsage()
      * @return String
      */
-    public String getUsage() {
+    @Override
+	public String getUsage() {
         StringBuffer buf = new StringBuffer(super.getUsage());
         buf.append("    possible options:\n");
         for (Entry entry: options.values()) {
@@ -183,7 +186,8 @@ public class OptionArgument extends AbstractArgument {
      * @see java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
      * @param evt ActionEvent
      */
-    public void actionPerformed(ActionEvent evt) {
+    @Override
+	public void actionPerformed(ActionEvent evt) {
         Object[] message = new Object[2];
         message[0] = "Choose one of the following options:";
         JComboBox cb = new JComboBox();

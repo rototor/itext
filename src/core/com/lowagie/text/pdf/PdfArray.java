@@ -72,7 +72,7 @@ public class PdfArray extends PdfObject {
 	// CLASS VARIABLES
 
 	/** this is the actual array of PdfObjects */
-    protected ArrayList arrayList;
+    protected ArrayList<PdfObject> arrayList;
 
     // constructors
 
@@ -81,7 +81,7 @@ public class PdfArray extends PdfObject {
      */
     public PdfArray() {
         super(ARRAY);
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<PdfObject>();
     }
 
     /**
@@ -92,7 +92,7 @@ public class PdfArray extends PdfObject {
      */
     public PdfArray(PdfObject object) {
         super(ARRAY);
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<PdfObject>();
         arrayList.add(object);
     }
 
@@ -107,7 +107,7 @@ public class PdfArray extends PdfObject {
      */
     public PdfArray(float values[]) {
         super(ARRAY);
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<PdfObject>();
         add(values);
     }
     
@@ -122,7 +122,7 @@ public class PdfArray extends PdfObject {
      */
     public PdfArray(int values[]) {
         super(ARRAY);
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<PdfObject>();
         add(values);
     }
 
@@ -162,7 +162,8 @@ public class PdfArray extends PdfObject {
      * @param writer for backwards compatibility
      * @param os the <CODE>OutputStream</CODE> to write the bytes to.
      */
-    public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
+    @Override
+	public void toPdf(PdfWriter writer, OutputStream os) throws IOException {
         os.write('[');
 
         Iterator i = arrayList.iterator();
@@ -196,7 +197,8 @@ public class PdfArray extends PdfObject {
      * 
      * @return the string representation of this <CODE>PdfArray</CODE>
      */
-    public String toString() {
+    @Override
+	public String toString() {
     	return arrayList.toString();
     }
     
@@ -236,7 +238,7 @@ public class PdfArray extends PdfObject {
      * @deprecated
      * @return the internal ArrayList.  Naughty Naughty.
      */
-    public ArrayList getArrayList() {
+    public ArrayList<PdfObject> getArrayList() {
         return arrayList;
     }
 

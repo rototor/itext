@@ -96,17 +96,21 @@ public class FileList
   JLabel jLabel1 = new JLabel();
   JLabel jLabel2 = new JLabel();
 
-  public void dragEnter(DropTargetDragEvent dtde) {
+  @Override
+public void dragEnter(DropTargetDragEvent dtde) {
   }
 
-  public void dragOver(DropTargetDragEvent dtde) {
+  @Override
+public void dragOver(DropTargetDragEvent dtde) {
   }
 
-  public void dropActionChanged(DropTargetDragEvent dtde) {
+  @Override
+public void dropActionChanged(DropTargetDragEvent dtde) {
     System.out.println("actionchanged");
   }
 
-  public void drop(DropTargetDropEvent dtde) {
+  @Override
+public void drop(DropTargetDropEvent dtde) {
     if ( (dtde.getDropAction() & DnDConstants.ACTION_COPY_OR_MOVE) == 0) {
       dtde.rejectDrop();
       return;
@@ -140,7 +144,8 @@ public class FileList
                 null, filar);
   }
 
-  public void dragExit(DropTargetEvent dte) {
+  @Override
+public void dragExit(DropTargetEvent dte) {
   }
 
   class FileTableModel
@@ -149,19 +154,23 @@ public class FileList
     private String[] columnNames = {
         "Filename", "Pages", "Directory"};
 
-    public int getColumnCount() {
+    @Override
+	public int getColumnCount() {
       return columnNames.length;
     }
 
-    public int getRowCount() {
+    @Override
+	public int getRowCount() {
       return filevector.size();
     }
 
-    public String getColumnName(int col) {
+    @Override
+	public String getColumnName(int col) {
       return columnNames[col];
     }
 
-    public Object getValueAt(int row, int col) {
+    @Override
+	public Object getValueAt(int row, int col) {
       switch (col) {
         case 0:
           return filevector.get(row).getFile().getName();
@@ -173,7 +182,8 @@ public class FileList
       return null;
     }
 
-    public Class<?> getColumnClass(int col) {
+    @Override
+	public Class<?> getColumnClass(int col) {
       switch (col) {
         case 0:
           return String.class;
@@ -228,7 +238,8 @@ class FileList_ftm_tableModelAdapter
     this.adaptee = adaptee;
   }
 
-  public void tableChanged(TableModelEvent e) {
+  @Override
+public void tableChanged(TableModelEvent e) {
     adaptee.ftm_tableChanged(e);
   }
 }
@@ -240,7 +251,8 @@ class FileList_jTable1_keyAdapter
     this.adaptee = adaptee;
   }
 
-  public void keyPressed(KeyEvent e) {
+  @Override
+public void keyPressed(KeyEvent e) {
     adaptee.jTable1_keyPressed(e);
   }
 }
