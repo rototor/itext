@@ -68,7 +68,7 @@ public class BidiLine {
     protected byte orderLevels[] = new byte[pieceSize];
     protected int indexChars[] = new int[pieceSize];
     
-    protected ArrayList chunks = new ArrayList();
+    protected ArrayList<PdfChunk> chunks = new ArrayList<PdfChunk>();
     protected int indexChunk = 0;
     protected int indexChunkChar = 0;
     protected int currentChar = 0;
@@ -104,7 +104,7 @@ public class BidiLine {
         orderLevels = (byte[])org.orderLevels.clone();
         indexChars = (int[])org.indexChars.clone();
 
-        chunks = new ArrayList(org.chunks);
+        chunks = new ArrayList<PdfChunk>(org.chunks);
         indexChunk = org.indexChunk;
         indexChunkChar = org.indexChunkChar;
         currentChar = org.currentChar;
@@ -144,7 +144,7 @@ public class BidiLine {
         char uniC;
         BaseFont bf;
         for (; indexChunk < chunks.size(); ++indexChunk) {
-            PdfChunk ck = (PdfChunk)chunks.get(indexChunk);
+            PdfChunk ck = chunks.get(indexChunk);
             bf = ck.font().getFont();
             String s = ck.toString();
             int len = s.length();
@@ -203,7 +203,7 @@ public class BidiLine {
         chunks.add(chunk);
     }
     
-    public void addChunks(ArrayList chunks) {
+    public void addChunks(ArrayList<PdfChunk> chunks) {
         this.chunks.addAll(chunks);
     }
     
@@ -333,7 +333,7 @@ public class BidiLine {
             if (!hasText)
                 return null;
             if (totalTextLength == 0) {
-                ArrayList ar = new ArrayList();
+                ArrayList<PdfChunk> ar = new ArrayList<PdfChunk>();
                 PdfChunk ck = new PdfChunk("", detailChunks[0]);
                 ar.add(ck);
                 return new PdfLine(0, 0, 0, alignment, true, ar, isRTL);
@@ -438,7 +438,6 @@ public class BidiLine {
      */    
     public float getWidth(int startIdx, int lastIdx) {
         char c = 0;
-        char uniC;
         PdfChunk ck = null;
         float width = 0;
         for (; startIdx <= lastIdx; ++startIdx) {
@@ -458,15 +457,15 @@ public class BidiLine {
         return width;
     }
     
-    public ArrayList createArrayOfPdfChunks(int startIdx, int endIdx) {
+    public ArrayList<PdfChunk> createArrayOfPdfChunks(int startIdx, int endIdx) {
         return createArrayOfPdfChunks(startIdx, endIdx, null);
     }
     
-    public ArrayList createArrayOfPdfChunks(int startIdx, int endIdx, PdfChunk extraPdfChunk) {
+    public ArrayList<PdfChunk> createArrayOfPdfChunks(int startIdx, int endIdx, PdfChunk extraPdfChunk) {
         boolean bidi = (runDirection == PdfWriter.RUN_DIRECTION_LTR || runDirection == PdfWriter.RUN_DIRECTION_RTL);
         if (bidi)
             reorder(startIdx, endIdx);
-        ArrayList ar = new ArrayList();
+        ArrayList<PdfChunk> ar = new ArrayList<PdfChunk>();
         PdfChunk refCk = detailChunks[startIdx];
         PdfChunk ck = null;
         StringBuffer buf = new StringBuffer();

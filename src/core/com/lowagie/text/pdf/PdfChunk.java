@@ -50,6 +50,7 @@
 package com.lowagie.text.pdf;
 
 import java.awt.Color;
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -124,7 +125,7 @@ public class PdfChunk {
  * This attributes require the measurement of characters widths when rendering
  * such as underline.
  */
-    protected HashMap attributes = new HashMap();
+    protected HashMap<Object, Object> attributes = new HashMap<Object, Object>();
     
 /**
  * Non metric attributes.
@@ -132,7 +133,7 @@ public class PdfChunk {
  * This attributes do not require the measurement of characters widths when rendering
  * such as Color.
  */
-    protected HashMap noStroke = new HashMap();
+    protected HashMap<Object, Object> noStroke = new HashMap<Object, Object>();
     
 /** <CODE>true</CODE> if the chunk split was cause by a newline. */
     protected boolean newlineSplit;
@@ -303,7 +304,7 @@ public class PdfChunk {
             if (image.getScaledWidth() > width) {
                 PdfChunk pc = new PdfChunk(Chunk.OBJECT_REPLACEMENT_CHARACTER, this);
                 value = "";
-                attributes = new HashMap();
+                attributes = new HashMap<Object, Object>();
                 image = null;
                 font = PdfFont.getDefaultFont();
                 return pc;

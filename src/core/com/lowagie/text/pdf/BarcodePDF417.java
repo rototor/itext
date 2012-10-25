@@ -1589,7 +1589,7 @@ public class BarcodePDF417 {
     }
     
     protected static class SegmentList {
-        protected ArrayList list = new ArrayList();
+        protected ArrayList<Segment> list = new ArrayList<Segment>();
         
         public void add(char type, int start, int end) {
             list.add(new Segment(type, start, end));
@@ -1598,7 +1598,7 @@ public class BarcodePDF417 {
         public Segment get(int idx) {
             if (idx < 0 || idx >= list.size())
                 return null;
-            return (Segment)list.get(idx);
+            return list.get(idx);
         }
 
         public void remove(int idx) {
