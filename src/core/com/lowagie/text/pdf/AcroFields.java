@@ -76,14 +76,14 @@ public class AcroFields {
 
     PdfReader reader;
     PdfWriter writer;
-    HashMap fields;
+    HashMap<String,Item> fields;
     private int topFirst;
-    private HashMap sigNames;
+    private HashMap<String, int[]> sigNames;
     private boolean append;
     public static final int DA_FONT = 0;
     public static final int DA_SIZE = 1;
     public static final int DA_COLOR = 2;
-    private HashMap extensionFonts = new HashMap();
+    private HashMap<Integer,BaseFont> extensionFonts = new HashMap<Integer,BaseFont>();
     private XfaForm xfa;
     
     /**
@@ -131,11 +131,11 @@ public class AcroFields {
     /** Holds value of property generateAppearances. */
     private boolean generateAppearances = true;
 
-    private HashMap localFonts = new HashMap();
+    private HashMap<String, BaseFont> localFonts = new HashMap<String, BaseFont>();
 
     private float extraMarginLeft;
     private float extraMarginTop;
-    private ArrayList substitutionFonts;
+    private ArrayList<BaseFont> substitutionFonts;
 
     AcroFields(PdfReader reader, PdfWriter writer) {
         this.reader = reader;
@@ -153,7 +153,7 @@ public class AcroFields {
     }
 
     void fill() {
-        fields = new HashMap();
+        fields = new HashMap<String, Item>();
         PdfDictionary top = (PdfDictionary)PdfReader.getPdfObjectRelease(reader.getCatalog().get(PdfName.ACROFORM));
         if (top == null)
             return;
@@ -197,7 +197,7 @@ public class AcroFields {
                 }
                 if (name.length() > 0)
                     name = name.substring(0, name.length() - 1);
-                Item item = (Item)fields.get(name);
+                Item item = fields.get(name);
                 if (item == null) {
                     item = new Item();
                     fields.put(name, item);
@@ -262,10 +262,10 @@ public class AcroFields {
      * @return the list of names or <CODE>null</CODE> if the field does not exist
      */
     public String[] getAppearanceStates(String fieldName) {
-        Item fd = (Item)fields.get(fieldName);
+        Item fd = fields.get(fieldName);
         if (fd == null)
             return null;
-        HashMap names = new HashMap();
+        HashMap<String,String> names = new HashMap<String, String>();
         PdfDictionary vals = fd.getValue(0);
         PdfString stringOpt = vals.getAsString( PdfName.OPT );
         if (stringOpt != null) {
@@ -295,7 +295,7 @@ public class AcroFields {
             }
         }
         String out[] = new String[names.size()];
-        return (String[])names.keySet().toArray(out);
+        return names.keySet().toArray(out);
     }
 
     private String[] getListOption(String fieldName, int idx) {
@@ -378,7 +378,7 @@ public class AcroFields {
         int ftype = getFieldType(fieldName);
         if (ftype != FIELD_TYPE_COMBO && ftype != FIELD_TYPE_LIST)
             return false;
-        Item fd = (Item)fields.get(fieldName);
+        Item fd = fields.get(fieldName);
         String[] sing = null;
         if (exportValues == null && displayValues != null)
             sing = displayValues;
@@ -488,7 +488,7 @@ public class AcroFields {
             return false;
         if (fields.containsKey(newName))
             return false;
-        Item item = (Item)fields.get(oldName);
+        Item item = fields.get(oldName);
         if (item == null)
             return false;
         newName = newName.substring(idx2);
@@ -506,7 +506,7 @@ public class AcroFields {
     public static Object[] splitDAelements(String da) {
         try {
             PRTokeniser tk = new PRTokeniser(PdfEncodings.convertToBytes(da, null));
-            ArrayList stack = new ArrayList();
+            ArrayList<String> stack = new ArrayList<String>();
             Object ret[] = new Object[3];
             while (tk.nextToken()) {
                 if (tk.getTokenType() == PRTokeniser.TK_COMMENT)
@@ -516,30 +516,30 @@ public class AcroFields {
                     if (operator.equals("Tf")) {
                         if (stack.size() >= 2) {
                             ret[DA_FONT] = stack.get(stack.size() - 2);
-                            ret[DA_SIZE] = new Float((String)stack.get(stack.size() - 1));
+                            ret[DA_SIZE] = new Float(stack.get(stack.size() - 1));
                         }
                     }
                     else if (operator.equals("g")) {
                         if (stack.size() >= 1) {
-                            float gray = new Float((String)stack.get(stack.size() - 1)).floatValue();
+                            float gray = new Float(stack.get(stack.size() - 1)).floatValue();
                             if (gray != 0)
                                 ret[DA_COLOR] = new GrayColor(gray);
                         }
                     }
                     else if (operator.equals("rg")) {
                         if (stack.size() >= 3) {
-                            float red = new Float((String)stack.get(stack.size() - 3)).floatValue();
-                            float green = new Float((String)stack.get(stack.size() - 2)).floatValue();
-                            float blue = new Float((String)stack.get(stack.size() - 1)).floatValue();
+                            float red = new Float(stack.get(stack.size() - 3)).floatValue();
+                            float green = new Float(stack.get(stack.size() - 2)).floatValue();
+                            float blue = new Float(stack.get(stack.size() - 1)).floatValue();
                             ret[DA_COLOR] = new Color(red, green, blue);
                         }
                     }
                     else if (operator.equals("k")) {
                         if (stack.size() >= 4) {
-                            float cyan = new Float((String)stack.get(stack.size() - 4)).floatValue();
-                            float magenta = new Float((String)stack.get(stack.size() - 3)).floatValue();
-                            float yellow = new Float((String)stack.get(stack.size() - 2)).floatValue();
-                            float black = new Float((String)stack.get(stack.size() - 1)).floatValue();
+                            float cyan = new Float(stack.get(stack.size() - 4)).floatValue();
+                            float magenta = new Float(stack.get(stack.size() - 3)).floatValue();
+                            float yellow = new Float(stack.get(stack.size() - 2)).floatValue();
+                            float black = new Float(stack.get(stack.size() - 1)).floatValue();
                             ret[DA_COLOR] = new CMYKColor(cyan, magenta, yellow, black);
                         }
                     }
@@ -576,7 +576,7 @@ public class AcroFields {
                             BaseFont bp = new DocumentFont((PRIndirectReference)po);
                             tx.setFont(bp);
                             Integer porkey = new Integer(por.getNumber());
-                            BaseFont porf = (BaseFont)extensionFonts.get(porkey);
+                            BaseFont porf = extensionFonts.get(porkey);
                             if (porf == null) {
                                 if (!extensionFonts.containsKey(porkey)) {
                                     PdfDictionary fo = (PdfDictionary)PdfReader.getPdfObject(po);
@@ -603,9 +603,9 @@ public class AcroFields {
                                 ((TextField)tx).setExtensionFont(porf);
                         }
                         else {
-                            BaseFont bf = (BaseFont)localFonts.get(dab[DA_FONT]);
+                            BaseFont bf = localFonts.get(dab[DA_FONT]);
                             if (bf == null) {
-                                String fn[] = (String[])stdFieldFontNames.get(dab[DA_FONT]);
+                                String fn[] = stdFieldFontNames.get(dab[DA_FONT]);
                                 if (fn != null) {
                                     try {
                                         String enc = "winansi";
@@ -720,7 +720,7 @@ public class AcroFields {
                 fieldCache.put(fieldName, tx);
         }
         else {
-            tx = (TextField)fieldCache.get(fieldName);
+            tx = fieldCache.get(fieldName);
             tx.setWriter(writer);
         }
         PdfName fieldType = merged.getAsName(PdfName.FT);
@@ -808,7 +808,7 @@ public class AcroFields {
             name = XfaForm.Xml2Som.getShortName(name);
             return XfaForm.getNodeText(xfa.findDatasetsNode(name));
         }
-        Item item = (Item)fields.get(name);
+        Item item = fields.get(name);
         if (item == null)
             return null;
         lastWasString = false;
@@ -882,7 +882,7 @@ public class AcroFields {
     	else {
     		ret = new String[]{ s };
     	}
-        Item item = (Item)fields.get(name);
+        Item item = fields.get(name);
         if (item == null)
             return ret;
         //PdfName type = (PdfName)PdfReader.getPdfObject(((PdfDictionary)item.merged.get(0)).get(PdfName.FT));
@@ -928,7 +928,7 @@ public class AcroFields {
         if (writer == null)
             throw new RuntimeException("This AcroFields instance is read-only.");
         try {
-            Item item = (Item)fields.get(field);
+            Item item = fields.get(field);
             if (item == null)
                 return false;
             InstHit hit = new InstHit(inst);
@@ -1105,7 +1105,7 @@ public class AcroFields {
     public boolean setFieldProperty(String field, String name, int value, int inst[]) {
         if (writer == null)
             throw new RuntimeException("This AcroFields instance is read-only.");
-        Item item = (Item)fields.get(field);
+        Item item = fields.get(field);
         if (item == null)
             return false;
         InstHit hit = new InstHit(inst);
@@ -1307,7 +1307,7 @@ public class AcroFields {
             }
             xfa.setNodeText(xn, value);
         }
-        Item item = (Item)fields.get(name);
+        Item item = fields.get(name);
         if (item == null)
             return false;
         PdfDictionary merged = item.getMerged( 0 );
@@ -1377,7 +1377,7 @@ public class AcroFields {
                 return true;
             }
             PdfName v = new PdfName(value);
-            ArrayList lopt = new ArrayList();
+            ArrayList<String> lopt = new ArrayList<String>();
             PdfArray opts = item.getValue(0).getAsArray(PdfName.OPT);
             if (opts != null) {
                 for (int k = 0; k < opts.size(); ++k) {
@@ -1472,7 +1472,7 @@ public class AcroFields {
      * 
      * @return all the fields
      */
-    public HashMap getFields() {
+    public HashMap<String, Item> getFields() {
         return fields;
     }
 
@@ -1489,7 +1489,7 @@ public class AcroFields {
             if (name == null)
                 return null;
         }
-        return (Item)fields.get(name);
+        return fields.get(name);
     }
 
     /**
@@ -1786,21 +1786,21 @@ public class AcroFields {
          * 
          * @deprecated (will remove 'public' in the future)
          */
-        public ArrayList values = new ArrayList();
+        public ArrayList<PdfDictionary> values = new ArrayList<PdfDictionary>();
         
         /**
          * An array of <CODE>PdfDictionary</CODE> with the widgets.
          * 
          * @deprecated (will remove 'public' in the future)
          */
-        public ArrayList widgets = new ArrayList();
+        public ArrayList<PdfDictionary> widgets = new ArrayList<PdfDictionary>();
         
         /**
          * An array of <CODE>PdfDictionary</CODE> with the widget references.
          * 
          * @deprecated (will remove 'public' in the future)
          */
-        public ArrayList widget_refs = new ArrayList();
+        public ArrayList<PdfIndirectReference> widget_refs = new ArrayList<PdfIndirectReference>();
         
         /**
          * An array of <CODE>PdfDictionary</CODE> with all the field
@@ -1808,7 +1808,7 @@ public class AcroFields {
          * 
          * @deprecated (will remove 'public' in the future)
          */
-        public ArrayList merged = new ArrayList();
+        public ArrayList<PdfDictionary> merged = new ArrayList<PdfDictionary>();
         
         /**
          * An array of <CODE>Integer</CODE> with the page numbers where
@@ -1816,13 +1816,13 @@ public class AcroFields {
          * 
          * @deprecated (will remove 'public' in the future)
          */
-        public ArrayList page = new ArrayList();
+        public ArrayList<Integer> page = new ArrayList<Integer>();
         /**
          * An array of <CODE>Integer</CODE> with the tab order of the field in the page.
          * 
          * @deprecated (will remove 'public' in the future)
          */
-        public ArrayList tabOrder = new ArrayList();
+        public ArrayList<Integer> tabOrder = new ArrayList<Integer>();
 
         /**
          * Preferred method of determining the number of instances
@@ -1859,7 +1859,7 @@ public class AcroFields {
          * @return dictionary storing this instance's value.  It may be shared across instances.
          */
         public PdfDictionary getValue(int idx) {
-            return (PdfDictionary) values.get(idx);
+            return values.get(idx);
         }
 
         /**
@@ -1880,7 +1880,7 @@ public class AcroFields {
          * @return The dictionary found in the appropriate page's Annot array.
          */
         public PdfDictionary getWidget(int idx) {
-            return (PdfDictionary) widgets.get(idx);
+            return widgets.get(idx);
         }
 
         /**
@@ -1901,7 +1901,7 @@ public class AcroFields {
          * @return reference to the given field instance
          */
         public PdfIndirectReference getWidgetRef(int idx) {
-            return (PdfIndirectReference) widget_refs.get(idx);
+            return widget_refs.get(idx);
         }
 
         /**
@@ -1925,7 +1925,7 @@ public class AcroFields {
          * @return the merged dictionary for the given instance
          */
         public PdfDictionary getMerged(int idx) {
-            return (PdfDictionary) merged.get(idx);
+            return merged.get(idx);
         }
 
         /**
@@ -1946,7 +1946,7 @@ public class AcroFields {
          * @return remember, pages are "1-indexed", not "0-indexed" like field instances.
          */
         public Integer getPage(int idx) {
-            return (Integer) page.get(idx);
+            return page.get(idx);
         }
 
         /**
@@ -1977,7 +1977,7 @@ public class AcroFields {
          * @return tab index of the given field instance
          */
         public Integer getTabOrder(int idx) {
-            return (Integer) tabOrder.get(idx);
+            return tabOrder.get(idx);
         }
 
         /**
@@ -2013,11 +2013,11 @@ public class AcroFields {
      * 
      * @return the field names that have signatures and are signed
      */
-    public ArrayList getSignatureNames() {
+    public ArrayList<String> getSignatureNames() {
         if (sigNames != null)
-            return new ArrayList(sigNames.keySet());
-        sigNames = new HashMap();
-        ArrayList sorter = new ArrayList();
+            return new ArrayList<String>(sigNames.keySet());
+        sigNames = new HashMap<String, int[]>();
+        ArrayList<Object[]> sorter = new ArrayList<Object[]>();
         for (Iterator it = fields.entrySet().iterator(); it.hasNext();) {
             Map.Entry entry = (Map.Entry)it.next();
             Item item = (Item)entry.getValue();
@@ -2041,19 +2041,19 @@ public class AcroFields {
         }
         Collections.sort(sorter, new AcroFields.SorterComparator());
         if (!sorter.isEmpty()) {
-            if (((int[])((Object[])sorter.get(sorter.size() - 1))[1])[0] == reader.getFileLength())
+            if (((int[])sorter.get(sorter.size() - 1)[1])[0] == reader.getFileLength())
                 totalRevisions = sorter.size();
             else
                 totalRevisions = sorter.size() + 1;
             for (int k = 0; k < sorter.size(); ++k) {
-                Object objs[] = (Object[])sorter.get(k);
+                Object objs[] = sorter.get(k);
                 String name = (String)objs[0];
                 int p[] = (int[])objs[1];
                 p[1] = k + 1;
                 sigNames.put(name, p);
             }
         }
-        return new ArrayList(sigNames.keySet());
+        return new ArrayList<String>(sigNames.keySet());
     }
 
     /**
@@ -2089,7 +2089,7 @@ public class AcroFields {
         name = getTranslatedFieldName(name);
         if (!sigNames.containsKey(name))
             return null;
-        Item item = (Item)fields.get(name);
+        Item item = fields.get(name);
         PdfDictionary merged = item.getMerged(0);
         return merged.getAsDict(PdfName.V);
     }
@@ -2106,7 +2106,7 @@ public class AcroFields {
         name = getTranslatedFieldName(name);
         if (!sigNames.containsKey(name))
             return false;
-        return ((int[])sigNames.get(name))[0] == reader.getFileLength();
+        return sigNames.get(name)[0] == reader.getFileLength();
     }
 
     /**
@@ -2262,7 +2262,7 @@ public class AcroFields {
         field = getTranslatedFieldName(field);
         if (!sigNames.containsKey(field))
             return 0;
-        return ((int[])sigNames.get(field))[1];
+        return sigNames.get(field)[1];
     }
 
     /**
@@ -2278,7 +2278,7 @@ public class AcroFields {
         field = getTranslatedFieldName(field);
         if (!sigNames.containsKey(field))
             return null;
-        int length = ((int[])sigNames.get(field))[0];
+        int length = sigNames.get(field)[0];
         RandomAccessFileOrArray raf = reader.getSafeFile();
         raf.reOpen();
         raf.seek(0);
@@ -2291,7 +2291,7 @@ public class AcroFields {
      * @return the appearances cache
      * @since	2.1.5	this method used to return a HashMap
      */
-    public Map getFieldCache() {
+    public Map<String, TextField> getFieldCache() {
         return this.fieldCache;
     }
 
@@ -2321,7 +2321,7 @@ public class AcroFields {
      * @param fieldCache a Map that will carry the cached appearances
      * @since	2.1.5	this method used to take a HashMap as parameter
      */
-    public void setFieldCache(Map fieldCache) {
+    public void setFieldCache(Map<String, TextField> fieldCache) {
         this.fieldCache = fieldCache;
     }
 
@@ -2344,11 +2344,11 @@ public class AcroFields {
      */
     public void addSubstitutionFont(BaseFont font) {
         if (substitutionFonts == null)
-            substitutionFonts = new ArrayList();
+            substitutionFonts = new ArrayList<BaseFont>();
         substitutionFonts.add(font);
     }
 
-    private static final HashMap stdFieldFontNames = new HashMap();
+    private static final HashMap<String, String[]> stdFieldFontNames = new HashMap<String, String[]>();
 
     /**
      * Holds value of property totalRevisions.
@@ -2360,7 +2360,7 @@ public class AcroFields {
      * 
      * @since	2.1.5	this used to be a HashMap
      */
-    private Map fieldCache;
+    private Map<String, TextField> fieldCache;
 
     static {
         stdFieldFontNames.put("CoBO", new String[]{"Courier-BoldOblique"});
@@ -2446,7 +2446,7 @@ public class AcroFields {
      * 
      * @return the list
      */
-    public ArrayList getSubstitutionFonts() {
+    public ArrayList<BaseFont> getSubstitutionFonts() {
         return substitutionFonts;
     }
 
@@ -2456,7 +2456,7 @@ public class AcroFields {
      * 
      * @param substitutionFonts the list
      */
-    public void setSubstitutionFonts(ArrayList substitutionFonts) {
+    public void setSubstitutionFonts(ArrayList<BaseFont> substitutionFonts) {
         this.substitutionFonts = substitutionFonts;
     }
 

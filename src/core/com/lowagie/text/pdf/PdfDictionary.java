@@ -111,7 +111,7 @@ public class PdfDictionary extends PdfObject {
      */
     public PdfDictionary() {
         super(DICTIONARY);
-        hashMap = new HashMap();
+        hashMap = new HashMap<PdfName, PdfObject>();
     }
     
     /**
@@ -143,7 +143,7 @@ public class PdfDictionary extends PdfObject {
         PdfName key;
         PdfObject value;
         int type = 0;
-        for (Iterator i = hashMap.keySet().iterator(); i.hasNext(); ) {
+        for (Iterator<PdfName> i = hashMap.keySet().iterator(); i.hasNext(); ) {
             key = (PdfName) i.next();
             value = (PdfObject) hashMap.get(key);
             key.toPdf(writer, os);
@@ -268,7 +268,7 @@ public class PdfDictionary extends PdfObject {
      *
      * @return <CODE>true</CODE> if it is, otherwise <CODE>false</CODE>.
      */
-    public Set getKeys() {
+    public Set<PdfName> getKeys() {
         return hashMap.keySet();
     }
 

@@ -63,6 +63,7 @@ import com.lowagie.text.pdf.PdfDictionary;
 import com.lowagie.text.pdf.PdfLiteral;
 import com.lowagie.text.pdf.PdfName;
 import com.lowagie.text.pdf.PdfNumber;
+import com.lowagie.text.pdf.PdfObject;
 import com.lowagie.text.pdf.PdfString;
 
 /**
@@ -72,11 +73,11 @@ import com.lowagie.text.pdf.PdfString;
 public abstract class PdfContentStreamProcessor {
 
 	/** A map with all supported operators operators (PDF syntax). */
-    private Map operators;
+    private Map<String, ContentOperator> operators;
     /** Resources for the content stream. */
     private PdfDictionary resources;
     /** Stack keeping track of the graphics state. */
-    private Stack gsStack = new Stack();
+    private Stack<GraphicsState> gsStack = new Stack<GraphicsState>();
     /** Text matrix. */
     private Matrix textMatrix;
     /** Text line matrix. */
@@ -94,7 +95,7 @@ public abstract class PdfContentStreamProcessor {
      * Loads all the supported graphics and text state operators in a map.
      */
     private void populateOperators(){
-        operators = new HashMap();
+        operators = new HashMap<String, ContentOperator>();
         
         operators.put("q", new PushGraphicsState());
         operators.put("Q", new PopGraphicsState());
@@ -139,7 +140,7 @@ public abstract class PdfContentStreamProcessor {
      * @return	the graphics state
      */
     public GraphicsState gs(){
-        return (GraphicsState)gsStack.peek();
+        return gsStack.peek();
     }
     
     /**
@@ -165,8 +166,8 @@ public abstract class PdfContentStreamProcessor {
      * @param operator	the PDF Syntax of the operator
      * @param operands	a list with operands
      */
-    public void invokeOperator(PdfLiteral operator, ArrayList operands){
-        ContentOperator op = (ContentOperator)operators.get(operator.toString());
+    public void invokeOperator(PdfLiteral operator, ArrayList<PdfObject> operands){
+        ContentOperator op = operators.get(operator.toString());
         if (op == null){
             //System.out.println("Skipping operator " + operator);
             return;
@@ -241,7 +242,7 @@ public abstract class PdfContentStreamProcessor {
         this.resources = resources;
         try {
             PdfContentParser ps = new PdfContentParser(new PRTokeniser(contentBytes));
-            ArrayList operands = new ArrayList();
+            ArrayList<PdfObject> operands = new ArrayList<PdfObject>();
             while (ps.parse(operands).size() > 0){
                 PdfLiteral operator = (PdfLiteral)operands.get(operands.size()-1);
                 invokeOperator(operator, operands);
@@ -260,7 +261,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class ShowTextArray implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfArray array = (PdfArray)operands.get(0);
             float tj = 0;
             for (Iterator i = array.listIterator(); i.hasNext(); ) {
@@ -281,20 +282,20 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class MoveNextLineAndShowTextWithSpacing implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber aw = (PdfNumber)operands.get(0);
             PdfNumber ac = (PdfNumber)operands.get(1);
             PdfString string = (PdfString)operands.get(2);
             
-            ArrayList twOperands = new ArrayList(1);
+            ArrayList<PdfObject> twOperands = new ArrayList<PdfObject>(1);
             twOperands.add(0, aw);
             processor.invokeOperator(new PdfLiteral("Tw"), twOperands);
 
-            ArrayList tcOperands = new ArrayList(1);
+            ArrayList<PdfObject> tcOperands = new ArrayList<PdfObject>(1);
             tcOperands.add(0, ac);
             processor.invokeOperator(new PdfLiteral("Tc"), tcOperands);
             
-            ArrayList tickOperands = new ArrayList(1);
+            ArrayList<PdfObject> tickOperands = new ArrayList<PdfObject>(1);
             tickOperands.add(0, string);
             processor.invokeOperator(new PdfLiteral("'"), tickOperands);
         }
@@ -305,8 +306,8 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class MoveNextLineAndShowText implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
-            processor.invokeOperator(new PdfLiteral("T*"), new ArrayList(0));
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
+            processor.invokeOperator(new PdfLiteral("T*"), new ArrayList<PdfObject>(0));
             processor.invokeOperator(new PdfLiteral("Tj"), operands);
         }
     }
@@ -316,7 +317,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class ShowText implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfString string = (PdfString)operands.get(0);
             
             processor.displayPdfString(string, 0);
@@ -329,8 +330,8 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class TextMoveNextLine implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
-            ArrayList tdoperands = new ArrayList(2);
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
+            ArrayList<PdfObject> tdoperands = new ArrayList<PdfObject>(2);
             tdoperands.add(0, new PdfNumber(0));
             tdoperands.add(1, new PdfNumber(processor.gs().leading));
             processor.invokeOperator(new PdfLiteral("Td"), tdoperands);
@@ -342,7 +343,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class TextSetTextMatrix implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             float a = ((PdfNumber)operands.get(0)).floatValue();
             float b = ((PdfNumber)operands.get(1)).floatValue();
             float c = ((PdfNumber)operands.get(2)).floatValue();
@@ -360,10 +361,10 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class TextMoveStartNextLineWithLeading implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             float ty = ((PdfNumber)operands.get(1)).floatValue();
             
-            ArrayList tlOperands = new ArrayList(1);
+            ArrayList<PdfObject> tlOperands = new ArrayList<PdfObject>(1);
             tlOperands.add(0, new PdfNumber(-ty));
             processor.invokeOperator(new PdfLiteral("TL"), tlOperands);
             processor.invokeOperator(new PdfLiteral("Td"), operands);
@@ -375,7 +376,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class TextMoveStartNextLine implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             float tx = ((PdfNumber)operands.get(0)).floatValue();
             float ty = ((PdfNumber)operands.get(1)).floatValue();
             
@@ -390,7 +391,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextFont implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfName fontResourceName = (PdfName)operands.get(0);
             float size = ((PdfNumber)operands.get(1)).floatValue();
             
@@ -408,7 +409,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextRenderMode implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber render = (PdfNumber)operands.get(0);
             processor.gs().renderMode = render.intValue();
         }
@@ -419,7 +420,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextRise implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber rise = (PdfNumber)operands.get(0);
             processor.gs().rise = rise.floatValue();
         }
@@ -430,7 +431,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextLeading implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber leading = (PdfNumber)operands.get(0);
             processor.gs().leading = leading.floatValue();
         }
@@ -441,7 +442,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextHorizontalScaling implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber scale = (PdfNumber)operands.get(0);
             processor.gs().horizontalScaling = scale.floatValue();
         }
@@ -452,7 +453,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextCharacterSpacing implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber charSpace = (PdfNumber)operands.get(0);
             processor.gs().characterSpacing = charSpace.floatValue();
         }
@@ -463,7 +464,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class SetTextWordSpacing implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfNumber wordSpace = (PdfNumber)operands.get(0);
             processor.gs().wordSpacing = wordSpace.floatValue();
         }
@@ -474,7 +475,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class ProcessGraphicsStateResource implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             PdfName dictionaryName = (PdfName)operands.get(0);
             PdfDictionary extGState = processor.resources.getAsDict(PdfName.EXTGSTATE);
             if (extGState == null)
@@ -500,8 +501,8 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class PushGraphicsState implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
-            GraphicsState gs = (GraphicsState) processor.gsStack.peek();
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
+            GraphicsState gs = processor.gsStack.peek();
             GraphicsState copy = new GraphicsState(gs);
             processor.gsStack.push(copy);
         }
@@ -512,7 +513,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class ModifyCurrentTransformationMatrix implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             float a = ((PdfNumber)operands.get(0)).floatValue();
             float b = ((PdfNumber)operands.get(1)).floatValue();
             float c = ((PdfNumber)operands.get(2)).floatValue();
@@ -520,7 +521,7 @@ public abstract class PdfContentStreamProcessor {
             float e = ((PdfNumber)operands.get(4)).floatValue();
             float f = ((PdfNumber)operands.get(5)).floatValue();
             Matrix matrix = new Matrix(a, b, c, d, e, f);
-            GraphicsState gs = (GraphicsState)processor.gsStack.peek();
+            GraphicsState gs = processor.gsStack.peek();
             gs.ctm = gs.ctm.multiply(matrix);
         }
     }
@@ -530,7 +531,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class PopGraphicsState implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             processor.gsStack.pop();
         }
     }
@@ -540,7 +541,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class BeginText implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             processor.textMatrix = new Matrix();
             processor.textLineMatrix = processor.textMatrix;
         }
@@ -551,7 +552,7 @@ public abstract class PdfContentStreamProcessor {
      */
     private static class EndText implements ContentOperator{
         @Override
-		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList operands) {
+		public void invoke(PdfContentStreamProcessor processor, PdfLiteral operator, ArrayList<PdfObject> operands) {
             processor.textMatrix = null;
             processor.textLineMatrix = null;
         }
