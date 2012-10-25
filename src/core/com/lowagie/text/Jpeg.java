@@ -281,7 +281,9 @@ public class Jpeg extends Image {
                                 int count = byteapp2[13] & 0xff;
                                 if (icc == null)
                                     icc = new byte[count][];
-                                icc[order - 1] = byteapp2;
+                                int idx = order - 1;
+                                if( idx >= 0 )
+                                	icc[idx] = byteapp2;
                             }
                         }
                         continue;
