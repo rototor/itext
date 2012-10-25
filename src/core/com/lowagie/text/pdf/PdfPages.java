@@ -69,8 +69,8 @@ import com.lowagie.text.ExceptionConverter;
 
 public class PdfPages {
     
-    private ArrayList pages = new ArrayList();
-    private ArrayList parents = new ArrayList();
+    private ArrayList<PdfObject> pages = new ArrayList<PdfObject>();
+    private ArrayList<PdfObject> parents = new ArrayList<PdfObject>();
     private int leafSize = 10;
     private PdfWriter writer;
     private PdfIndirectReference topParent;
@@ -117,9 +117,9 @@ public class PdfPages {
         if (pages.isEmpty())
             throw new IOException("The document has no pages.");
         int leaf = 1;
-        ArrayList tParents = parents;
-        ArrayList tPages = pages;
-        ArrayList nextParents = new ArrayList();
+        ArrayList<PdfObject> tParents = parents;
+        ArrayList<PdfObject> tPages = pages;
+        ArrayList<PdfObject> nextParents = new ArrayList<PdfObject>();
         while (true) {
             leaf *= leafSize;
             int stdCount = leafSize;
@@ -140,7 +140,7 @@ public class PdfPages {
                 PdfDictionary top = new PdfDictionary(PdfName.PAGES);
                 top.put(PdfName.COUNT, new PdfNumber(thisLeaf));
                 PdfArray kids = new PdfArray();
-                ArrayList internal = kids.getArrayList();
+                ArrayList<PdfObject> internal = kids.getArrayList();
                 internal.addAll(tPages.subList(p * stdCount, p * stdCount + count));
                 top.put(PdfName.KIDS, kids);
                 if (tParents.size() > 1) {
@@ -159,7 +159,7 @@ public class PdfPages {
             }
             tPages = tParents;
             tParents = nextParents;
-            nextParents = new ArrayList();
+            nextParents = new ArrayList<PdfObject>();
         }
     }
     
@@ -201,7 +201,7 @@ public class PdfPages {
         }
         Object copy[] = pages.toArray();
         for (int k = 0; k < max; ++k) {
-            pages.set(k, copy[order[k] - 1]);
+            pages.set(k, (PdfObject)copy[order[k] - 1]);
         }
         return max;
     }

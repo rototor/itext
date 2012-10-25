@@ -66,16 +66,16 @@ import com.lowagie.text.xml.simpleparser.SimpleXMLParser;
 public class XfdfReader implements SimpleXMLDocHandler {
 	// stuff used during parsing to handle state
 	private boolean foundRoot = false;
-    private Stack fieldNames = new Stack();
-    private Stack fieldValues = new Stack();
+    private Stack<String> fieldNames = new Stack<String>();
+    private Stack<String> fieldValues = new Stack<String>();
 
     // storage for the field list and their values
-	HashMap	fields;
+	HashMap<String, String>	fields;
 	/**
 	 * Storage for field values if there's more than one value for a field.
 	 * @since	2.1.4
 	 */
-	protected HashMap listFields;
+	protected HashMap<String, List> listFields;
 	
 	// storage for the path to referenced PDF, if any
 	String	fileSpec;
@@ -108,7 +108,7 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * with the field content.
      * @return all the fields
      */    
-    public HashMap getFields() {
+    public HashMap<String, String> getFields() {
         return fields;
     }
     
@@ -117,7 +117,7 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * @return the field's value
      */    
     public String getField(String name) {
-        return (String)fields.get(name);
+        return fields.get(name);
     }
     
     /** Gets the field value or <CODE>null</CODE> if the field does not
@@ -126,7 +126,7 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * @return the field value or <CODE>null</CODE>
      */    
     public String getFieldValue(String name) {
-        String field = (String)fields.get(name);
+        String field = fields.get(name);
         if (field == null)
             return null;
         else
@@ -141,7 +141,7 @@ public class XfdfReader implements SimpleXMLDocHandler {
      * @since	2.1.4
      */    
     public List getListValues(String name) {
-        return (List)listFields.get(name);
+        return listFields.get(name);
     }
     
     /** Gets the PDF file specification contained in the FDF.
@@ -171,8 +171,8 @@ public class XfdfReader implements SimpleXMLDocHandler {
     	} else if ( tag.equals("f") ) {
     		fileSpec = (String)h.get( "href" );
     	} else if ( tag.equals("fields") ) {
-            fields = new HashMap();		// init it!
-            listFields = new HashMap();
+            fields = new HashMap<String, String>();		// init it!
+            listFields = new HashMap<String, List>();
     	} else if ( tag.equals("field") ) {
     		String	fName = (String) h.get( "name" );
     		fieldNames.push( fName );
@@ -189,16 +189,16 @@ public class XfdfReader implements SimpleXMLDocHandler {
         if ( tag.equals("value") ) {
             String	fName = "";
             for (int k = 0; k < fieldNames.size(); ++k) {
-                fName += "." + (String)fieldNames.elementAt(k);
+                fName += "." + fieldNames.elementAt(k);
             }
             if (fName.startsWith("."))
                 fName = fName.substring(1);
-            String fVal = (String) fieldValues.pop();
-            String old = (String) fields.put( fName, fVal );
+            String fVal = fieldValues.pop();
+            String old = fields.put( fName, fVal );
             if (old != null) {
-            	List l = (List) listFields.get(fName);
+            	List<String> l = listFields.get(fName);
             	if (l == null) {
-            		l = new ArrayList();
+            		l = new ArrayList<String>();
             		l.add(old);
             	}
             	l.add(fVal);
@@ -237,7 +237,7 @@ public class XfdfReader implements SimpleXMLDocHandler {
         if (fieldNames.isEmpty() || fieldValues.isEmpty())
             return;
         
-        String val = (String)fieldValues.pop();
+        String val = fieldValues.pop();
         val += str;
         fieldValues.push(val);
     }

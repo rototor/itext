@@ -51,6 +51,8 @@ package com.lowagie.text;
 
 import java.util.ArrayList;
 
+import com.lowagie.text.pdf.PdfChunk;
+
 /**
  * Interface for a text element.
  * <P>
@@ -342,7 +344,7 @@ public interface Element {
 	 * @return an <CODE>ArrayList</CODE>
 	 */
 
-	public ArrayList getChunks();
+	public ArrayList<PdfChunk> getChunks();
 
 	/**
 	 * Gets the content of the text element.

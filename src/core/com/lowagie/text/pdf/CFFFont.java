@@ -714,7 +714,7 @@ public class CFFFont {
             if (fontName.equals(fonts[j].name)) break;
         if (j==fonts.length) return null;
         
-        LinkedList l = new LinkedList();
+        LinkedList<Item> l = new LinkedList<Item>();
         
         // copy the header
         
@@ -941,15 +941,15 @@ public class CFFFont {
         int[] currentOffset = new int[1];
         currentOffset[0] = 0;
         
-        Iterator listIter = l.iterator();
+        Iterator<Item> listIter = l.iterator();
         while ( listIter.hasNext() ) {
-            Item item = (Item) listIter.next();
+            Item item = listIter.next();
             item.increment(currentOffset);
         }
         
         listIter = l.iterator();
         while ( listIter.hasNext() ) {
-            Item item = (Item) listIter.next();
+            Item item = listIter.next();
             item.xref();
         }
         
@@ -958,7 +958,7 @@ public class CFFFont {
         
         listIter = l.iterator();
         while ( listIter.hasNext() ) {
-            Item item = (Item) listIter.next();
+            Item item = listIter.next();
             item.emit(b);
         }
         

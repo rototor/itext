@@ -62,6 +62,7 @@ import com.lowagie.text.Utilities;
  *
  * @author  Paulo Soares (psoares@consiste.pt)
  */
+@SuppressWarnings("unused")
 class FontDetails {
     
     /**
