@@ -145,11 +145,11 @@
 	<distributionManagement>
 		<repository>
 			<id>repo-deploy</id>
-			<url>http://ems:emsems@10.50.3.5:8081/artifactory/ext-release-local</url>
+			<url>http://ems:emsems@10.50.3.5:8081/artifactory/libs-release-local</url>
 		</repository>
 		<snapshotRepository>
 			<id>repo-deploy-snapshot</id>
-			<url>http://ems:emsems@10.50.3.5:8081/artifactory/ext-snapshot-local</url>
+			<url>http://ems:emsems@10.50.3.5:8081/artifactory/libs-snapshot-local</url>
 		</snapshotRepository>
 	</distributionManagement>
 </project>
