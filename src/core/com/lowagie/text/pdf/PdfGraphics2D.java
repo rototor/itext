@@ -1551,6 +1551,12 @@ public class PdfGraphics2D extends Graphics2D {
                 msk.setInverted(true);
                 image.setImageMask(msk);
             }
+            /* 
+             * If we have some kind of interpolation set, then we set the Image interpolation to true
+             */
+            Object interpolationKey = getRenderingHint(RenderingHints.KEY_INTERPOLATION);
+            if (interpolationKey != null && interpolationKey != RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR)
+            	image.setInterpolation(true);
             cb.addImage(image, (float)mx[0], (float)mx[1], (float)mx[2], (float)mx[3], (float)mx[4], (float)mx[5]);
             Object url = getRenderingHint(HyperLinkKey.KEY_INSTANCE);
             if (url != null && !url.equals(HyperLinkKey.VALUE_HYPERLINKKEY_OFF)) {
