@@ -93,6 +93,7 @@ import java.awt.image.WritableRaster;
 import java.awt.image.renderable.RenderableImage;
 import java.io.ByteArrayOutputStream;
 import java.text.AttributedCharacterIterator;
+import java.text.AttributedCharacterIterator.Attribute;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -305,11 +306,12 @@ public class PdfGraphics2D extends Graphics2D {
      * before calling the actual string drawing routine
      * @param iter
      */
-    protected void doAttributes(AttributedCharacterIterator iter) {
+    @SuppressWarnings("unchecked")
+	protected void doAttributes(AttributedCharacterIterator iter) {
         underline = false;
-        Set set = iter.getAttributes().keySet();
-        for(Iterator iterator = set.iterator(); iterator.hasNext();) {
-            AttributedCharacterIterator.Attribute attribute = (AttributedCharacterIterator.Attribute)iterator.next();
+        Set<Attribute> set = iter.getAttributes().keySet();
+        for(Iterator<Attribute> iterator = set.iterator(); iterator.hasNext();) {
+            AttributedCharacterIterator.Attribute attribute = iterator.next();
             if (!(attribute instanceof TextAttribute))
                 continue;
             TextAttribute textattribute = (TextAttribute)attribute;
@@ -337,19 +339,19 @@ public class PdfGraphics2D extends Graphics2D {
             }
             else if(textattribute.equals(TextAttribute.FAMILY)) {
               Font font = getFont();
-              Map fontAttributes = font.getAttributes();
+              Map<TextAttribute,Object> fontAttributes = (Map<TextAttribute, Object>) font.getAttributes();
               fontAttributes.put(TextAttribute.FAMILY, iter.getAttributes().get(textattribute));
               setFont(font.deriveFont(fontAttributes));
             }
             else if(textattribute.equals(TextAttribute.POSTURE)) {
               Font font = getFont();
-              Map fontAttributes = font.getAttributes();
+              Map<TextAttribute,Object> fontAttributes = (Map<TextAttribute, Object>)font.getAttributes();
               fontAttributes.put(TextAttribute.POSTURE, iter.getAttributes().get(textattribute));
               setFont(font.deriveFont(fontAttributes)); 
             }
             else if(textattribute.equals(TextAttribute.WEIGHT)) {
               Font font = getFont();
-              Map fontAttributes = font.getAttributes();
+              Map<TextAttribute,Object> fontAttributes = (Map<TextAttribute, Object>)font.getAttributes();
               fontAttributes.put(TextAttribute.WEIGHT, iter.getAttributes().get(textattribute));
               setFont(font.deriveFont(fontAttributes)); 
             }
@@ -780,7 +782,7 @@ public class PdfGraphics2D extends Graphics2D {
      * @see Graphics2D#setRenderingHints(Map)
      */
     @Override
-	public void setRenderingHints(Map hints) {
+	public void setRenderingHints(Map<?,?> hints) {
         rhints.clear();
         rhints.putAll(hints);
     }
@@ -789,7 +791,7 @@ public class PdfGraphics2D extends Graphics2D {
      * @see Graphics2D#addRenderingHints(Map)
      */
     @Override
-	public void addRenderingHints(Map hints) {
+	public void addRenderingHints(Map<?,?> hints) {
         rhints.putAll(hints);
     }
     
