@@ -1608,7 +1608,7 @@ public class PdfGraphics2D extends Graphics2D {
 		public Image interpolateImage(Image img, int targetWidth, int targetHeight) {
 			/*
 			 * As we dont know the image format we use the (expensive but more or less
-			 * all ways corret) ARGB format
+			 * always corret) ARGB format
 			 */
 			BufferedImage newImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
 			Graphics2D gfx = newImage.createGraphics();
