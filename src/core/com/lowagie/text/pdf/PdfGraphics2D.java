@@ -1604,7 +1604,6 @@ public class PdfGraphics2D extends Graphics2D {
     }
     
     public static class ImageInterpolatorBicubic implements ImageInterpolator{
-
 		@Override
 		public Image interpolateImage(Image img, int targetWidth, int targetHeight) {
 			/*
@@ -1617,7 +1616,7 @@ public class PdfGraphics2D extends Graphics2D {
 			gfx.drawImage(img, 0, 0, targetWidth, targetHeight, 0, 0, img.getWidth(null), img.getHeight(null), null);
 			gfx.dispose();
 			return newImage;
-		}    	
+		}
     }
     
     private ImageInterpolator imageInterpolator = new ImageInterpolatorBicubic();  
