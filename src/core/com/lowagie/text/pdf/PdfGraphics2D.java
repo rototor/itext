@@ -982,6 +982,7 @@ public class PdfGraphics2D extends Graphics2D {
         g2.oldStroke = g2.strokeOne;
         g2.setStrokeDiff(g2.oldStroke, null);
         g2.targetDpi = targetDpi;
+        g2.imageInterpolator = imageInterpolator;
         g2.cb.saveState();
         if (g2.clip != null)
             g2.followPath(g2.clip, CLIP);
@@ -1598,6 +1599,29 @@ public class PdfGraphics2D extends Graphics2D {
         return true;
     }
 
+    public static interface ImageInterpolator {
+    	Image interpolateImage(Image img, int targetWidth, int targetHeight);
+    }
+    
+    public static class ImageInterpolatorBicubic implements ImageInterpolator{
+
+		@Override
+		public Image interpolateImage(Image img, int targetWidth, int targetHeight) {
+			/*
+			 * As we dont know the image format we use the (expensive but more or less
+			 * all ways corret) ARGB format
+			 */
+			BufferedImage newImage = new BufferedImage(targetWidth, targetHeight, BufferedImage.TYPE_4BYTE_ABGR);
+			Graphics2D gfx = newImage.createGraphics();
+			gfx.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+			gfx.drawImage(img, 0, 0, targetWidth, targetHeight, 0, 0, img.getWidth(null), img.getHeight(null), null);
+			gfx.dispose();
+			return newImage;
+		}    	
+    }
+    
+    private ImageInterpolator imageInterpolator = new ImageInterpolatorBicubic();  
+    
 	private Image interpolateImage(Image img, AffineTransform inverse) {
 		if (img == null)
 			return null;
@@ -1616,16 +1640,7 @@ public class PdfGraphics2D extends Graphics2D {
 		if (newWidth <= width || newHeight <= height)
 			return img;
 
-		/*
-		 * As we dont know the image format we use the (expensive but more or less
-		 * all ways corret) ARGB format
-		 */
-		BufferedImage newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_4BYTE_ABGR);
-		Graphics2D gfx = newImage.createGraphics();
-		gfx.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-		gfx.drawImage(img, 0, 0, newWidth, newHeight, 0, 0, width, height, null);
-		gfx.dispose();
-		return newImage;
+		return imageInterpolator.interpolateImage(img, newWidth, newHeight);
 	}
 
     private boolean checkNewPaint(Paint oldPaint) {
