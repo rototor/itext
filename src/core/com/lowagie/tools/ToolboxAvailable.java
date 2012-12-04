@@ -67,7 +67,7 @@ public class ToolboxAvailable {
 	        System.out.println(Document.getVersion() + " Toolbox error: headless display");
 	    } else
 		try {
-			Class c = Class.forName("com.lowagie.toolbox.Toolbox");
+			Class<?> c = Class.forName("com.lowagie.toolbox.Toolbox");
 			Method toolboxMain = c.getMethod("main", new Class[] {args.getClass()});
 			toolboxMain.invoke(null, new Object[] {args} );
 		} catch (Exception e) {

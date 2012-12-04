@@ -114,10 +114,10 @@ public final class SimpleBookmark implements SimpleXMLDocHandler {
     private SimpleBookmark() {
     }
     
-    private static List bookmarkDepth(PdfReader reader, PdfDictionary outline, IntHashtable pages) {
-        ArrayList list = new ArrayList();
+    private static List<Map<String,Object>> bookmarkDepth(PdfReader reader, PdfDictionary outline, IntHashtable pages) {
+        ArrayList<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
         while (outline != null) {
-            HashMap map = new HashMap();
+            HashMap<String,Object> map = new HashMap<String,Object>();
             PdfString title = (PdfString)PdfReader.getPdfObjectRelease(outline.get(PdfName.TITLE));
             map.put("Title", title.toUnicodeString());
             PdfArray color = (PdfArray)PdfReader.getPdfObjectRelease(outline.get(PdfName.C));
@@ -273,7 +273,7 @@ public final class SimpleBookmark implements SimpleXMLDocHandler {
      * @return a <CODE>List</CODE> with the bookmarks or <CODE>null</CODE> if the
      * document doesn't have any
      */    
-    public static List getBookmark(PdfReader reader) {
+    public static List<Map<String,Object>> getBookmark(PdfReader reader) {
         PdfDictionary catalog = reader.getCatalog();
         PdfObject obj = PdfReader.getPdfObjectRelease(catalog.get(PdfName.OUTLINES));
         if (obj == null || !obj.isDictionary())

@@ -114,7 +114,7 @@ public class EncryptPdf {
             System.out.println("Reading " + args[INPUT_FILE]);
             PdfReader reader = new PdfReader(args[INPUT_FILE]);
             System.out.println("Writing " + args[OUTPUT_FILE]);
-            HashMap moreInfo = new HashMap();
+            HashMap<String,String> moreInfo = new HashMap<String,String>();
             for (int k = MOREINFO; k < args.length - 1; k += 2)
                 moreInfo.put(args[k], args[k + 1]);
             PdfEncryptor.encrypt(reader, new FileOutputStream(args[OUTPUT_FILE]),

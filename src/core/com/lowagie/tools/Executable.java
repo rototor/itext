@@ -253,7 +253,7 @@ public class Executable {
 	public static final void launchBrowser(String url) throws IOException {
 		try {
 			if (isMac()) {
-				Class macUtils = Class.forName("com.apple.mrj.MRJFileUtils");
+				Class<?> macUtils = Class.forName("com.apple.mrj.MRJFileUtils");
 				Method openURL = macUtils.getDeclaredMethod("openURL", new Class[] {String.class});
 				openURL.invoke(null, new Object[] {url});
 			}
