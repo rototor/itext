@@ -1621,6 +1621,9 @@ public class PdfGraphics2D extends Graphics2D {
     }
     
     private ImageInterpolator imageInterpolator = new ImageInterpolatorBicubic();  
+    public void setImageInterpolator(ImageInterpolator imageInterpolator) {
+    	this.imageInterpolator = imageInterpolator;
+    }
     
 	private Image interpolateImage(Image img, AffineTransform inverse) {
 		if (img == null)
