@@ -1579,10 +1579,7 @@ public class PdfGraphics2D extends Graphics2D {
                 msk.setInverted(true);
                 image.setImageMask(msk);
             }  
-            
-            // Set interpolation
-            image.setInterpolation(interpolationSet);
-            
+                        
             cb.addImage(image, (float)mx[0], (float)mx[1], (float)mx[2], (float)mx[3], (float)mx[4], (float)mx[5]);
             Object url = getRenderingHint(HyperLinkKey.KEY_INSTANCE);
             if (url != null && !url.equals(HyperLinkKey.VALUE_HYPERLINKKEY_OFF)) {
@@ -1590,7 +1587,7 @@ public class PdfGraphics2D extends Graphics2D {
                 cb.setAction(action, (float)mx[4], (float)mx[5], (float)(mx[0]+mx[4]), (float)(mx[3]+mx[5]));
             }
         } catch (Exception ex) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(ex);
         }
         if (currentFillGState != 255) {
             PdfGState gs = fillGState[currentFillGState];
