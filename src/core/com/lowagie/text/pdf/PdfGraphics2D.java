@@ -171,6 +171,8 @@ public class PdfGraphics2D extends Graphics2D {
     private boolean convertImagesToJPEG = false;
     private float jpegQuality = .95f;
 
+    private double targetDpi=72.0;
+    
 	// Added by Alexej Suchov
 	private float alpha;
 
@@ -184,7 +186,7 @@ public class PdfGraphics2D extends Graphics2D {
         dg2.setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         setRenderingHint(RenderingHints.KEY_FRACTIONALMETRICS, RenderingHints.VALUE_FRACTIONALMETRICS_ON);
         setRenderingHint(HyperLinkKey.KEY_INSTANCE, HyperLinkKey.VALUE_HYPERLINKKEY_OFF);
-    }
+    }    
     
     /**
      * Constructor for PDFGraphics2D.
@@ -217,6 +219,18 @@ public class PdfGraphics2D extends Graphics2D {
         originalStroke = stroke = oldStroke = strokeOne;
         setStrokeDiff(stroke, null);
         cb.saveState();
+    }
+    
+
+    /**
+     * Set the Target-DPI of the PDF. If we should interpolate 
+     * Images we will scale them up to this dpi in Java.
+     * 
+     * Because just setting the interpolate flag may not cause the 
+     * image to be interpolate because not all RIPs are able to do this. 
+     */
+    public void setTargetDpi(double targetDpi) {
+    	this.targetDpi = targetDpi;
     }
     
     /**
@@ -967,6 +981,7 @@ public class PdfGraphics2D extends Graphics2D {
         g2.strokeOne = (BasicStroke)g2.transformStroke(g2.strokeOne);
         g2.oldStroke = g2.strokeOne;
         g2.setStrokeDiff(g2.oldStroke, null);
+        g2.targetDpi = targetDpi;
         g2.cb.saveState();
         if (g2.clip != null)
             g2.followPath(g2.clip, CLIP);
@@ -1519,8 +1534,20 @@ public class PdfGraphics2D extends Graphics2D {
         }
         
         try {
-            com.lowagie.text.Image image = null;
+            com.lowagie.text.Image image = null; 
+            /* 
+             * If we have some kind of interpolation set, then we set the Image interpolation to true
+             */
+            Object interpolationKey = getRenderingHint(RenderingHints.KEY_INTERPOLATION);
+            boolean interpolationSet = interpolationKey != null && interpolationKey != RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR;
             if(!convertImagesToJPEG){
+            	if( interpolationSet ) {
+            		/*
+            		 * We may need to interpolate and scale the image in java 
+            		 */
+            		img = interpolateImage(img, inverse);
+            		mask = interpolateImage(mask, inverse);
+            	}
                 image = com.lowagie.text.Image.getInstance(img, bgColor);
             }
             else{
@@ -1550,13 +1577,11 @@ public class PdfGraphics2D extends Graphics2D {
                 msk.makeMask();
                 msk.setInverted(true);
                 image.setImageMask(msk);
-            }
-            /* 
-             * If we have some kind of interpolation set, then we set the Image interpolation to true
-             */
-            Object interpolationKey = getRenderingHint(RenderingHints.KEY_INTERPOLATION);
-            if (interpolationKey != null && interpolationKey != RenderingHints.VALUE_INTERPOLATION_NEAREST_NEIGHBOR)
-            	image.setInterpolation(true);
+            }  
+            
+            // Set interpolation
+            image.setInterpolation(interpolationSet);
+            
             cb.addImage(image, (float)mx[0], (float)mx[1], (float)mx[2], (float)mx[3], (float)mx[4], (float)mx[5]);
             Object url = getRenderingHint(HyperLinkKey.KEY_INSTANCE);
             if (url != null && !url.equals(HyperLinkKey.VALUE_HYPERLINKKEY_OFF)) {
@@ -1572,7 +1597,37 @@ public class PdfGraphics2D extends Graphics2D {
         }        
         return true;
     }
-    
+
+	private Image interpolateImage(Image img, AffineTransform inverse) {
+		if (img == null)
+			return null;
+		double scaleX = inverse.getScaleX();
+		double scaleY = inverse.getScaleY();
+
+		double sX = scaleX / 72.0 * targetDpi;
+		double sY = scaleY / 72.0 * targetDpi;
+
+		int width = img.getWidth(null);
+		int height = img.getHeight(null);
+		int newWidth = (int) sX;
+		int newHeight = (int) sY;
+
+		/* We only scale up, scaling down will work mostly on the RIP. */
+		if (newWidth <= width || newHeight <= height)
+			return img;
+
+		/*
+		 * As we dont know the image format we use the (expensive but more or less
+		 * all ways corret) ARGB format
+		 */
+		BufferedImage newImage = new BufferedImage(newWidth, newHeight, BufferedImage.TYPE_4BYTE_ABGR);
+		Graphics2D gfx = newImage.createGraphics();
+		gfx.setRenderingHint(RenderingHints.KEY_INTERPOLATION, RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+		gfx.drawImage(img, 0, 0, newWidth, newHeight, 0, 0, width, height, null);
+		gfx.dispose();
+		return newImage;
+	}
+
     private boolean checkNewPaint(Paint oldPaint) {
         if (paint == oldPaint)
             return false;
