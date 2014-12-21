@@ -628,6 +628,7 @@ public class PdfGraphics2D extends Graphics2D {
 					Color c = (Color) realPaint;
 					paint = new Color(c.getRed(), c.getGreen(), c.getBlue(),
 							(int) (c.getAlpha() * alpha));
+					realPaint = paintTranslator.translatePaint(paint);
 				}
 				return;
 			}
@@ -639,6 +640,25 @@ public class PdfGraphics2D extends Graphics2D {
     }
     
     /**
+     * Allow to modify the real paint used. This can be used to 
+     * e.g. map RGB Colors to CMYKColors
+     */
+    public interface PaintTranslator {
+    	Paint translatePaint(Paint paint);
+    }
+    
+    public void setPaintTranslator(PaintTranslator paintTranslator) {
+    	this.paintTranslator = paintTranslator;
+    }
+    
+    private PaintTranslator paintTranslator = new PaintTranslator(){
+		@Override
+		public Paint translatePaint(Paint paint) {
+			return paint;
+		}
+    };
+
+    /**
 	 * Method contributed by Alexej Suchov
      * @see Graphics2D#setPaint(Paint)
      */
@@ -646,17 +666,17 @@ public class PdfGraphics2D extends Graphics2D {
 	public void setPaint(Paint paint) {
         if (paint == null)
             return;
-        this.paint = paint;
-		realPaint = paint;
+        this.paint = paintTranslator.translatePaint(paint);
+		realPaint = paintTranslator.translatePaint(paint);
 
 		if ((composite instanceof AlphaComposite) && (paint instanceof Color)) {
 			
 			AlphaComposite co = (AlphaComposite) composite;
 			
-			if (co.getRule() == 3) {
+			if (co.getRule() == AlphaComposite.SRC_OVER) {
 				Color c = (Color) paint;
-				this.paint = new Color(c.getRed(), c.getGreen(), c.getBlue(), (int) (c.getAlpha() * alpha));
-				realPaint = paint;
+				this.paint = paintTranslator.translatePaint(new Color(c.getRed(), c.getGreen(), c.getBlue(), (int) (c.getAlpha() * alpha)));
+				realPaint = paintTranslator.translatePaint(paint);
 			}
 		}
 
@@ -960,6 +980,7 @@ public class PdfGraphics2D extends Graphics2D {
         g2.baseFonts = this.baseFonts;
         g2.fontMapper = this.fontMapper;
         g2.paint = this.paint;
+        g2.paintTranslator = this.paintTranslator;
         g2.fillGState = this.fillGState;
         g2.currentFillGState = this.currentFillGState;
         g2.strokeGState = this.strokeGState;
