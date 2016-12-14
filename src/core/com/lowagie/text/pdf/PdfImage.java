@@ -55,8 +55,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.zip.Deflater;
-import java.util.zip.DeflaterOutputStream;
 
 /**
  * <CODE>PdfImage</CODE> is a <CODE>PdfStream</CODE> containing an image-<CODE>Dictionary</CODE> and -stream.
@@ -163,36 +161,11 @@ public class PdfImage extends PdfStream {
                     if (image.isMask() && (image.getBpc() == 1 || image.getBpc() > 16))
                         remove(PdfName.COLORSPACE);
                     put(PdfName.BITSPERCOMPONENT, new PdfNumber(image.getBpc()));
-                    if( false && image.getBpc() == 16 ) {
-
-                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                        Deflater deflater = new Deflater(compressionLevel);
-                        DeflaterOutputStream zip = new DeflaterOutputStream(stream, deflater);
-                        if (streamBytes != null)
-                            streamBytes.writeTo(zip);
-                        else
-                            zip.write(bytes);
-                        zip.close();
-                        deflater.end();
-                        // update the object
-                        streamBytes = stream;
-                        bytes = null;
-                        put(PdfName.LENGTH, new PdfNumber(streamBytes.size()));
-                        put(PdfName.FILTER, PdfName.FLATEDECODE);
-                        PdfDictionary filterParameter = new PdfDictionary();
-                        filterParameter.put(PdfName.BITSPERCOMPONENT, new PdfNumber(image.getBpc()));
-                        filterParameter.put(PdfName.PREDICTOR, new PdfNumber(15));
-                        filterParameter.put(PdfName.COLUMNS, new PdfNumber(image.getWidth()));
-                        filterParameter.put(PdfName.COLORS, new PdfNumber(3));
-                        put(PdfName.DECODEPARMS, filterParameter);
-                    }
-                    else {
-                        if (image.isDeflated())
-                            put(PdfName.FILTER, PdfName.FLATEDECODE);
-                        else {
-                            flateCompress(image.getCompressionLevel());
-                        }
-                    }
+                    if (image.isDeflated())
+						put(PdfName.FILTER, PdfName.FLATEDECODE);
+					else {
+						flateCompress(image.getCompressionLevel());
+					}
                 }
                 return;
             }
