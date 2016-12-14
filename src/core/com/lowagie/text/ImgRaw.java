@@ -85,8 +85,8 @@ public class ImgRaw extends Image {
         setRight(scaledWidth);
         if (components != 1 && components != 3 && components != 4)
             throw new BadElementException("Components must be 1, 3, or 4.");
-        if (bpc != 1 && bpc != 2 && bpc != 4 && bpc != 8)
-            throw new BadElementException("Bits-per-component must be 1, 2, 4, or 8.");
+        if (bpc != 1 && bpc != 2 && bpc != 4 && bpc != 8 && bpc != 16)
+            throw new BadElementException("Bits-per-component must be 1, 2, 4, 8 or 16.");
         colorspace = components;
         this.bpc = bpc;
         rawData = data;

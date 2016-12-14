@@ -49,27 +49,29 @@
 
 package com.lowagie.text.pdf;
 
+import com.lowagie.text.Image;
+
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.lowagie.text.Image;
+import java.util.zip.Deflater;
+import java.util.zip.DeflaterOutputStream;
 
 /**
  * <CODE>PdfImage</CODE> is a <CODE>PdfStream</CODE> containing an image-<CODE>Dictionary</CODE> and -stream.
  */
 
 public class PdfImage extends PdfStream {
-    
+
     static final int TRANSFERSIZE = 4096;
     // membervariables
-    
+
     /** This is the <CODE>PdfName</CODE> of the image. */
     protected PdfName name = null;
-    
+
     // constructor
-    
+
     /**
      * Constructs a <CODE>PdfImage</CODE>-object.
      *
@@ -77,7 +79,7 @@ public class PdfImage extends PdfStream {
      * @param name the <CODE>PdfName</CODE> for this image
      * @throws BadPdfFormatException on error
      */
-    
+
     public PdfImage(Image image, String name, PdfIndirectReference maskRef) throws BadPdfFormatException {
         super();
         this.name = new PdfName(name);
@@ -158,13 +160,38 @@ public class PdfImage extends PdfStream {
                     PdfDictionary additional = image.getAdditional();
                     if (additional != null)
                         putAll(additional);
-                    if (image.isMask() && (image.getBpc() == 1 || image.getBpc() > 8))
+                    if (image.isMask() && (image.getBpc() == 1 || image.getBpc() > 16))
                         remove(PdfName.COLORSPACE);
                     put(PdfName.BITSPERCOMPONENT, new PdfNumber(image.getBpc()));
-                    if (image.isDeflated())
+                    if( false && image.getBpc() == 16 ) {
+
+                        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                        Deflater deflater = new Deflater(compressionLevel);
+                        DeflaterOutputStream zip = new DeflaterOutputStream(stream, deflater);
+                        if (streamBytes != null)
+                            streamBytes.writeTo(zip);
+                        else
+                            zip.write(bytes);
+                        zip.close();
+                        deflater.end();
+                        // update the object
+                        streamBytes = stream;
+                        bytes = null;
+                        put(PdfName.LENGTH, new PdfNumber(streamBytes.size()));
                         put(PdfName.FILTER, PdfName.FLATEDECODE);
+                        PdfDictionary filterParameter = new PdfDictionary();
+                        filterParameter.put(PdfName.BITSPERCOMPONENT, new PdfNumber(image.getBpc()));
+                        filterParameter.put(PdfName.PREDICTOR, new PdfNumber(15));
+                        filterParameter.put(PdfName.COLUMNS, new PdfNumber(image.getWidth()));
+                        filterParameter.put(PdfName.COLORS, new PdfNumber(3));
+                        put(PdfName.DECODEPARMS, filterParameter);
+                    }
                     else {
-                        flateCompress(image.getCompressionLevel());
+                        if (image.isDeflated())
+                            put(PdfName.FILTER, PdfName.FLATEDECODE);
+                        else {
+                            flateCompress(image.getCompressionLevel());
+                        }
                     }
                 }
                 return;
@@ -258,17 +285,17 @@ public class PdfImage extends PdfStream {
             }
         }
     }
-    
+
     /**
      * Returns the <CODE>PdfName</CODE> of the image.
      *
      * @return		the name
      */
-    
+
     public PdfName name() {
         return name;
     }
-    
+
     static void transferBytes(InputStream in, OutputStream out, int len) throws IOException {
         byte buffer[] = new byte[TRANSFERSIZE];
         if (len < 0)
@@ -282,7 +309,7 @@ public class PdfImage extends PdfStream {
             len -= size;
         }
     }
-    
+
     protected void importAll(PdfImage dup) {
         name = dup.name;
         compressed = dup.compressed;
