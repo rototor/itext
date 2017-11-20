@@ -48,23 +48,21 @@
  */
 
 package com.lowagie.text.pdf;
-import java.awt.Color;
+
+import com.lowagie.text.*;
+import com.lowagie.text.Image;
+import com.lowagie.text.Rectangle;
+import com.lowagie.text.exceptions.IllegalPdfSyntaxException;
+import com.lowagie.text.pdf.CMYKColor.ICC_CMYKColor;
+import com.lowagie.text.pdf.internal.PdfAnnotationsImp;
+import com.lowagie.text.pdf.internal.PdfXConformanceImp;
+
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.print.PrinterJob;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-
-import com.lowagie.text.Annotation;
-import com.lowagie.text.DocumentException;
-import com.lowagie.text.Element;
-import com.lowagie.text.ExceptionConverter;
-import com.lowagie.text.Image;
-import com.lowagie.text.ImgJBIG2;
-import com.lowagie.text.Rectangle;
-import com.lowagie.text.exceptions.IllegalPdfSyntaxException;
-import com.lowagie.text.pdf.internal.PdfAnnotationsImp;
-import com.lowagie.text.pdf.internal.PdfXConformanceImp;
 
 /**
  * <CODE>PdfContentByte</CODE> is an object containing the user positioned
@@ -2192,7 +2190,19 @@ public class PdfContentByte {
             }
             case ExtendedColor.TYPE_CMYK: {
                 CMYKColor cmyk = (CMYKColor)color;
-                setCMYKColorStrokeF(cmyk.getCyan(), cmyk.getMagenta(), cmyk.getYellow(), cmyk.getBlack());
+                float cyan = cmyk.getCyan();
+                float magenta = cmyk.getMagenta();
+                float yellow = cmyk.getYellow();
+                float black = cmyk.getBlack();
+                if(cmyk instanceof ICC_CMYKColor) {
+                    content.append(((ICC_CMYKColor) cmyk).getProfileName().getBytes());
+                    content.append(" CS").append_i(separator);
+                    HelperCMYK(cyan, magenta, yellow, black);
+                    content.append(" SCN").append_i(separator);
+                }
+                else
+                    setCMYKColorStrokeF(cyan, magenta, yellow, black);
+
                 break;
             }
             case ExtendedColor.TYPE_SEPARATION: {
@@ -2229,7 +2239,18 @@ public class PdfContentByte {
             }
             case ExtendedColor.TYPE_CMYK: {
                 CMYKColor cmyk = (CMYKColor)color;
-                setCMYKColorFillF(cmyk.getCyan(), cmyk.getMagenta(), cmyk.getYellow(), cmyk.getBlack());
+                float cyan = cmyk.getCyan();
+                float magenta = cmyk.getMagenta();
+                float yellow = cmyk.getYellow();
+                float black = cmyk.getBlack();
+                if(cmyk instanceof ICC_CMYKColor) {
+                    content.append(((ICC_CMYKColor) cmyk).getProfileName().getBytes());
+                    content.append(" cs").append_i(separator);
+                    HelperCMYK(cyan, magenta, yellow, black);
+                    content.append(" scn").append_i(separator);
+                }
+                else
+                    setCMYKColorFillF(cyan, magenta, yellow, black);
                 break;
             }
             case ExtendedColor.TYPE_SEPARATION: {

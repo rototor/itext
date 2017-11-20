@@ -86,6 +86,24 @@ public class CMYKColor extends ExtendedColor {
         yellow = normalize(floatYellow);
         black = normalize(floatBlack);
     }
+
+    public static class ICC_CMYKColor extends CMYKColor {
+        protected final PdfName profileName;
+
+        public ICC_CMYKColor(PdfName profileName, int intCyan, int intMagenta, int intYellow, int intBlack) {
+            super(intCyan, intMagenta, intYellow, intBlack);
+            this.profileName=profileName;
+        }
+
+        public ICC_CMYKColor(PdfName profileName, float floatCyan, float floatMagenta, float floatYellow, float floatBlack) {
+            super(floatCyan, floatMagenta, floatYellow, floatBlack);
+            this.profileName=profileName;
+        }
+
+        public PdfName getProfileName() {
+            return profileName;
+        }
+    }
     
     /**
      * @return the cyan value
