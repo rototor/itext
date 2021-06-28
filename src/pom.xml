@@ -67,18 +67,18 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcmail-jdk14</artifactId>
-			<version>1.44</version>
+			<artifactId>bcmail-jdk15</artifactId>
+			<version>1.46</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bcprov-jdk14</artifactId>
-			<version>1.44</version>
+			<artifactId>bcprov-jdk15on</artifactId>
+			<version>1.69</version>
 		</dependency>
 		<dependency>
 			<groupId>org.bouncycastle</groupId>
-			<artifactId>bctsp-jdk14</artifactId>
-			<version>1.38</version>
+			<artifactId>bctsp-jdk15on</artifactId>
+			<version>1.46</version>
 		</dependency>
 	</dependencies>
 	<build>
