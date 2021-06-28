@@ -1,3 +1,5 @@
+THIS REPOSITORY IS DEPRECATED, DO NOT USE iText 2.1.7 any longer !!! It has dependencies with CVEs.
+
 This is just a copy of the 2.1.7 repository with some small maintance fixes.
 
 Try to upgrade to PDFBox if in any way possible. This is really out of date and not maintained.
